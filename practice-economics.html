@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Economics Lab</title>
+<meta name="description" content="An interactive managerial accounting lab for an online MBA: break-even and target profit, membership pricing and customer lifetime value, and NPV investment decisions for a fictional wellness studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14213D; --gold:#C9A227; --sage:#6B8F71; --paper:#F7F5F0; --ink:#1d232b;
+  --card:#ffffff; --line:#e4dfd3; --muted:#5b6470; --low:#B5543C;
+  --gold-soft:#f5ecd0; --sage-soft:#e6eee7; --low-soft:#f6e3de; --navy-soft:#e8ebf2;
+  --grid:#ece8de;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius:14px; --shadow:0 1px 2px rgba(20,33,61,.06), 0 6px 24px rgba(20,33,61,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--navy);line-height:1.25;margin:0 0 .5em}
+p{margin:0 0 1em}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* Header */
+.top{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+.top-inner{max-width:1120px;margin:0 auto;padding:14px 16px 26px}
+.home{display:inline-block;color:#dfe4ee;text-decoration:none;font-size:.88rem;padding:4px 0;margin-bottom:14px}
+.home:hover{color:#fff;text-decoration:underline}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:4px}
+.top h1{color:#fff;font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:.35em}
+.top .lede{color:#cfd5e2;max-width:760px;margin:0}
+
+main{max-width:1120px;margin:0 auto;padding:22px 16px 40px}
+
+/* Instructor notes */
+details.notes{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:22px}
+details.notes>summary{cursor:pointer;list-style:none;padding:14px 18px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:10px}
+details.notes>summary::-webkit-details-marker{display:none}
+details.notes>summary .chev{transition:transform .2s;display:inline-block;color:var(--gold)}
+details.notes[open]>summary .chev{transform:rotate(90deg)}
+.notes-body{padding:0 18px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.notes-body h3{font-size:1.05rem;margin-bottom:.4em}
+.notes-body ul,.notes-body ol{margin:0;padding-left:1.2em}
+.notes-body li{margin-bottom:.4em}
+
+/* Tabs */
+.tablist{display:flex;gap:6px;border-bottom:2px solid var(--line);margin-bottom:22px;overflow-x:auto;scrollbar-width:thin}
+.tab{appearance:none;border:0;background:transparent;font:inherit;font-weight:600;color:var(--muted);padding:12px 16px;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;border-radius:8px 8px 0 0}
+.tab:hover{color:var(--navy);background:var(--navy-soft)}
+.tab[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--gold);background:var(--card)}
+.tab .tn{display:inline-block;width:1.5em;height:1.5em;line-height:1.5em;text-align:center;border-radius:50%;background:var(--navy-soft);color:var(--navy);font-size:.78rem;margin-right:6px}
+.tab[aria-selected="true"] .tn{background:var(--navy);color:#fff}
+.panel-intro{max-width:800px;color:var(--muted);margin-bottom:18px}
+.panel h2{font-size:1.5rem;margin-bottom:.3em}
+
+.layout{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:880px){.layout{grid-template-columns:minmax(0,1fr)}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.card h3{font-size:1.1rem}
+.inputs{position:sticky;top:12px}
+@media (max-width:880px){.inputs{position:static}}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.86rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+.field .hint{font-size:.78rem;color:var(--muted);margin-top:3px}
+.affix{display:flex;align-items:stretch;border:1px solid #cfc8b8;border-radius:10px;background:#fff;overflow:hidden}
+.affix:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(201,162,39,.35)}
+.affix span{background:#f1eee6;color:var(--muted);padding:8px 10px;font-size:.9rem;display:flex;align-items:center}
+.affix input,.affix select{border:0;outline:0;font:inherit;padding:8px 10px;width:100%;min-width:0;background:transparent;color:var(--ink);font-variant-numeric:tabular-nums}
+.field.bad .affix{border-color:var(--low);background:var(--low-soft)}
+.field .err{color:var(--low);font-size:.8rem;margin-top:3px;display:none}
+.field.bad .err{display:block}
+.group-title{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:700;margin:6px 0 10px}
+.cf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}
+.btn{appearance:none;font:inherit;font-weight:600;font-size:.88rem;border-radius:10px;padding:8px 14px;cursor:pointer;border:1px solid var(--navy);background:var(--navy);color:#fff}
+.btn:hover{background:#203257}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy-soft)}
+.btn.small{padding:6px 11px;font-size:.82rem}
+
+.alert{border-radius:10px;padding:12px 14px;margin-bottom:16px;border:1px solid;font-size:.94rem}
+.alert.bad{background:var(--low-soft);border-color:#e3b7aa;color:#6d2b1c}
+.alert.info{background:var(--navy-soft);border-color:#c9d0e0;color:var(--navy)}
+.alert[hidden]{display:none}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:18px;align-items:start}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 10px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0}
+.kpi.hero{border-top:4px solid var(--gold)}
+.kpi.good{border-top:4px solid var(--sage)}
+.kpi .lab{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi .val{font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--navy);line-height:1.2;margin:4px 0 2px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kpi .val.neg{color:var(--low)}
+.kpi .sub{font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.kpi .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+.kpi .pair .val{font-size:1.35rem}
+.kpi .pair .who{font-size:.78rem;color:var(--muted);font-weight:600}
+details.math{margin-top:auto;border-top:1px dashed var(--line);padding-top:6px}
+details.math>summary{cursor:pointer;font-size:.84rem;font-weight:600;color:var(--sage);padding:4px 0;list-style:none;display:inline-flex;align-items:center;gap:6px}
+details.math>summary::-webkit-details-marker{display:none}
+details.math>summary::before{content:"+";display:inline-block;width:1.1em;height:1.1em;line-height:1.05em;text-align:center;border:1.5px solid var(--sage);border-radius:4px;font-size:.8rem}
+details.math[open]>summary::before{content:"\2212"}
+.eq{font-size:.86rem;background:#faf8f3;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0 8px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.eq div+div{margin-top:4px}
+.eq .f{color:var(--muted)}
+.eq b{color:var(--navy)}
+.eq table{border-collapse:collapse;width:100%;font-size:.82rem}
+.eq th,.eq td{padding:3px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.kpi.full{grid-column:1/-1}
+.kpi.widen:has(details.math[open]){grid-column:1/-1}
+.eq th:first-child,.eq td:first-child{text-align:left}
+.eq-scroll{overflow-x:auto}
+
+.chart-card{margin-bottom:18px}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.chart-head h3{margin:0}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:18px;height:0;border-top:2.5px solid}
+.sw.box{width:12px;height:12px;border:0;border-radius:3px}
+.sw.dash{border-top-style:dashed}
+.chart-wrap{position:relative;width:100%}
+.chart-wrap svg{display:block;width:100%;height:auto;overflow:visible}
+.chart-wrap:focus-visible{outline-offset:4px}
+.tip{position:absolute;pointer-events:none;background:var(--navy);color:#fff;font-size:.8rem;line-height:1.45;padding:8px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.18);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5;font-variant-numeric:tabular-nums}
+.tip.on{opacity:1}
+.tip b{color:var(--gold);font-weight:600}
+.chart-note{font-size:.8rem;color:var(--muted);margin:8px 0 0}
+svg text{font-family:var(--sans)}
+
+.interp{border-left:5px solid var(--sage);margin-bottom:18px}
+.interp.warn{border-left-color:var(--gold)}
+.interp.bad{border-left-color:var(--low)}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 9px;margin-right:6px;vertical-align:middle}
+.badge.good{background:var(--sage-soft);color:#3d5a42}
+.badge.warn{background:var(--gold-soft);color:#6b5412}
+.badge.bad{background:var(--low-soft);color:#7a3222}
+
+.try h3{display:flex;align-items:center;gap:8px}
+.try ol{list-style:none;margin:0;padding:0;counter-reset:t}
+.try li{counter-increment:t;border-top:1px solid var(--line);padding:12px 0 12px 40px;position:relative}
+.try li:first-child{border-top:0}
+.try li::before{content:counter(t);position:absolute;left:0;top:12px;width:28px;height:28px;border-radius:50%;background:var(--gold-soft);color:#6b5412;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.try .q{font-weight:600;color:var(--navy);margin-bottom:6px}
+.try .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.try details{font-size:.9rem}
+.try details summary{cursor:pointer;color:var(--sage);font-weight:600}
+.try details p{margin:6px 0 0;color:var(--ink)}
+
+.formula-box{background:var(--navy-soft);border-radius:10px;padding:10px 12px;font-size:.9rem;margin:6px 0 10px}
+
+footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.86rem;padding:22px 16px 30px}
+@media (max-width:520px){
+  .kpi .val{font-size:1.45rem}
+  .card{padding:14px}
+  .tab{padding:10px 10px;font-size:.92rem}
+  .tablist{flex-wrap:wrap;overflow-x:visible;border-bottom:0;gap:6px}
+  .tab{border:1px solid var(--line);border-radius:10px;margin:0;flex:1 1 auto;text-align:left}
+  .tab[aria-selected="true"]{border-color:var(--gold);box-shadow:inset 0 -3px 0 var(--gold)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <a class="home" href="index.html">&larr; Portfolio home</a>
+    <div class="eyebrow">Managerial Accounting and Decision Making</div>
+    <h1>Practice Economics Lab</h1>
+    <p class="lede">Run the numbers for Harborline Wellness Studio, a fictional neighborhood studio offering small-group classes and one-on-one sessions. Change any input and every result, chart and worked calculation updates instantly.</p>
+  </div>
+</header>
+
+<main>
+  <details class="notes" id="instructorNotes">
+    <summary><span class="chev" aria-hidden="true">&#9656;</span> Instructor notes</summary>
+    <div class="notes-body">
+      <section>
+        <h3>Learning objectives</h3>
+        <ol>
+          <li>Compute contribution margin, CM ratio, break-even and target-profit volume, and explain each in plain language.</li>
+          <li>Measure risk with margin of safety and degree of operating leverage, and explain why DOL depends on the volume you pick.</li>
+          <li>Compare a per-visit price with a membership using contribution per client, simple customer lifetime value and CLV:CAC.</li>
+          <li>Evaluate a capital investment with NPV, payback and IRR, and explain when the three can disagree.</li>
+          <li>Turn quantitative results into a clear recommendation for a non-finance decision maker.</li>
+        </ol>
+      </section>
+      <section>
+        <h3>How to assign it</h3>
+        <ul>
+          <li><strong>Pricing memo (main task):</strong> a one-page memo to the studio owner recommending whether to launch the membership, at what fee, and what churn rate would change the recommendation. Require one screenshot and one "show the math" calculation reproduced by hand.</li>
+          <li><strong>Break-even warm-up:</strong> students answer the three "Try this" prompts on Tab 1 and post which change hurt break-even most and why.</li>
+          <li><strong>Investment discussion:</strong> assign the back-loaded cash flow prompt on Tab 3 and ask students to defend or reject the purchase when payback and NPV point in different directions.</li>
+          <li><strong>Grading focus:</strong> correct method, stated assumptions, sensitivity (what would flip the decision), and a recommendation that follows from the numbers.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Common student errors</h3>
+        <ul>
+          <li>Including fixed cost per unit in variable cost, which double counts rent and salaries.</li>
+          <li>Reporting 553.8 break-even visits instead of rounding up to 554; you cannot sell part of a visit.</li>
+          <li>Reading DOL as a constant. It falls as volume rises above break-even.</li>
+          <li>Mixing monthly churn with annual churn, or using revenue instead of contribution in the CLV numerator.</li>
+          <li>Treating a high CLV:CAC as always good. Above about 5:1 the studio may be underinvesting in growth.</li>
+          <li>Entering the discount rate as 8 instead of 0.08 when working by hand, or discounting the year 0 outlay.</li>
+          <li>Preferring the shorter payback when NPV says otherwise; payback ignores cash after the cutoff and the time value of money.</li>
+        </ul>
+      </section>
+    </div>
+  </details>
+
+  <div class="tablist" role="tablist" aria-label="Lab sections">
+    <button class="tab" role="tab" id="tab-cvp" aria-controls="panel-cvp" aria-selected="true"><span class="tn">1</span>Break-even and target profit</button>
+    <button class="tab" role="tab" id="tab-price" aria-controls="panel-price" aria-selected="false" tabindex="-1"><span class="tn">2</span>Pricing and membership</button>
+    <button class="tab" role="tab" id="tab-npv" aria-controls="panel-npv" aria-selected="false" tabindex="-1"><span class="tn">3</span>Invest or not</button>
+  </div>
+
+  <!-- ============ TAB 1: CVP ============ -->
+  <section class="panel" role="tabpanel" id="panel-cvp" aria-labelledby="tab-cvp" tabindex="0">
+    <h2>Break-even and target profit</h2>
+    <p class="panel-intro">Cost-volume-profit analysis: how many visits a month does the studio need to cover its fixed costs, and how many to hit a profit goal? Each visit contributes its price minus its variable cost toward fixed costs and then profit.</p>
+    <div class="layout">
+      <form class="card inputs" id="form-cvp" novalidate onsubmit="return false">
+        <h3>Inputs (per month)</h3>
+        <div class="field"><label for="cvp-price">Price per visit</label><div class="affix"><span>$</span><input id="cvp-price" type="number" inputmode="decimal" step="any" value="80"></div><div class="err" id="cvp-price-err"></div></div>
+        <div class="field"><label for="cvp-vc">Variable cost per visit</label><div class="affix"><span>$</span><input id="cvp-vc" type="number" inputmode="decimal" step="any" value="20"></div><div class="hint">Instructor pay per session, towels, card fees, consumables.</div><div class="err" id="cvp-vc-err"></div></div>
+        <div class="field"><label for="cvp-fc">Monthly fixed costs</label><div class="affix"><span>$</span><input id="cvp-fc" type="number" inputmode="decimal" step="any" value="36000"></div><div class="hint">Rent, salaried staff, insurance, software.</div><div class="err" id="cvp-fc-err"></div></div>
+        <div class="field"><label for="cvp-tp">Target monthly profit</label><div class="affix"><span>$</span><input id="cvp-tp" type="number" inputmode="decimal" step="any" value="12000"></div><div class="err" id="cvp-tp-err"></div></div>
+        <div class="field"><label for="cvp-q">Expected visits per month</label><div class="affix"><input id="cvp-q" type="number" inputmode="decimal" step="any" value="900"><span>visits</span></div><div class="hint">Used for margin of safety and operating leverage.</div><div class="err" id="cvp-q-err"></div></div>
+        <button type="button" class="btn ghost small" data-reset="cvp">Reset to defaults</button>
+      </form>
+
+      <div>
+        <div class="alert bad" id="cvp-alert" role="alert" hidden></div>
+        <div class="kpis" id="cvp-kpis" aria-live="polite"></div>
+
+        <div class="card chart-card">
+          <div class="chart-head">
+            <h3>Cost-volume-profit chart</h3>
+            <div class="legend" aria-hidden="true">
+              <span><i class="sw" style="border-color:#14213D"></i>Revenue</span>
+              <span><i class="sw" style="border-color:#B5543C"></i>Total cost</span>
+              <span><i class="sw dash" style="border-color:#8a8f98"></i>Fixed costs</span>
+              <span><i class="sw box" style="background:#C9A227"></i>Break-even</span>
+            </div>
+          </div>
+          <div class="chart-wrap" id="cvp-chart" tabindex="0" role="group" aria-label="Cost-volume-profit chart. Use left and right arrow keys to move the readout along the visits axis."></div>
+          <p class="chart-note">Hover or use the arrow keys on the chart to read revenue, cost and profit at any volume. The shaded area right of break-even is profit; left of it is loss.</p>
+          <p class="sr-only" id="cvp-chart-desc" aria-live="polite"></p>
+        </div>
+
+        <div class="card try" id="try-cvp"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 2: Pricing ============ -->
+  <section class="panel" role="tabpanel" id="panel-price" aria-labelledby="tab-price" tabindex="0" hidden>
+    <h2>Pricing and membership</h2>
+    <p class="panel-intro">Should the studio keep selling drop-in visits or push a monthly membership? Compare the monthly contribution each client brings, how long a typical client stays, and what that client is worth against what it costs to acquire one.</p>
+    <div class="layout">
+      <form class="card inputs" id="form-price" novalidate onsubmit="return false">
+        <h3>Inputs</h3>
+        <div class="group-title">Drop-in (per-visit) client</div>
+        <div class="field"><label for="pr-dp">Price per visit</label><div class="affix"><span>$</span><input id="pr-dp" type="number" inputmode="decimal" step="any" value="25"></div><div class="err" id="pr-dp-err"></div></div>
+        <div class="field"><label for="pr-dv">Visits per month</label><div class="affix"><input id="pr-dv" type="number" inputmode="decimal" step="any" value="3"><span>visits</span></div><div class="err" id="pr-dv-err"></div></div>
+        <div class="field"><label for="pr-dc">Monthly churn rate</label><div class="affix"><input id="pr-dc" type="number" inputmode="decimal" step="any" value="20"><span>%</span></div><div class="hint">Share of drop-in clients who stop coming each month.</div><div class="err" id="pr-dc-err"></div></div>
+        <div class="group-title">Monthly membership</div>
+        <div class="field"><label for="pr-mf">Membership fee per month</label><div class="affix"><span>$</span><input id="pr-mf" type="number" inputmode="decimal" step="any" value="129"></div><div class="err" id="pr-mf-err"></div></div>
+        <div class="field"><label for="pr-mv">Expected visits per member per month</label><div class="affix"><input id="pr-mv" type="number" inputmode="decimal" step="any" value="8"><span>visits</span></div><div class="err" id="pr-mv-err"></div></div>
+        <div class="field"><label for="pr-mc">Monthly churn rate</label><div class="affix"><input id="pr-mc" type="number" inputmode="decimal" step="any" value="8"><span>%</span></div><div class="err" id="pr-mc-err"></div></div>
+        <div class="group-title">Shared</div>
+        <div class="field"><label for="pr-vc">Variable cost per visit</label><div class="affix"><span>$</span><input id="pr-vc" type="number" inputmode="decimal" step="any" value="6"></div><div class="err" id="pr-vc-err"></div></div>
+        <div class="field"><label for="pr-cac">Customer acquisition cost (CAC)</label><div class="affix"><span>$</span><input id="pr-cac" type="number" inputmode="decimal" step="any" value="200"></div><div class="hint">Marketing and sales spend per new client, assumed equal for both options.</div><div class="err" id="pr-cac-err"></div></div>
+        <button type="button" class="btn ghost small" data-reset="price">Reset to defaults</button>
+      </form>
+
+      <div>
+        <div class="alert bad" id="pr-alert" role="alert" hidden></div>
+        <div class="card" style="margin-bottom:18px">
+          <h3>The lifetime value model used here</h3>
+          <div class="formula-box"><strong>CLV</strong> = monthly contribution per client &divide; monthly churn rate<br><span style="color:var(--muted)">where monthly contribution = monthly revenue per client &minus; (visits per month &times; variable cost per visit), and expected lifetime in months = 1 &divide; churn.</span></div>
+          <p style="margin:0;font-size:.9rem;color:var(--muted)">This simple model assumes constant churn and margin and ignores discounting, so treat CLV as an upper-bound planning figure rather than a valuation.</p>
+        </div>
+        <div class="kpis" id="pr-kpis" aria-live="polite"></div>
+        <div class="card interp" id="pr-interp"></div>
+        <div class="card chart-card">
+          <div class="chart-head">
+            <h3>Lifetime value against acquisition cost</h3>
+            <div class="legend" aria-hidden="true">
+              <span><i class="sw box" style="background:#6B8F71"></i>CLV</span>
+              <span><i class="sw dash" style="border-color:#B5543C"></i>CAC</span>
+            </div>
+          </div>
+          <div class="chart-wrap" id="pr-chart"></div>
+          <p class="chart-note">Each bar is one client's expected lifetime contribution. The dashed line is what it costs to win that client; a bar should clear it about three times over.</p>
+        </div>
+        <div class="card try" id="try-price"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 3: NPV ============ -->
+  <section class="panel" role="tabpanel" id="panel-npv" aria-labelledby="tab-npv" tabindex="0" hidden>
+    <h2>Invest or not</h2>
+    <p class="panel-intro">The studio is considering a reformer equipment package for a new small-group class. It costs money today and should add cash each year. Is the future cash worth more than the outlay once you account for the time value of money?</p>
+    <div class="layout">
+      <form class="card inputs" id="form-npv" novalidate onsubmit="return false">
+        <h3>Inputs</h3>
+        <div class="field"><label for="npv-c0">Upfront cost (year 0)</label><div class="affix"><span>$</span><input id="npv-c0" type="number" inputmode="decimal" step="any" value="50000"></div><div class="err" id="npv-c0-err"></div></div>
+        <div class="field"><label for="npv-r">Discount rate (required return)</label><div class="affix"><input id="npv-r" type="number" inputmode="decimal" step="any" value="8"><span>%</span></div><div class="err" id="npv-r-err"></div></div>
+        <div class="field"><label for="npv-n">Project life</label><div class="affix"><select id="npv-n"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option></select><span>years</span></div></div>
+        <div class="group-title">Net cash inflow by year</div>
+        <div class="cf-grid" id="npv-cfs"></div>
+        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn ghost small" id="npv-fill">Copy year 1 to all years</button>
+          <button type="button" class="btn ghost small" data-reset="npv">Reset to defaults</button>
+        </div>
+      </form>
+
+      <div>
+        <div class="alert bad" id="npv-alert" role="alert" hidden></div>
+        <div class="kpis" id="npv-kpis" aria-live="polite"></div>
+        <div class="card interp" id="npv-interp"></div>
+        <div class="card chart-card">
+          <div class="chart-head">
+            <h3>Discounted cash flows by year</h3>
+            <div class="legend" aria-hidden="true">
+              <span><i class="sw box" style="background:#6B8F71"></i>Inflow (present value)</span>
+              <span><i class="sw box" style="background:#B5543C"></i>Outflow</span>
+              <span><i class="sw" style="border-color:#14213D"></i>Cumulative NPV</span>
+            </div>
+          </div>
+          <div class="chart-wrap" id="npv-chart"></div>
+          <p class="chart-note">Hover or tab to a bar for its details. Where the cumulative line crosses zero is the discounted payback point; where it ends is the NPV.</p>
+        </div>
+        <div class="card try" id="try-npv"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Dr. Akash Garg &middot; Leadership &amp; Management Teaching Portfolio</footer>
+
+<!-- ================= CALCULATION LAYER (pure functions, tested in Node) ================= -->
+<script id="calc">
+/*CALC-START*/
+var Calc = (function(){
+  "use strict";
+  var EPS = 1e-9;
+
+  // Cost-volume-profit. All amounts per month.
+  function cvp(p){
+    var price=p.price, vc=p.vc, fc=p.fc, target=p.target, q=p.expected;
+    var r = { cm: price - vc };
+    r.cmr = price > 0 ? r.cm / price : NaN;
+    r.viable = r.cm > 0;
+    if (r.viable){
+      r.beUnits = fc / r.cm;
+      r.beUnitsWhole = Math.ceil(r.beUnits - EPS);
+      r.beDollars = r.beUnits * price;          // equals fc / cmr
+      r.targetUnits = (fc + target) / r.cm;
+      r.targetUnitsWhole = Math.ceil(r.targetUnits - EPS);
+      r.targetDollars = r.targetUnits * price;
+      r.mosUnits = q - r.beUnits;
+      r.mosDollars = r.mosUnits * price;
+      r.mosPct = q > 0 ? r.mosUnits / q : NaN;
+    }
+    r.sales = q * price;
+    r.totalCM = q * r.cm;
+    r.opIncome = r.totalCM - fc;
+    r.dolValid = r.opIncome > EPS;
+    r.dol = r.dolValid ? r.totalCM / r.opIncome : NaN;
+    return r;
+  }
+
+  // One pricing option: monthly revenue per client, visits, variable cost per visit, monthly churn (decimal), CAC.
+  function clientValue(monthlyRevenue, visits, vc, churn, cac){
+    var r = { revenue: monthlyRevenue, varCost: visits * vc };
+    r.margin = r.revenue - r.varCost;
+    r.marginPct = r.revenue > 0 ? r.margin / r.revenue : NaN;
+    r.lifetime = 1 / churn;
+    r.clv = r.margin / churn;
+    r.ratio = cac > 0 ? r.clv / cac : NaN;
+    r.paybackMonths = r.margin > 0 ? cac / r.margin : NaN;
+    return r;
+  }
+
+  function pricing(p){
+    var drop = clientValue(p.dropPrice * p.dropVisits, p.dropVisits, p.vc, p.dropChurn, p.cac);
+    var mem = clientValue(p.memFee, p.memVisits, p.vc, p.memChurn, p.cac);
+    return {
+      drop: drop, mem: mem,
+      memPricePerVisit: p.memVisits > 0 ? p.memFee / p.memVisits : NaN,
+      memMaxVisits: p.vc > 0 ? p.memFee / p.vc : Infinity,       // visits at which a member's contribution hits zero
+      dropEquivVisits: p.dropPrice > 0 ? p.memFee / p.dropPrice : NaN // visits at which a member pays the same as drop-in
+    };
+  }
+
+  function ratioBand(x){
+    if (!isFinite(x)) return "na";
+    if (x < 1) return "loss";
+    if (x < 3) return "thin";
+    if (x <= 5) return "healthy";
+    return "high";
+  }
+
+  // NPV with year-0 outlay c0 (positive number = cash out) and flows[t-1] at end of year t.
+  function npv(rate, c0, flows){
+    var s = -c0;
+    for (var t=1; t<=flows.length; t++) s += flows[t-1] / Math.pow(1+rate, t);
+    return s;
+  }
+  function discountedFlows(rate, c0, flows){
+    var rows=[{t:0, cf:-c0, factor:1, pv:-c0, cum:-c0}], cum=-c0;
+    for (var t=1; t<=flows.length; t++){
+      var f = 1/Math.pow(1+rate,t), pv = flows[t-1]*f; cum += pv;
+      rows.push({t:t, cf:flows[t-1], factor:f, pv:pv, cum:cum});
+    }
+    return rows;
+  }
+  // Simple (undiscounted) payback in years with linear interpolation inside the year. null if never recovered.
+  function payback(c0, flows){
+    if (c0 <= 0) return 0;
+    var cum = -c0;
+    for (var t=1; t<=flows.length; t++){
+      var cf = flows[t-1];
+      if (cf > 0 && cum + cf >= -EPS) return (t-1) + (-cum)/cf;
+      cum += cf;
+    }
+    return null;
+  }
+  function discountedPayback(rate, c0, flows){
+    var pvs = flows.map(function(cf,i){ return cf/Math.pow(1+rate,i+1); });
+    return payback(c0, pvs);
+  }
+  // IRR by bisection. Returns {irr, signChanges} or {irr:null}.
+  function irr(c0, flows){
+    var all = [-c0].concat(flows), changes = 0, prev = 0;
+    for (var i=0;i<all.length;i++){ var s = Math.sign(all[i]); if (s!==0){ if (prev!==0 && s!==prev) changes++; prev=s; } }
+    var f = function(r){ return npv(r, c0, flows); };
+    var lo = -0.99, hi = 10, flo = f(lo), fhi = f(hi);
+    if (!isFinite(flo) || !isFinite(fhi) || flo*fhi > 0 || changes===0) return { irr:null, signChanges:changes };
+    for (var k=0; k<300 && (hi-lo) > 1e-12; k++){
+      var mid = (lo+hi)/2, fm = f(mid);
+      if (fm === 0){ lo = hi = mid; break; }
+      if (flo*fm < 0){ hi = mid; fhi = fm; } else { lo = mid; flo = fm; }
+    }
+    return { irr:(lo+hi)/2, signChanges:changes };
+  }
+
+  return { cvp:cvp, clientValue:clientValue, pricing:pricing, ratioBand:ratioBand, npv:npv,
+           discountedFlows:discountedFlows, payback:payback, discountedPayback:discountedPayback, irr:irr };
+})();
+if (typeof module !== "undefined") module.exports = Calc;
+/*CALC-END*/
+</script>
+
+<!-- ================= UI LAYER ================= -->
+<script>
+(function(){
+"use strict";
+var $ = function(s,root){ return (root||document).querySelector(s); };
+var $$ = function(s,root){ return Array.prototype.slice.call((root||document).querySelectorAll(s)); };
+var C = { navy:"#14213D", gold:"#C9A227", sage:"#6B8F71", low:"#B5543C", muted:"#5b6470", grid:"#ece8de", fixed:"#8a8f98", ink:"#1d232b", paper:"#ffffff" };
+var usd2 = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2,maximumFractionDigits:2});
+var usd0 = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:0,maximumFractionDigits:0});
+function money(v,dp){ if(!isFinite(v)) return "n/a"; var s=(dp===0?usd0:usd2).format(Math.abs(v)); return (v< -0.0000001?"-":"")+s; }
+function num(v,dp){ if(!isFinite(v)) return "n/a"; dp = dp==null?2:dp; return (v<0?"-":"")+Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+function numT(v,maxdp){ if(!isFinite(v)) return "n/a"; return v.toLocaleString("en-US",{maximumFractionDigits:maxdp==null?2:maxdp}); }
+function pct(v,dp){ if(!isFinite(v)) return "n/a"; return num(v*100, dp==null?1:dp)+"%"; }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function svgEl(tag, attrs, text){ var el=document.createElementNS("http://www.w3.org/2000/svg",tag); for(var k in attrs) el.setAttribute(k,attrs[k]); if(text!=null) el.textContent=text; return el; }
+
+// ---------- inputs & validation ----------
+function readField(id, rules){
+  var el = document.getElementById(id), field = el.closest(".field"), err = document.getElementById(id+"-err");
+  var raw = el.value.trim(), v = raw===""?NaN:Number(raw), msg = "";
+  if (raw==="" || !isFinite(v)) msg = "Enter a number.";
+  else if (rules.min!=null && (rules.minExclusive ? v<=rules.min : v<rules.min)) msg = rules.minMsg || ("Must be at least "+rules.min+".");
+  else if (rules.max!=null && v>rules.max) msg = rules.maxMsg || ("Must be at most "+rules.max+".");
+  if (field){ field.classList.toggle("bad", !!msg); if (err) err.textContent = msg; }
+  el.setAttribute("aria-invalid", msg ? "true" : "false");
+  if (err) el.setAttribute("aria-describedby", err.id);
+  return { v:v, ok:!msg, msg:msg, label: field ? field.querySelector("label").textContent : id };
+}
+function collect(spec){
+  var out = {}, bad = [];
+  Object.keys(spec).forEach(function(k){ var r = readField(spec[k].id, spec[k]); out[k]=r.v; if(!r.ok) bad.push(r.label+": "+r.msg); });
+  return { vals: out, bad: bad };
+}
+function showAlert(id, html){ var a=document.getElementById(id); if(html){ a.innerHTML=html; a.hidden=false; } else { a.hidden=true; a.innerHTML=""; } }
+function kpi(o){
+  return '<div class="kpi '+(o.cls||"")+'"><div class="lab">'+o.label+'</div>'+
+    (o.pair ? o.pair : '<div class="val'+(o.neg?' neg':'')+'">'+o.value+'</div>')+
+    (o.sub?'<div class="sub">'+o.sub+'</div>':'')+
+    '<details class="math"><summary>Show the math</summary><div class="eq">'+o.math+'</div></details></div>';
+}
+// Preserve which "show the math" panels are open across re-renders.
+function renderKpis(containerId, html){
+  var c = document.getElementById(containerId);
+  var open = $$("details.math", c).map(function(d){ return d.open; });
+  c.innerHTML = html;
+  $$("details.math", c).forEach(function(d,i){ if(open[i]) d.open = true; });
+}
+
+// ---------- ticks ----------
+function niceStep(range, count){
+  var raw = range / Math.max(1,count), mag = Math.pow(10, Math.floor(Math.log10(raw))), n = raw/mag;
+  var step = n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10; return step*mag;
+}
+function ticks(min, max, count){
+  var step = niceStep(max-min, count), start = Math.ceil(min/step - 1e-9)*step, out=[];
+  for (var v=start; v<=max+step*1e-6; v+=step) out.push(Math.abs(v)<step*1e-9?0:v);
+  return out;
+}
+function niceMax(v, count){ if (v<=0) return 1; var s = niceStep(v, count); return Math.ceil(v/s - 1e-9)*s; }
+function shortMoney(v){
+  var a=Math.abs(v), s = a>=1e6 ? numT(a/1e6,2)+"M" : a>=1e3 ? numT(a/1e3,1)+"k" : numT(a,0);
+  return (v<0?"-":"")+"$"+s;
+}
+
+// =====================================================================
+// TAB 1: CVP
+// =====================================================================
+var CVP_DEFAULTS = { "cvp-price":80, "cvp-vc":20, "cvp-fc":36000, "cvp-tp":12000, "cvp-q":900 };
+var cvpState = null;
+function updateCVP(){
+  var c = collect({
+    price:{id:"cvp-price", min:0, minExclusive:true, minMsg:"Price must be greater than $0."},
+    vc:{id:"cvp-vc", min:0, minMsg:"Cannot be negative."},
+    fc:{id:"cvp-fc", min:0, minMsg:"Cannot be negative."},
+    target:{id:"cvp-tp", min:0, minMsg:"Enter $0 or more."},
+    expected:{id:"cvp-q", min:0, minMsg:"Cannot be negative."}
+  });
+  if (c.bad.length){
+    showAlert("cvp-alert", "<strong>Check the inputs.</strong> "+c.bad.map(esc).join(" "));
+    renderKpis("cvp-kpis",""); $("#cvp-chart").innerHTML=""; cvpState=null; return;
+  }
+  var p = c.vals, r = Calc.cvp(p);
+  var html = "";
+  var cmMath = '<div class="f">Contribution margin = price &minus; variable cost</div><div>= '+money(p.price)+' &minus; '+money(p.vc)+' = <b>'+money(r.cm)+'</b> per visit</div>';
+  var cmrMath = '<div class="f">CM ratio = contribution margin &divide; price</div><div>= '+money(r.cm)+' &divide; '+money(p.price)+' = <b>'+pct(r.cmr,2)+'</b></div><div class="f">Each sales dollar leaves '+money(r.cmr)+' to cover fixed costs and profit.</div>';
+  html += kpi({label:"Contribution margin", value:money(r.cm), neg:r.cm<=0, sub:"per visit", math:cmMath});
+  html += kpi({label:"CM ratio", value:pct(r.cmr,1), neg:r.cm<=0, sub:"of each sales dollar", math:cmrMath});
+
+  if (!r.viable){
+    showAlert("cvp-alert", "<strong>Break-even is not reachable.</strong> The price per visit ("+money(p.price)+") must be greater than the variable cost per visit ("+money(p.vc)+"). Right now each visit "+(r.cm<0?"loses "+money(-r.cm):"contributes $0.00")+", so no number of visits can cover "+money(p.fc,0)+" of fixed costs. Raise the price or cut the variable cost.");
+    html += kpi({label:"Break-even", value:"Not reachable", neg:true, cls:"hero", sub:"price must exceed variable cost", math:'<div class="f">Break-even visits = fixed costs &divide; contribution margin</div><div>= '+money(p.fc)+' &divide; '+money(r.cm)+'</div><div>A contribution margin of '+money(r.cm)+' cannot cover fixed costs, so there is no break-even point.</div>'});
+  } else {
+    showAlert("cvp-alert", "");
+    var frac = Math.abs(r.beUnits - Math.round(r.beUnits)) > 1e-9;
+    var beMath = '<div class="f">Break-even visits = fixed costs &divide; contribution margin per visit</div>'+
+      '<div>= '+money(p.fc)+' &divide; '+money(r.cm)+' = <b>'+numT(r.beUnits,2)+' visits</b></div>'+
+      (frac?'<div class="f">You cannot sell part of a visit, so round up to '+num(r.beUnitsWhole,0)+'.</div>':'')+
+      '<div class="f">Break-even sales dollars = fixed costs &divide; CM ratio</div>'+
+      '<div>= '+money(p.fc)+' &divide; '+pct(r.cmr,2)+' = <b>'+money(r.beDollars)+'</b></div>'+
+      '<div class="f">Check: '+numT(r.beUnits,2)+' visits &times; '+money(p.price)+' = '+money(r.beDollars)+'</div>';
+    html += kpi({label:"Break-even", cls:"hero", value:num(r.beUnitsWhole,0)+" visits", sub:money(r.beDollars)+" in monthly sales"+(frac?" (exact: "+numT(r.beUnits,2)+" visits)":""), math:beMath});
+    var tFrac = Math.abs(r.targetUnits - Math.round(r.targetUnits)) > 1e-9;
+    var tMath = '<div class="f">Target visits = (fixed costs + target profit) &divide; contribution margin</div>'+
+      '<div>= ('+money(p.fc)+' + '+money(p.target)+') &divide; '+money(r.cm)+'</div>'+
+      '<div>= '+money(p.fc+p.target)+' &divide; '+money(r.cm)+' = <b>'+numT(r.targetUnits,2)+' visits</b></div>'+
+      (tFrac?'<div class="f">Round up to '+num(r.targetUnitsWhole,0)+' visits.</div>':'')+
+      '<div class="f">Target sales = '+numT(r.targetUnits,2)+' &times; '+money(p.price)+' = '+money(r.targetDollars)+'</div>';
+    html += kpi({label:"Visits for target profit", value:num(r.targetUnitsWhole,0)+" visits", sub:money(r.targetDollars)+" in sales to earn "+money(p.target,0), math:tMath});
+    var mosMath = '<div class="f">Margin of safety (visits) = expected visits &minus; break-even visits</div>'+
+      '<div>= '+numT(p.expected,2)+' &minus; '+numT(r.beUnits,2)+' = <b>'+numT(r.mosUnits,2)+' visits</b></div>'+
+      '<div class="f">In dollars = '+numT(r.mosUnits,2)+' &times; '+money(p.price)+' = <b>'+money(r.mosDollars)+'</b></div>'+
+      (p.expected>0?'<div class="f">As a percentage = '+numT(r.mosUnits,2)+' &divide; '+numT(p.expected,2)+' = <b>'+pct(r.mosPct,2)+'</b></div>':'')+
+      (r.mosUnits<0?'<div>Negative: expected volume is below break-even, so the studio would run a loss.</div>':'');
+    html += kpi({label:"Margin of safety", value:numT(r.mosUnits,1)+" visits", neg:r.mosUnits<0, sub:money(r.mosDollars,0)+(p.expected>0?" or "+pct(r.mosPct,1)+" of expected sales":""), math:mosMath});
+  }
+  var oiMath = '<div class="f">Operating income = expected visits &times; CM &minus; fixed costs</div><div>= '+numT(p.expected,2)+' &times; '+money(r.cm)+' &minus; '+money(p.fc)+'</div><div>= '+money(r.totalCM)+' &minus; '+money(p.fc)+' = <b>'+money(r.opIncome)+'</b></div>';
+  html += kpi({label:"Operating income at expected volume", value:money(r.opIncome,0), neg:r.opIncome<0, sub:"at "+numT(p.expected,0)+" visits a month", math:oiMath});
+  var dolMath = '<div class="f">DOL = total contribution margin &divide; operating income</div><div>= '+money(r.totalCM)+' &divide; '+money(r.opIncome)+(r.dolValid?' = <b>'+num(r.dol,2)+'</b></div><div class="f">A 10% rise in visits raises operating income by about '+num(r.dol*10,1)+'%. DOL applies only at this volume; it shrinks as volume grows.</div>':'</div><div>Operating income is zero or negative at this volume, so DOL is not meaningful. Move expected visits above break-even.</div>');
+  html += kpi({label:"Degree of operating leverage", value:r.dolValid?num(r.dol,2)+"x":"Not meaningful", neg:!r.dolValid, sub:r.dolValid?"% change in profit per 1% change in visits":"operating income must be above $0", math:dolMath});
+  renderKpis("cvp-kpis", html);
+  cvpState = { p:p, r:r };
+  drawCVP();
+}
+
+var cvpCursor = null;
+function drawCVP(){
+  var wrap = $("#cvp-chart"); if (!cvpState){ wrap.innerHTML=""; return; }
+  var p = cvpState.p, r = cvpState.r;
+  var W = Math.max(280, wrap.clientWidth || 600), small = W < 560, H = small ? 300 : 380;
+  var m = { l: small?50:66, r: small?14:24, t:22, b:46 };
+  var iw = W-m.l-m.r, ih = H-m.t-m.b;
+  var cands = [p.expected*1.2, 10];
+  if (r.viable){ cands.push(r.beUnits*2, r.targetUnits*1.15); }
+  else cands.push(p.fc>0 && p.price>0 ? p.fc/p.price*1.5 : 100);
+  var xMax = niceMax(Math.max.apply(null, cands.filter(isFinite)), 5);
+  var yMax = niceMax(Math.max(p.price*xMax, p.fc + p.vc*xMax, p.fc, 1)*1.1, 5);
+  var X = function(u){ return m.l + u/xMax*iw; }, Y = function(d){ return m.t + ih - d/yMax*ih; };
+  var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H, width:W, height:H, "aria-hidden":"true"});
+  // grid + axes
+  ticks(0,yMax,5).forEach(function(v){
+    svg.appendChild(svgEl("line",{x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v),stroke:v===0?"#b9b2a2":C.grid,"stroke-width":1}));
+    svg.appendChild(svgEl("text",{x:m.l-8,y:Y(v)+4,"text-anchor":"end","font-size":small?10:11.5,fill:C.muted},shortMoney(v)));
+  });
+  ticks(0,xMax,small?4:6).forEach(function(v){
+    svg.appendChild(svgEl("line",{x1:X(v),x2:X(v),y1:m.t+ih,y2:m.t+ih+5,stroke:"#b9b2a2"}));
+    svg.appendChild(svgEl("text",{x:X(v),y:m.t+ih+18,"text-anchor":"middle","font-size":small?10:11.5,fill:C.muted},numT(v,0)));
+  });
+  svg.appendChild(svgEl("text",{x:m.l+iw/2,y:H-6,"text-anchor":"middle","font-size":12,fill:C.muted},"Visits per month"));
+  svg.appendChild(svgEl("text",{x:12,y:m.t+ih/2,"text-anchor":"middle","font-size":12,fill:C.muted,transform:"rotate(-90 12 "+(m.t+ih/2)+")"},"Dollars per month"));
+  // profit / loss areas
+  if (r.viable && r.beUnits < xMax){
+    var be = r.beUnits;
+    svg.appendChild(svgEl("polygon",{points:[X(0)+","+Y(0), X(be)+","+Y(p.price*be), X(0)+","+Y(p.fc)].join(" "), fill:C.low, "fill-opacity":.10}));
+    svg.appendChild(svgEl("polygon",{points:[X(be)+","+Y(p.price*be), X(xMax)+","+Y(p.price*xMax), X(xMax)+","+Y(p.fc+p.vc*xMax)].join(" "), fill:C.sage, "fill-opacity":.18}));
+    if (!small || iw>300){
+      var lx = Math.min(be + (xMax-be)*0.72, xMax*0.95);
+      var ly = (p.price*lx + p.fc + p.vc*lx)/2;
+      if (Y(p.fc+p.vc*lx) - Y(p.price*lx) > 26) svg.appendChild(svgEl("text",{x:X(lx),y:Y(ly)+4,"text-anchor":"middle","font-size":11.5,"font-weight":600,fill:"#3d5a42"},"Profit"));
+      var lx2 = be*0.28, ly2 = (p.price*lx2 + p.fc + p.vc*lx2)/2;
+      if (Y(p.price*lx2) - Y(p.fc+p.vc*lx2) > 26 && X(lx2) - m.l > 18) svg.appendChild(svgEl("text",{x:X(lx2),y:Y(ly2)+4,"text-anchor":"middle","font-size":11.5,"font-weight":600,fill:"#7a3222"},"Loss"));
+    }
+  }
+  // fixed cost line
+  svg.appendChild(svgEl("line",{x1:X(0),x2:X(xMax),y1:Y(p.fc),y2:Y(p.fc),stroke:C.fixed,"stroke-width":1.5,"stroke-dasharray":"6 5"}));
+  // expected volume marker
+  if (p.expected>0 && p.expected<=xMax){
+    svg.appendChild(svgEl("line",{x1:X(p.expected),x2:X(p.expected),y1:m.t,y2:m.t+ih,stroke:C.navy,"stroke-opacity":.45,"stroke-width":1,"stroke-dasharray":"2 4"}));
+    svg.appendChild(svgEl("text",{x:X(p.expected)+(X(p.expected)>W-110?-5:5),y:m.t+10,"text-anchor":X(p.expected)>W-110?"end":"start","font-size":11,fill:C.muted},"Expected: "+numT(p.expected,0)));
+  }
+  // lines
+  svg.appendChild(svgEl("line",{x1:X(0),y1:Y(p.fc),x2:X(xMax),y2:Y(p.fc+p.vc*xMax),stroke:C.low,"stroke-width":2.5,"stroke-linecap":"round"}));
+  svg.appendChild(svgEl("line",{x1:X(0),y1:Y(0),x2:X(xMax),y2:Y(p.price*xMax),stroke:C.navy,"stroke-width":2.5,"stroke-linecap":"round"}));
+  // direct labels at the right end
+  var yRev = Y(p.price*xMax), yCost = Y(p.fc+p.vc*xMax);
+  var labRev = yRev, labCost = yCost;
+  if (Math.abs(labRev-labCost) < 16){ var mid=(labRev+labCost)/2, up = labRev<=labCost; labRev = mid + (up?-9:9); labCost = mid + (up?9:-9); }
+  function endLabel(y, txt, col){
+    var yy = Math.max(m.t+10, Math.min(m.t+ih-4, y+ (y<m.t+14? 12 : -6)));
+    svg.appendChild(svgEl("text",{x:X(xMax)-4,y:yy,"text-anchor":"end","font-size":11.5,"font-weight":600,fill:col,stroke:"#fff","stroke-width":3,"paint-order":"stroke"},txt));
+  }
+  endLabel(labRev, "Revenue", C.navy);
+  endLabel(labCost, "Total cost", C.low);
+  var fcLabelY = Y(p.fc) + 15 > m.t+ih-4 ? Y(p.fc)-6 : Y(p.fc)+15;
+  svg.appendChild(svgEl("text",{x:X(xMax)-4,y:fcLabelY,"text-anchor":"end","font-size":11,fill:C.muted,stroke:"#fff","stroke-width":3,"paint-order":"stroke"},"Fixed costs "+shortMoney(p.fc)));
+  // break-even point
+  if (r.viable && r.beUnits <= xMax){
+    var bx = X(r.beUnits), by = Y(r.beDollars);
+    svg.appendChild(svgEl("line",{x1:bx,x2:bx,y1:by,y2:m.t+ih,stroke:C.gold,"stroke-width":1.5,"stroke-dasharray":"3 3"}));
+    svg.appendChild(svgEl("circle",{cx:bx,cy:by,r:7,fill:C.gold,stroke:"#fff","stroke-width":2.5}));
+    // Above-left of the point sits above the cost line; below-right sits below it. Neither crosses a line.
+    var t1 = "Break-even", t2 = numT(r.beUnits, 1)+" visits, "+money(r.beDollars,0);
+    var left = bx - m.l > t2.length*6.3 + 14 && by - m.t > 34;
+    // Not enough room beside the point (narrow screens): park the label in the empty top-left corner.
+    var tx = left ? bx-12 : m.l+8, anchor = left?"end":"start";
+    var ty = left ? by-26 : m.t+14;
+    svg.appendChild(svgEl("text",{x:tx,y:ty,"text-anchor":anchor,"font-size":12,"font-weight":700,fill:C.navy,stroke:"#fff","stroke-width":4,"paint-order":"stroke"},t1));
+    svg.appendChild(svgEl("text",{x:tx,y:ty+14,"text-anchor":anchor,"font-size":11.5,fill:C.ink,stroke:"#fff","stroke-width":4,"paint-order":"stroke"},t2));
+  }
+  // crosshair layer
+  var cross = svgEl("g",{style:"display:none"});
+  var vline = svgEl("line",{y1:m.t,y2:m.t+ih,stroke:C.ink,"stroke-opacity":.35,"stroke-width":1});
+  var dRev = svgEl("circle",{r:5,fill:C.navy,stroke:"#fff","stroke-width":2});
+  var dCost = svgEl("circle",{r:5,fill:C.low,stroke:"#fff","stroke-width":2});
+  cross.appendChild(vline); cross.appendChild(dCost); cross.appendChild(dRev); svg.appendChild(cross);
+  var hit = svgEl("rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent",style:"cursor:crosshair"});
+  svg.appendChild(hit);
+  wrap.innerHTML = ""; wrap.appendChild(svg);
+  var tip = document.createElement("div"); tip.className="tip"; wrap.appendChild(tip);
+  function show(u, fromKey){
+    u = Math.max(0, Math.min(xMax, u)); cvpCursor = u;
+    var rev = p.price*u, cost = p.fc + p.vc*u, pr = rev-cost, x = X(u);
+    cross.style.display = ""; vline.setAttribute("x1",x); vline.setAttribute("x2",x);
+    dRev.setAttribute("cx",x); dRev.setAttribute("cy",Y(rev)); dCost.setAttribute("cx",x); dCost.setAttribute("cy",Y(cost));
+    tip.innerHTML = "<b>"+numT(u,0)+" visits</b><br>Revenue: "+money(rev,0)+"<br>Total cost: "+money(cost,0)+"<br>"+(pr>=0?"Profit: ":"Loss: ")+money(Math.abs(pr),0);
+    tip.classList.add("on");
+    var scale = wrap.clientWidth / W, tw = tip.offsetWidth, left = x*scale + 12;
+    if (left + tw > wrap.clientWidth) left = x*scale - tw - 12;
+    tip.style.left = Math.max(0,left)+"px"; tip.style.top = (Math.min(Y(rev),Y(cost))*scale - 10)+"px";
+    if (fromKey) $("#cvp-chart-desc").textContent = numT(u,0)+" visits: revenue "+money(rev,0)+", total cost "+money(cost,0)+", "+(pr>=0?"profit ":"loss ")+money(Math.abs(pr),0)+".";
+  }
+  function hide(){ cross.style.display="none"; tip.classList.remove("on"); }
+  hit.addEventListener("pointermove", function(e){ var rect = svg.getBoundingClientRect(); var px = (e.clientX-rect.left)*W/rect.width; show((px-m.l)/iw*xMax); });
+  hit.addEventListener("pointerleave", hide);
+  wrap.onkeydown = function(e){
+    var step = xMax/50;
+    if (e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); var base = cvpCursor==null ? (r.viable?r.beUnits:0) : cvpCursor; show(base + (e.key==="ArrowRight"?step:-step), true); }
+    else if (e.key==="Home"){ e.preventDefault(); show(0,true); } else if (e.key==="End"){ e.preventDefault(); show(xMax,true); }
+    else if (e.key==="Escape"){ hide(); }
+  };
+  wrap.onblur = hide;
+  cvpCursor = null;
+}
+
+// =====================================================================
+// TAB 2: Pricing
+// =====================================================================
+var PR_DEFAULTS = { "pr-dp":25, "pr-dv":3, "pr-dc":20, "pr-mf":129, "pr-mv":8, "pr-mc":8, "pr-vc":6, "pr-cac":200 };
+var prState = null;
+function bandInfo(b){
+  return {
+    loss:{cls:"bad",badge:"Below 1:1",text:"The studio spends more to win this client than the client ever contributes. Every new client destroys value."},
+    thin:{cls:"warn",badge:"Below 3:1",text:"The client pays back acquisition cost but leaves little room for overhead and error. A common benchmark is about 3:1."},
+    healthy:{cls:"good",badge:"Healthy",text:"Within the common 3:1 to 5:1 range: acquisition spend is recovered with a comfortable cushion."},
+    high:{cls:"good",badge:"Above 5:1",text:"Very strong unit economics. The studio may be underinvesting in marketing and could afford to grow faster."},
+    na:{cls:"warn",badge:"n/a",text:"CLV:CAC cannot be computed without a positive CAC."}
+  }[b];
+}
+function updatePricing(){
+  var c = collect({
+    dropPrice:{id:"pr-dp",min:0,minExclusive:true,minMsg:"Must be greater than $0."},
+    dropVisits:{id:"pr-dv",min:0,minExclusive:true,minMsg:"Must be greater than 0."},
+    dropChurn:{id:"pr-dc",min:0,minExclusive:true,max:100,minMsg:"Churn must be greater than 0% (otherwise lifetime is infinite).",maxMsg:"Churn cannot exceed 100%."},
+    memFee:{id:"pr-mf",min:0,minExclusive:true,minMsg:"Must be greater than $0."},
+    memVisits:{id:"pr-mv",min:0,minExclusive:true,minMsg:"Must be greater than 0."},
+    memChurn:{id:"pr-mc",min:0,minExclusive:true,max:100,minMsg:"Churn must be greater than 0% (otherwise lifetime is infinite).",maxMsg:"Churn cannot exceed 100%."},
+    vc:{id:"pr-vc",min:0,minMsg:"Cannot be negative."},
+    cac:{id:"pr-cac",min:0,minExclusive:true,minMsg:"CAC must be greater than $0 to compute CLV:CAC."}
+  });
+  if (c.bad.length){ showAlert("pr-alert","<strong>Check the inputs.</strong> "+c.bad.map(esc).join(" ")); renderKpis("pr-kpis",""); $("#pr-interp").innerHTML=""; $("#pr-chart").innerHTML=""; prState=null; return; }
+  var v = c.vals;
+  var p = { dropPrice:v.dropPrice, dropVisits:v.dropVisits, dropChurn:v.dropChurn/100, memFee:v.memFee, memVisits:v.memVisits, memChurn:v.memChurn/100, vc:v.vc, cac:v.cac };
+  var r = Calc.pricing(p), d = r.drop, mm = r.mem;
+  var warn = [];
+  if (p.dropPrice <= p.vc) warn.push("The drop-in price ("+money(p.dropPrice)+") does not exceed the variable cost per visit ("+money(p.vc)+"), so every drop-in visit loses money.");
+  if (mm.margin <= 0) warn.push("At "+numT(p.memVisits,1)+" visits a month, a member's variable cost ("+money(mm.varCost)+") meets or exceeds the fee ("+money(p.memFee)+"). The membership loses money on every member.");
+  showAlert("pr-alert", warn.length ? "<strong>Heads up.</strong> "+warn.join(" ") : "");
+  function pair(a,b,fmt,negA,negB){ return '<div class="pair"><div><div class="who">Drop-in</div><div class="val'+(negA?' neg':'')+'">'+a+'</div></div><div><div class="who">Membership</div><div class="val'+(negB?' neg':'')+'">'+b+'</div></div></div>'; }
+  var html = "";
+  html += kpi({label:"Monthly contribution per client", pair:pair(money(d.margin),money(mm.margin),null,d.margin<=0,mm.margin<=0), sub:"CM % of revenue: "+pct(d.marginPct,1)+" vs "+pct(mm.marginPct,1),
+    math:'<div class="f">Monthly contribution = monthly revenue &minus; visits &times; variable cost per visit</div>'+
+         '<div>Drop-in: ('+money(p.dropPrice)+' &times; '+numT(p.dropVisits,2)+') &minus; ('+numT(p.dropVisits,2)+' &times; '+money(p.vc)+') = '+money(d.revenue)+' &minus; '+money(d.varCost)+' = <b>'+money(d.margin)+'</b></div>'+
+         '<div>Membership: '+money(p.memFee)+' &minus; ('+numT(p.memVisits,2)+' &times; '+money(p.vc)+') = '+money(mm.revenue)+' &minus; '+money(mm.varCost)+' = <b>'+money(mm.margin)+'</b></div>'});
+  html += kpi({label:"Expected client lifetime", pair:pair(numT(d.lifetime,1)+" mo",numT(mm.lifetime,1)+" mo"), sub:"average months before a client leaves",
+    math:'<div class="f">Expected lifetime (months) = 1 &divide; monthly churn</div>'+
+         '<div>Drop-in: 1 &divide; '+numT(p.dropChurn,4)+' = <b>'+numT(d.lifetime,2)+' months</b></div>'+
+         '<div>Membership: 1 &divide; '+numT(p.memChurn,4)+' = <b>'+numT(mm.lifetime,2)+' months</b></div>'});
+  html += kpi({label:"Customer lifetime value (CLV)", cls:"hero", pair:pair(money(d.clv,0),money(mm.clv,0),null,d.clv<0,mm.clv<0), sub:"lifetime contribution per client",
+    math:'<div class="f">CLV = monthly contribution &divide; monthly churn</div>'+
+         '<div>Drop-in: '+money(d.margin)+' &divide; '+numT(p.dropChurn,4)+' = <b>'+money(d.clv)+'</b></div>'+
+         '<div>Membership: '+money(mm.margin)+' &divide; '+numT(p.memChurn,4)+' = <b>'+money(mm.clv)+'</b></div>'+
+         '<div class="f">Same as monthly contribution &times; expected lifetime.</div>'});
+  html += kpi({label:"CLV : CAC ratio", cls:"good", pair:pair(num(d.ratio,2)+" : 1",num(mm.ratio,2)+" : 1",null,d.ratio<1,mm.ratio<1), sub:"CAC payback: "+(isFinite(d.paybackMonths)?numT(d.paybackMonths,1)+" mo":"never")+" vs "+(isFinite(mm.paybackMonths)?numT(mm.paybackMonths,1)+" mo":"never"),
+    math:'<div class="f">CLV:CAC = CLV &divide; customer acquisition cost</div>'+
+         '<div>Drop-in: '+money(d.clv)+' &divide; '+money(p.cac)+' = <b>'+num(d.ratio,2)+'</b></div>'+
+         '<div>Membership: '+money(mm.clv)+' &divide; '+money(p.cac)+' = <b>'+num(mm.ratio,2)+'</b></div>'+
+         '<div class="f">CAC payback (months) = CAC &divide; monthly contribution</div>'+
+         '<div>Drop-in: '+(d.margin>0?money(p.cac)+' &divide; '+money(d.margin)+' = <b>'+numT(d.paybackMonths,2)+'</b>':'never, contribution is not positive')+'</div>'+
+         '<div>Membership: '+(mm.margin>0?money(p.cac)+' &divide; '+money(mm.margin)+' = <b>'+numT(mm.paybackMonths,2)+'</b>':'never, contribution is not positive')+'</div>'});
+  html += kpi({label:"Member effective price per visit", value:money(r.memPricePerVisit), sub:"vs drop-in price of "+money(p.dropPrice),
+    math:'<div class="f">Effective price = membership fee &divide; visits per member</div><div>= '+money(p.memFee)+' &divide; '+numT(p.memVisits,2)+' = <b>'+money(r.memPricePerVisit)+'</b></div>'+
+         '<div class="f">A member who visits '+numT(r.dropEquivVisits,2)+' times ('+money(p.memFee)+' &divide; '+money(p.dropPrice)+') pays the same as a drop-in client. More visits than that and the member gets a discount.</div>'});
+  html += kpi({label:"Member usage ceiling", value:isFinite(r.memMaxVisits)?numT(r.memMaxVisits,1)+" visits":"No ceiling", sub:"visits per month where a member's contribution reaches $0",
+    math: isFinite(r.memMaxVisits) ? '<div class="f">Ceiling = membership fee &divide; variable cost per visit</div><div>= '+money(p.memFee)+' &divide; '+money(p.vc)+' = <b>'+numT(r.memMaxVisits,2)+' visits</b></div><div class="f">Heavy users above this level cost more to serve than they pay.</div>' : '<div>With $0 variable cost per visit, extra visits cost nothing, so there is no ceiling.</div>'});
+  renderKpis("pr-kpis", html);
+
+  // interpretation
+  var bd = Calc.ratioBand(d.ratio), bm = Calc.ratioBand(mm.ratio), id = bandInfo(bd), im = bandInfo(bm);
+  var better = mm.clv > d.clv ? "membership" : (mm.clv < d.clv ? "drop-in" : "neither");
+  var diff = Math.abs(mm.clv - d.clv);
+  var worst = [id.cls, im.cls].indexOf("bad")>=0 ? "bad" : ([id.cls, im.cls].indexOf("warn")>=0 ? "warn" : "");
+  var ip = $("#pr-interp"); ip.className = "card interp "+worst;
+  ip.innerHTML = '<h3>Interpretation</h3>'+
+    '<p><span class="badge '+id.cls+'">Drop-in '+num(d.ratio,2)+':1</span>'+id.text+'</p>'+
+    '<p><span class="badge '+im.cls+'">Membership '+num(mm.ratio,2)+':1</span>'+im.text+'</p>'+
+    '<p style="margin:0">'+(better==="neither" ? "Both options produce the same lifetime value per client." :
+      'The <strong>'+better+'</strong> option is worth <strong>'+money(diff,0)+'</strong> more per client over its lifetime. '+
+      (better==="membership" ? "Most of that advantage comes from lower churn: members stay "+numT(mm.lifetime,1)+" months on average versus "+numT(d.lifetime,1)+"." : "Check whether the membership fee is too low for how often members visit, or whether churn is too high."))+
+    ' Before recommending, test how sensitive the answer is to churn, which is the least certain input.</p>';
+  prState = { p:p, r:r };
+  drawPricing();
+}
+function drawPricing(){
+  var wrap = $("#pr-chart"); if (!prState){ wrap.innerHTML=""; return; }
+  var p = prState.p, r = prState.r;
+  var W = Math.max(280, wrap.clientWidth||600), small = W<560;
+  var rows = [{name:"Drop-in", v:r.drop.clv, ratio:r.drop.ratio},{name:"Membership", v:r.mem.clv, ratio:r.mem.ratio}];
+  var m = {l: small?86:104, r: small?64:90, t:24, b:34}, bh = 34, gap = 22, ih = rows.length*bh + (rows.length-1)*gap, H = m.t+ih+m.b, iw = W-m.l-m.r;
+  var lo = Math.min(0, rows[0].v, rows[1].v), hi = niceMax(Math.max(p.cac, rows[0].v, rows[1].v, 1)*1.05, 5);
+  if (lo<0) lo = -niceMax(-lo,3);
+  var X = function(v){ return m.l + (v-lo)/(hi-lo)*iw; };
+  var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H,width:W,height:H,role:"img","aria-label":"Bar chart: drop-in CLV "+money(r.drop.clv,0)+", membership CLV "+money(r.mem.clv,0)+", CAC "+money(p.cac,0)+"."});
+  ticks(lo,hi,small?4:6).forEach(function(v){
+    svg.appendChild(svgEl("line",{x1:X(v),x2:X(v),y1:m.t-6,y2:m.t+ih,stroke:v===0?"#b9b2a2":C.grid}));
+    svg.appendChild(svgEl("text",{x:X(v),y:m.t+ih+18,"text-anchor":"middle","font-size":small?10:11.5,fill:C.muted},shortMoney(v)));
+  });
+  rows.forEach(function(row,i){
+    var y = m.t + i*(bh+gap), x0 = X(0), x1 = X(row.v), neg = row.v<0;
+    var w = Math.abs(x1-x0), xs = Math.min(x0,x1), rr = Math.min(4, w/2);
+    // rounded only at the data end
+    var d = neg
+      ? "M"+x0+","+y+" H"+(xs+rr)+" Q"+xs+","+y+" "+xs+","+(y+rr)+" V"+(y+bh-rr)+" Q"+xs+","+(y+bh)+" "+(xs+rr)+","+(y+bh)+" H"+x0+" Z"
+      : "M"+x0+","+y+" H"+(x1-rr)+" Q"+x1+","+y+" "+x1+","+(y+rr)+" V"+(y+bh-rr)+" Q"+x1+","+(y+bh)+" "+(x1-rr)+","+(y+bh)+" H"+x0+" Z";
+    svg.appendChild(svgEl("path",{d:d,fill:neg?C.low:C.sage}));
+    svg.appendChild(svgEl("text",{x:m.l-10,y:y+bh/2+4,"text-anchor":"end","font-size":12.5,"font-weight":600,fill:C.navy},row.name));
+    svg.appendChild(svgEl("text",{x:(neg?x0:x1)+8,y:y+bh/2+4,"font-size":12,"font-weight":600,fill:C.ink},money(row.v,0)));
+  });
+  var cx = X(p.cac);
+  svg.appendChild(svgEl("line",{x1:cx,x2:cx,y1:m.t-8,y2:m.t+ih+4,stroke:C.low,"stroke-width":2,"stroke-dasharray":"5 4"}));
+  svg.appendChild(svgEl("text",{x:cx,y:m.t-11,"text-anchor":cx>W-70?"end":"middle","font-size":11.5,"font-weight":600,fill:"#7a3222"},"CAC "+money(p.cac,0)));
+  wrap.innerHTML=""; wrap.appendChild(svg);
+}
+
+// =====================================================================
+// TAB 3: NPV
+// =====================================================================
+var NPV_DEFAULTS = { "npv-c0":50000, "npv-r":8, "npv-n":"5", cfs:[15000,15000,15000,15000,15000,15000,15000] };
+var cfValues = NPV_DEFAULTS.cfs.slice();
+function buildCfInputs(){
+  var n = +$("#npv-n").value, box = $("#npv-cfs");
+  $$("input", box).forEach(function(inp){ var i=+inp.dataset.i; if (inp.value.trim()!=="") cfValues[i] = inp.value; });
+  var html = "";
+  for (var i=0;i<n;i++){
+    html += '<div class="field"><label for="npv-cf'+i+'">Year '+(i+1)+'</label><div class="affix"><span>$</span><input id="npv-cf'+i+'" data-i="'+i+'" type="number" inputmode="decimal" step="any" value="'+esc(cfValues[i])+'"></div><div class="err" id="npv-cf'+i+'-err"></div></div>';
+  }
+  box.innerHTML = html;
+}
+var npvState = null;
+function updateNPV(){
+  var n = +$("#npv-n").value;
+  var spec = { c0:{id:"npv-c0",min:0,minMsg:"Enter the outlay as a positive amount (or 0)."}, r:{id:"npv-r",min:-99,minExclusive:false,max:100,minMsg:"Rate must be above -100%.",maxMsg:"Enter a rate of 100% or less."} };
+  for (var i=0;i<n;i++) spec["cf"+i] = {id:"npv-cf"+i};
+  var c = collect(spec);
+  $$("#npv-cfs input").forEach(function(inp){ cfValues[+inp.dataset.i] = inp.value; });
+  if (c.bad.length){ showAlert("npv-alert","<strong>Check the inputs.</strong> "+c.bad.map(esc).join(" ")); renderKpis("npv-kpis",""); $("#npv-interp").innerHTML=""; $("#npv-chart").innerHTML=""; npvState=null; return; }
+  showAlert("npv-alert","");
+  var c0 = c.vals.c0, rate = c.vals.r/100, flows = [];
+  for (i=0;i<n;i++) flows.push(c.vals["cf"+i]);
+  var rows = Calc.discountedFlows(rate, c0, flows), npv = Calc.npv(rate, c0, flows);
+  var pb = Calc.payback(c0, flows), dpb = Calc.discountedPayback(rate, c0, flows), ir = Calc.irr(c0, flows);
+  var pvIn = npv + c0;
+  var tbl = '<div class="eq-scroll"><table><thead><tr><th>Year</th><th>Cash flow</th><th>Factor 1/(1+r)<sup>t</sup></th><th>Present value</th></tr></thead><tbody>'+
+    rows.map(function(rw){ return '<tr><td>'+rw.t+'</td><td>'+money(rw.cf)+'</td><td>'+(rw.t===0?"1.000000":rw.factor.toFixed(6))+'</td><td>'+money(rw.pv)+'</td></tr>'; }).join("")+
+    '<tr><td><b>NPV</b></td><td></td><td></td><td><b>'+money(npv)+'</b></td></tr></tbody></table></div>';
+  var html = "";
+  html += kpi({label:"Net present value", cls:"hero full", value:money(npv), neg:npv<0, sub:"discounted at "+numT(rate*100,2)+"% a year",
+    math:'<div class="f">NPV = &minus;C<sub>0</sub> + &Sigma; CF<sub>t</sub> &divide; (1 + r)<sup>t</sup>, with r = '+numT(rate,4)+'</div>'+tbl+
+         '<div class="f">PV of inflows '+money(pvIn)+' &minus; outlay '+money(c0)+' = '+money(npv)+'</div>'});
+  // payback math
+  var cum = -c0, pbRows = '<div class="eq-scroll"><table><thead><tr><th>Year</th><th>Cash flow</th><th>Cumulative</th></tr></thead><tbody><tr><td>0</td><td>'+money(-c0)+'</td><td>'+money(-c0)+'</td></tr>';
+  flows.forEach(function(cf,k){ cum += cf; pbRows += '<tr><td>'+(k+1)+'</td><td>'+money(cf)+'</td><td>'+money(cum)+'</td></tr>'; });
+  pbRows += '</tbody></table></div>';
+  var pbExplain = "";
+  if (pb===null) pbExplain = '<div>The cumulative cash flow never turns positive within '+n+' years, so the outlay is not recovered.</div>';
+  else if (pb===0) pbExplain = '<div>No upfront outlay, so payback is immediate.</div>';
+  else {
+    var yrBefore = Math.floor(pb + 1e-9); if (Math.abs(pb - Math.round(pb))<1e-9) yrBefore = Math.round(pb)-1;
+    var cumBefore = -c0; for (var k=0;k<yrBefore;k++) cumBefore += flows[k];
+    pbExplain = '<div class="f">Payback = years before full recovery + unrecovered amount &divide; cash flow in the recovery year</div>'+
+      '<div>= '+yrBefore+' + '+money(-cumBefore)+' &divide; '+money(flows[yrBefore])+' = <b>'+numT(pb,2)+' years</b></div>';
+  }
+  html += kpi({label:"Simple payback", cls:"widen", value:pb===null?"Not recovered":numT(pb,2)+" years", neg:pb===null, sub:"discounted payback: "+(dpb===null?"not within "+n+" years":numT(dpb,2)+" years"),
+    math:pbRows+pbExplain+'<div class="f">Discounted payback uses the present values from the NPV table instead of raw cash flows'+(dpb===null?'; they never recover the outlay within the project life.':', giving '+numT(dpb,2)+' years.')+'</div>'});
+  var irrMath;
+  if (ir.irr===null){
+    irrMath = '<div>No rate between -99% and 1,000% makes NPV equal zero, so there is no IRR. This happens when inflows never exceed the outlay in total, or all cash flows have the same sign.</div>';
+  } else {
+    var at = Calc.npv(ir.irr, c0, flows);
+    irrMath = '<div class="f">IRR is the rate r that solves: 0 = &minus;C<sub>0</sub> + &Sigma; CF<sub>t</sub> &divide; (1 + r)<sup>t</sup></div>'+
+      '<div class="f">There is no algebraic formula for 3 or more periods, so the lab solves it numerically by bisection: start with a low and a high rate that give NPVs of opposite sign, test the midpoint, keep the half that still brackets zero, and repeat until the bracket is tiny.</div>'+
+      '<div>NPV at '+numT(rate*100,2)+'% = '+money(npv)+'</div>'+
+      '<div>NPV at '+num(ir.irr*100,4)+'% = '+money(Math.abs(at)<0.005?0:at)+'</div>'+
+      '<div>IRR = <b>'+num(ir.irr*100,2)+'%</b>, compared with the required return of '+numT(rate*100,2)+'%.</div>'+
+      (ir.signChanges>1?'<div>These cash flows change sign '+ir.signChanges+' times, so more than one IRR may exist. Rely on NPV.</div>':'');
+  }
+  html += kpi({label:"Internal rate of return", cls:"good", value:ir.irr===null?"None":num(ir.irr*100,2)+"%", neg:ir.irr!==null && ir.irr<rate, sub:ir.irr===null?"NPV never reaches zero":"vs "+numT(rate*100,2)+"% required return", math:irrMath});
+  html += kpi({label:"Profitability index", value:c0>0?num(pvIn/c0,2):"n/a", neg:c0>0 && pvIn/c0<1, sub:"PV of inflows per $1 invested",
+    math:c0>0?'<div class="f">PI = PV of inflows &divide; upfront cost</div><div>= '+money(pvIn)+' &divide; '+money(c0)+' = <b>'+num(pvIn/c0,4)+'</b></div><div class="f">PI above 1 is the same signal as NPV above $0.</div>':'<div>No upfront cost, so the index is undefined.</div>'});
+  renderKpis("npv-kpis", html);
+  var ip = $("#npv-interp");
+  var accept = npv > 0.005;
+  ip.className = "card interp "+(accept?"":(Math.abs(npv)<=0.005?"warn":"bad"));
+  ip.innerHTML = '<h3>Decision signal</h3><p style="margin:0"><span class="badge '+(accept?"good":(Math.abs(npv)<=0.005?"warn":"bad"))+'">'+(accept?"Invest":(Math.abs(npv)<=0.005?"Indifferent":"Do not invest"))+'</span>'+
+    (accept ? "At a required return of "+numT(rate*100,2)+"% the equipment creates "+money(npv,0)+" of value in today's dollars"+(ir.irr!==null?", and its IRR of "+num(ir.irr*100,2)+"% clears the hurdle rate":"")+"."
+            : (Math.abs(npv)<=0.005 ? "The project earns exactly the required return. Non-financial factors should decide." : "The cash flows do not earn the "+numT(rate*100,2)+"% required return; the studio would be "+money(-npv,0)+" worse off in today's dollars"+(pb!==null?", even though the simple payback of "+numT(pb,2)+" years looks acceptable":"")+"."))+
+    '</p>';
+  npvState = { rows:rows, npv:npv, rate:rate };
+  drawNPV();
+}
+function drawNPV(){
+  var wrap = $("#npv-chart"); if (!npvState){ wrap.innerHTML=""; return; }
+  var rows = npvState.rows;
+  var W = Math.max(280, wrap.clientWidth||600), small = W<560, H = small?290:340;
+  var m = {l: small?52:66, r: small?16:24, t:24, b:40}, iw = W-m.l-m.r, ih = H-m.t-m.b;
+  var vals = []; rows.forEach(function(r){ vals.push(r.pv, r.cum); }); vals.push(0);
+  var hi = Math.max.apply(null, vals), lo = Math.min.apply(null, vals);
+  var span = hi-lo || 1, step = niceStep(span, 5);
+  hi = Math.ceil(hi/step - 1e-9)*step; lo = Math.floor(lo/step + 1e-9)*step; if (hi===lo) hi = lo+step;
+  var Y = function(v){ return m.t + (hi - v)/(hi-lo)*ih; };
+  var band = iw/rows.length, bw = Math.min(56, band*0.58);
+  var XC = function(i){ return m.l + band*i + band/2; };
+  var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H,width:W,height:H});
+  ticks(lo,hi,5).forEach(function(v){
+    svg.appendChild(svgEl("line",{x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v),stroke:Math.abs(v)<1e-9?"#8f887a":C.grid,"stroke-width":Math.abs(v)<1e-9?1.5:1}));
+    svg.appendChild(svgEl("text",{x:m.l-8,y:Y(v)+4,"text-anchor":"end","font-size":small?10:11.5,fill:C.muted},shortMoney(v)));
+  });
+  svg.appendChild(svgEl("text",{x:m.l+iw/2,y:H-6,"text-anchor":"middle","font-size":12,fill:C.muted},"Year"));
+  var tip = document.createElement("div"); tip.className="tip";
+  var groups = [];
+  rows.forEach(function(r,i){
+    var cx = XC(i), x0 = cx-bw/2, y0 = Y(0), y1 = Y(r.pv), h = Math.abs(y1-y0), rr = Math.min(4,h/2), pos = r.pv>=0;
+    var g = svgEl("g",{tabindex:0,role:"img","aria-label":"Year "+r.t+": cash flow "+money(r.cf,0)+", present value "+money(r.pv,0)+", cumulative NPV "+money(r.cum,0)});
+    g.style.cursor="default"; g.style.outline="none";
+    g.appendChild(svgEl("rect",{x:cx-band/2,y:m.t,width:band,height:ih,fill:"transparent"}));
+    var ring = svgEl("rect",{x:x0-4,y:Math.min(y0,y1)-4,width:bw+8,height:h+8,rx:6,fill:"none",stroke:C.gold,"stroke-width":2,style:"display:none"});
+    g.appendChild(ring);
+    var d = pos
+      ? "M"+x0+","+y0+" V"+(y1+rr)+" Q"+x0+","+y1+" "+(x0+rr)+","+y1+" H"+(x0+bw-rr)+" Q"+(x0+bw)+","+y1+" "+(x0+bw)+","+(y1+rr)+" V"+y0+" Z"
+      : "M"+x0+","+y0+" V"+(y1-rr)+" Q"+x0+","+y1+" "+(x0+rr)+","+y1+" H"+(x0+bw-rr)+" Q"+(x0+bw)+","+y1+" "+(x0+bw)+","+(y1-rr)+" V"+y0+" Z";
+    if (h>0.5) g.appendChild(svgEl("path",{d:d,fill:pos?C.sage:C.low}));
+    svg.appendChild(svgEl("text",{x:cx,y:H-22,"text-anchor":"middle","font-size":small?10.5:11.5,fill:C.muted},String(r.t)));
+    svg.appendChild(g); groups.push({g:g, r:r, ring:ring, cx:cx});
+  });
+  // cumulative line
+  var pts = rows.map(function(r,i){ return XC(i)+","+Y(r.cum); }).join(" ");
+  svg.appendChild(svgEl("polyline",{points:pts,fill:"none",stroke:C.navy,"stroke-width":2,"stroke-linejoin":"round",style:"pointer-events:none"}));
+  rows.forEach(function(r,i){ svg.appendChild(svgEl("circle",{cx:XC(i),cy:Y(r.cum),r:4.5,fill:C.navy,stroke:"#fff","stroke-width":2,style:"pointer-events:none"})); });
+  var last = rows[rows.length-1], lx = XC(rows.length-1), ly = Y(last.cum);
+  svg.appendChild(svgEl("text",{x:lx,y:ly + (ly-m.t<26?18:-12),"text-anchor":rows.length===1?"middle":"end","font-size":12,"font-weight":700,fill:C.navy,stroke:"#fff","stroke-width":4,"paint-order":"stroke",style:"pointer-events:none"},"NPV "+money(last.cum,0)));
+  wrap.innerHTML=""; wrap.appendChild(svg); wrap.appendChild(tip);
+  groups.forEach(function(o){
+    function on(){
+      groups.forEach(function(x){ x.ring.style.display="none"; }); o.ring.style.display="";
+      tip.innerHTML = "<b>Year "+o.r.t+"</b><br>Cash flow: "+money(o.r.cf,0)+"<br>Discount factor: "+o.r.factor.toFixed(4)+"<br>Present value: "+money(o.r.pv,0)+"<br>Cumulative NPV: "+money(o.r.cum,0);
+      tip.classList.add("on");
+      var scale = wrap.clientWidth/W, tw = tip.offsetWidth, left = o.cx*scale + 14;
+      if (left + tw > wrap.clientWidth) left = o.cx*scale - tw - 14;
+      tip.style.left = Math.max(0,left)+"px"; tip.style.top = (m.t*scale)+"px";
+    }
+    function off(){ o.ring.style.display="none"; tip.classList.remove("on"); }
+    o.g.addEventListener("pointerenter",on); o.g.addEventListener("pointerleave",off);
+    o.g.addEventListener("focus",on); o.g.addEventListener("blur",off);
+  });
+}
+
+// =====================================================================
+// Try this prompts
+// =====================================================================
+var TRY = {
+  cvp:[
+    {q:"What happens to break-even if rent rises and fixed costs go up 10%?", set:{"cvp-fc":39600}, notice:"Fixed costs rise from $36,000 to $39,600. Break-even climbs 10% too, from 600 to 660 visits, because break-even is proportional to fixed costs when the contribution margin does not change. The margin of safety at 900 visits shrinks from 300 to 240."},
+    {q:"The owner wants to run a promotion at $70 per visit. How many more visits does the studio need just to break even?", set:{"cvp-price":70}, notice:"The contribution margin drops from $60 to $50, a 17% cut, but break-even jumps from 600 to 720 visits, a 20% increase. A price cut hits contribution harder than it hits price because variable cost per visit stays at $20. Ask whether the promotion will really bring 120 extra visits a month."},
+    {q:"A new linen and supplies contract cuts variable cost to $15 per visit. What happens to break-even and operating leverage?", set:{"cvp-vc":15}, notice:"CM rises to $65 and break-even falls to 553.8 visits, which must round up to 554. Operating income at 900 visits rises to $22,500 and DOL falls from 3.00 to 2.60, so profits become a little less sensitive to swings in volume."}
+  ],
+  price:[
+    {q:"What if membership churn rises from 8% to 12% a month?", set:{"pr-mc":12}, notice:"Expected member lifetime falls from 12.5 to 8.3 months and CLV drops from $1,013 to $675. CLV:CAC falls from about 5.1:1 to 3.4:1: still healthy, but the margin for error is much thinner. Churn sits in the denominator, so small changes move CLV a lot."},
+    {q:"Members love the program and start visiting 12 times a month instead of 8. Is that good news?", set:{"pr-mv":12}, notice:"Revenue per member stays at $129, but variable cost rises to $72, so monthly contribution falls from $81 to $57 and CLV from $1,013 to $713. Heavy use is only good news if it lowers churn. Look at the usage ceiling card: at 21.5 visits a member contributes nothing."},
+    {q:"The studio switches to paid social ads and CAC doubles to $400. Which option still makes sense?", set:{"pr-cac":400}, notice:"Drop-in CLV:CAC falls to about 0.71:1, meaning every drop-in client acquired this way loses money. Membership falls to about 2.5:1, below the 3:1 benchmark. A higher CAC argues for steering new clients into memberships, or finding cheaper acquisition channels such as referrals."}
+  ],
+  npv:[
+    {q:"The owner's lender raises the cost of capital. What happens at a 12% discount rate?", set:{"npv-r":12}, notice:"NPV falls from $9,891 to $4,072 but stays positive. IRR does not change (about 15.24%) because it depends only on the cash flows. The project stays acceptable until the discount rate reaches the IRR."},
+    {q:"Suppose the new class ramps up slowly: $5,000, $10,000, $15,000, $20,000 and $25,000. Same $75,000 total. Does the timing matter?", set:{"npv-cfs":[5000,10000,15000,20000,25000]}, notice:"Total cash is identical, but NPV falls from about $9,891 to $6,826 and payback stretches from 3.33 to 4.00 years because more of the cash arrives later, when it is worth less. IRR also drops, to about 12.0%. Timing matters even when totals match."},
+    {q:"What if the equipment wears out after 4 years instead of 5?", set:{"npv-n":"4"}, notice:"Payback is still 3.33 years, so a payback rule would approve it. But NPV turns slightly negative (about -$318) and IRR falls to about 7.71%, below the 8% hurdle. Losing the final year changes the decision. This is the classic weakness of payback: it ignores everything after the cutoff."}
+  ]
+};
+function renderTry(key){
+  var box = document.getElementById("try-"+key);
+  box.innerHTML = '<h3>Try this</h3><p style="color:var(--muted);font-size:.9rem;margin-top:-4px">Each scenario starts from the default inputs. Predict the result first, then load it and compare.</p><ol>'+
+    TRY[key].map(function(t,i){ return '<li><div class="q">'+t.q+'</div><div class="row"><button type="button" class="btn small" data-try="'+key+':'+i+'">Load this scenario</button><details><summary>What to notice</summary><p>'+t.notice+'</p></details></div></li>'; }).join("")+'</ol>';
+}
+function resetTab(key){
+  if (key==="cvp") Object.keys(CVP_DEFAULTS).forEach(function(id){ document.getElementById(id).value = CVP_DEFAULTS[id]; });
+  if (key==="price") Object.keys(PR_DEFAULTS).forEach(function(id){ document.getElementById(id).value = PR_DEFAULTS[id]; });
+  if (key==="npv"){ $("#npv-c0").value = NPV_DEFAULTS["npv-c0"]; $("#npv-r").value = NPV_DEFAULTS["npv-r"]; $("#npv-n").value = NPV_DEFAULTS["npv-n"]; cfValues = NPV_DEFAULTS.cfs.slice(); $("#npv-cfs").innerHTML=""; buildCfInputs(); }
+}
+var UPDATE = { cvp:updateCVP, price:updatePricing, npv:updateNPV };
+function loadTry(key, i){
+  var t = TRY[key][i]; resetTab(key);
+  Object.keys(t.set).forEach(function(id){
+    if (id==="npv-cfs"){ var arr = t.set[id]; $("#npv-n").value = String(arr.length); arr.forEach(function(v,k){ cfValues[k]=v; }); $("#npv-cfs").innerHTML=""; buildCfInputs(); }
+    else { document.getElementById(id).value = t.set[id]; if (id==="npv-n") buildCfInputs(); }
+  });
+  UPDATE[key]();
+  var form = document.getElementById("form-"+key);
+  form.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth", block:"start"});
+}
+
+// =====================================================================
+// Tabs (WAI-ARIA pattern, automatic activation)
+// =====================================================================
+var tabs = $$('[role="tab"]');
+function selectTab(tab, focus){
+  tabs.forEach(function(t){
+    var on = t===tab; t.setAttribute("aria-selected", on?"true":"false"); t.tabIndex = on?0:-1;
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  if (focus) tab.focus();
+  redrawAll();
+}
+tabs.forEach(function(t,i){
+  t.addEventListener("click", function(){ selectTab(t,false); });
+  t.addEventListener("keydown", function(e){
+    var k = e.key, j = null;
+    if (k==="ArrowRight") j=(i+1)%tabs.length; else if (k==="ArrowLeft") j=(i-1+tabs.length)%tabs.length; else if (k==="Home") j=0; else if (k==="End") j=tabs.length-1;
+    if (j!==null){ e.preventDefault(); selectTab(tabs[j], true); }
+  });
+});
+
+function redrawAll(){ drawCVP(); drawPricing(); drawNPV(); }
+
+// wire up
+$("#form-cvp").addEventListener("input", updateCVP);
+$("#form-price").addEventListener("input", updatePricing);
+$("#form-npv").addEventListener("input", function(e){ if (e.target.id!=="npv-n") updateNPV(); });
+$("#npv-n").addEventListener("change", function(){ buildCfInputs(); updateNPV(); });
+$("#npv-fill").addEventListener("click", function(){ var v = $("#npv-cf0").value; $$("#npv-cfs input").forEach(function(inp){ inp.value = v; }); cfValues = cfValues.map(function(){ return v; }); updateNPV(); });
+document.addEventListener("click", function(e){
+  var r = e.target.closest("[data-reset]"); if (r){ resetTab(r.dataset.reset); UPDATE[r.dataset.reset](); return; }
+  var t = e.target.closest("[data-try]"); if (t){ var parts = t.dataset.try.split(":"); loadTry(parts[0], +parts[1]); }
+});
+["cvp","price","npv"].forEach(renderTry);
+buildCfInputs();
+updateCVP(); updatePricing(); updateNPV();
+var rt; window.addEventListener("resize", function(){ clearTimeout(rt); rt = setTimeout(redrawAll, 120); });
+})();
+</script>
+</body>
+</html>

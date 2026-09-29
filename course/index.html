@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positive Leadership Course</title>
+<meta name="description" content="Sample 10-week online graduate MBA course in Positive Leadership and Organizational Behavior: outcomes, assessment plan, weekly map, instructor presence, accessibility and AI guidance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14213D; --navy-2:#1f3160; --gold:#C9A227; --gold-soft:#f3e9c6; --sage:#6B8F71; --sage-soft:#e3ece4;
+  --paper:#F7F5F0; --card:#ffffff; --ink:#1d232b; --muted:#555f6b; --line:#dcd7cb;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;overflow-x:hidden}
+a{color:var(--navy-2);text-decoration-color:var(--gold);text-underline-offset:3px;text-decoration-thickness:2px}
+a:hover{color:var(--navy)}
+a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--navy);padding:.5rem 1rem;z-index:10;font-weight:600}
+.skip:focus{left:16px;top:8px}
+.topbar{background:var(--navy);color:#fff}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-top:.7rem;padding-bottom:.7rem;flex-wrap:wrap}
+.topbar a{color:#fff;text-decoration:none;font-weight:500;font-size:.95rem}
+.topbar a:hover{text-decoration:underline;text-decoration-color:var(--gold)}
+.topbar .crumbs{font-size:.85rem;color:#c8cfdd}
+.wrap{max-width:1040px;margin:0 auto;padding-left:16px;padding-right:16px}
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:3rem 0 3.25rem;border-bottom:5px solid var(--gold)}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 .6rem}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--navy);line-height:1.25;font-weight:600}
+.hero h1{color:#fff;font-size:clamp(2rem,5vw,3rem);margin:0 0 .8rem;max-width:22ch}
+.hero p.lede{font-size:1.12rem;max-width:62ch;color:#e6e9f0;margin:0 0 1.5rem}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:0;list-style:none}
+.facts li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.3rem .85rem;font-size:.88rem}
+main{padding:2.5rem 0 3rem}
+section{margin:0 0 3rem}
+h2{font-size:clamp(1.5rem,3.2vw,1.9rem);margin:0 0 1rem;padding-bottom:.45rem;border-bottom:2px solid var(--line);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-2px;width:64px;height:2px;background:var(--gold)}
+h3{font-size:1.25rem;margin:1.6rem 0 .5rem}
+p{margin:0 0 1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.25rem 1.4rem;box-shadow:0 1px 2px rgba(20,33,61,.05)}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.callout{background:var(--gold-soft);border-left:5px solid var(--gold);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0}
+.callout.sage{background:var(--sage-soft);border-left-color:var(--sage)}
+.btn{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;padding:.6rem 1.1rem;border-radius:8px;font-weight:600;font-size:.95rem;border:2px solid var(--navy)}
+.btn:hover{background:var(--navy-2);color:#fff}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.gold:hover{background:#b8931f;color:var(--navy)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem}
+/* outcomes */
+ol.clo{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
+ol.clo li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem .9rem 4.4rem;position:relative}
+ol.clo .tag{position:absolute;left:.9rem;top:.95rem;background:var(--navy);color:#fff;font-weight:700;font-size:.78rem;border-radius:6px;padding:.2rem .45rem;letter-spacing:.03em}
+ol.clo b{color:var(--navy)}
+/* table */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:.7rem .85rem;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--navy);color:#fff;font-weight:600}
+tbody tr:nth-child(even){background:#fbfaf6}
+tfoot td{font-weight:700;background:var(--gold-soft)}
+td.num,th.num{text-align:right;white-space:nowrap}
+.bar{height:8px;background:#ece8dd;border-radius:6px;margin-top:.35rem;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--sage)}
+/* week cards */
+.weeks{display:grid;gap:.75rem}
+details.week{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details.week[open]{box-shadow:0 4px 16px rgba(20,33,61,.08)}
+details.week summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:1rem;padding:1rem 1.1rem}
+details.week summary::-webkit-details-marker{display:none}
+.wk{flex:0 0 auto;width:3.1rem;height:3.1rem;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;line-height:1}
+.wk small{font-size:.6rem;letter-spacing:.1em;font-weight:600;color:var(--gold);margin-bottom:.2rem}
+.wk.sample{background:var(--gold);color:var(--navy)}
+.wk.sample small{color:var(--navy)}
+.sum-text{flex:1;min-width:0}
+.sum-text strong{display:block;font-family:var(--serif);font-size:1.1rem;color:var(--navy);line-height:1.3}
+.sum-text span{font-size:.86rem;color:var(--muted)}
+.chev{flex:0 0 auto;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--line);position:relative;transition:transform .2s}
+.chev::before{content:"";position:absolute;left:50%;top:45%;width:7px;height:7px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:translate(-50%,-50%) rotate(45deg)}
+details[open] .chev{transform:rotate(180deg)}
+.week-body{padding:0 1.1rem 1.1rem;border-top:1px solid var(--line)}
+.week-body dl{display:grid;grid-template-columns:9.5rem 1fr;gap:.55rem 1rem;margin:1rem 0 0}
+.week-body dt{font-weight:600;color:var(--navy);font-size:.9rem}
+.week-body dd{margin:0}
+.week-body ul{margin:0;padding-left:1.1rem}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:.15rem .55rem;border-radius:999px;background:var(--sage-soft);color:#2f4a34;margin:0 .25rem .25rem 0;border:1px solid #c6d6c8}
+.pill.gold{background:var(--gold-soft);color:#5b4708;border-color:#e4d59c}
+.pill.navy{background:#e4e8f1;color:var(--navy);border-color:#c9d0e0}
+ul.clean{padding-left:1.2rem;margin:0 0 1rem}
+ul.clean li{margin-bottom:.4rem}
+.legend{font-size:.9rem;color:var(--muted);margin-bottom:1rem}
+footer{background:var(--navy);color:#d4d9e4;padding:1.6rem 0;font-size:.92rem;border-top:4px solid var(--gold)}
+footer p{margin:0}
+@media (max-width:600px){
+  body{font-size:16px}
+  .hero{padding:2.2rem 0 2.4rem}
+  .week-body dl{grid-template-columns:1fr;gap:.15rem}
+  .week-body dd{margin-bottom:.6rem}
+  ol.clo li{padding-left:1rem;padding-top:2.6rem}
+  th,td{padding:.55rem .6rem}
+  .card{padding:1rem}
+  table.assess thead{position:absolute;left:-9999px}
+  table.assess,table.assess tbody,table.assess tfoot,table.assess tr{display:block;width:100%}
+  table.assess tbody tr{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line);padding:.75rem .8rem}
+  table.assess tbody th,table.assess tbody td{border:0;padding:0}
+  table.assess tbody th{grid-column:1;font-family:var(--serif);font-size:1.05rem;color:var(--navy)}
+  table.assess tbody td.num{grid-column:2;grid-row:1;font-weight:700;color:var(--navy)}
+  table.assess tbody td:nth-of-type(1){grid-column:1 / -1;margin-top:.3rem}
+  table.assess tbody td:nth-of-type(2){grid-column:1 / -1;font-size:.85rem;color:var(--muted);margin-top:.3rem}
+  table.assess tbody td:nth-of-type(2)::before{content:"Outcomes: "}
+  table.assess tfoot tr{display:flex;justify-content:space-between;background:var(--gold-soft)}
+  table.assess tfoot td{border:0}
+  table.assess caption{display:block}
+}
+@media print{details.week{break-inside:avoid}.topbar,.btnrow{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar"><div class="wrap">
+  <a href="../index.html">&larr; Portfolio home</a>
+  <span class="crumbs">Sample graduate course</span>
+</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Sample graduate MBA course</p>
+    <h1>Positive Leadership &amp; Organizational Behavior</h1>
+    <p class="lede">An evidence-based course for working professionals who lead people in clinics, studios, gyms, wellness programs, sport organizations and small businesses. We pair the core science of organizational behavior with positive psychology, so you can build teams where people do excellent work and want to stay.</p>
+    <ul class="facts" aria-label="Course facts">
+      <li>100% online</li>
+      <li>Asynchronous, optional live sessions</li>
+      <li>10-week quarter</li>
+      <li>5 quarter credit hours</li>
+      <li>Graduate level</li>
+    </ul>
+    <div class="btnrow">
+      <a class="btn gold" href="week3.html">Open the fully built sample: Week 3</a>
+      <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.5)" href="#map">Jump to the 10-week map</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+<section aria-labelledby="desc">
+  <h2 id="desc">Course description</h2>
+  <p>Most leaders are promoted because they were good at the work, not because anyone taught them how people and groups actually behave. This course closes that gap. We study the established research of organizational behavior (motivation, personality, teams, culture, power and change) and read it alongside positive psychology and positive organizational scholarship, which ask a different question: not only what goes wrong at work, but what makes people and organizations flourish.</p>
+  <p>Across ten weeks you will work with Herzberg's two-factor theory, self-determination theory, expectancy theory, Seligman's PERMA model, character strengths, Cameron's positive leadership strategies, Edmondson's research on psychological safety, servant and transformational leadership, Tuckman's model of team development, Schein's levels of culture and Kotter's model of leading change. Every idea is tested against your own workplace. The course ends with a Leading Change Plan written for your own organization or one you know well, and a strengths-based reflection on who you are becoming as a leader.</p>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">Who this course is for</h3>
+      <p style="margin:0">Working professionals in health, wellness, fitness, sport and small business: clinic directors, practice owners, head coaches, studio managers, program leads and anyone moving from expert contributor to leader of others.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">How a week works</h3>
+      <p style="margin:0">Each week opens Monday with a short video and lecture, readings, a self-check and a discussion. Initial discussion posts are due Thursday; replies and the applied memo are due Sunday at 11:59 pm in the course time zone.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="clos">
+  <h2 id="clos">Course learning outcomes</h2>
+  <p>By the end of the course you will be able to:</p>
+  <ol class="clo">
+    <li><span class="tag">CLO 1</span><b>Analyze</b> individual and group behavior in a real workplace using evidence-based theories of motivation, personality, perception and engagement.</li>
+    <li><span class="tag">CLO 2</span><b>Apply</b> positive psychology and positive leadership practices, including PERMA, character strengths and strengths-based feedback, to design interventions that support both wellbeing and performance.</li>
+    <li><span class="tag">CLO 3</span><b>Assess</b> team development and psychological safety, and <b>construct</b> team agreements that improve collaboration and learning.</li>
+    <li><span class="tag">CLO 4</span><b>Evaluate</b> servant, transformational, ethical and purpose-driven leadership approaches, and justify which fits a given situation, including decisions that involve data and limited resources.</li>
+    <li><span class="tag">CLO 5</span><b>Diagnose</b> organizational culture using Schein's levels and <b>design</b> a staged change plan informed by Kotter's model and the course's positive leadership practices.</li>
+    <li><span class="tag">CLO 6</span><b>Formulate</b> a personal leadership development plan grounded in assessed strengths, feedback and reflection.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="assess">
+  <h2 id="assess">Assessment plan</h2>
+  <p>Grades come from steady weekly work and three larger projects. Every assessment has a published rubric, and each one maps to the outcomes above.</p>
+  <div class="table-wrap">
+  <table class="assess">
+    <caption class="legend" style="caption-side:bottom;text-align:left;padding:.7rem .85rem">Weights total 100%. Letter grades follow the standard graduate scale in the syllabus.</caption>
+    <thead><tr><th scope="col">Assessment</th><th scope="col">What it involves</th><th scope="col">Outcomes</th><th scope="col" class="num">Weight</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Discussions</th><td>Weekly forum (weeks 1 to 9). Initial post plus two substantive replies.<div class="bar" aria-hidden="true"><span style="width:15%"></span></div></td><td>CLO 1 to 4</td><td class="num">15%</td></tr>
+      <tr><th scope="row">Weekly applied memos</th><td>Six short memos (weeks 2, 3, 4, 6, 7, 9), 600 to 900 words each, applying the week's theory to a workplace problem. Lowest score dropped.<div class="bar" aria-hidden="true"><span style="width:20%"></span></div></td><td>CLO 1, 2, 4</td><td class="num">20%</td></tr>
+      <tr><th scope="row">Leadership case simulation debrief</th><td>Play the Summit Wellness case at least twice, then submit a structured debrief comparing your decision paths.<div class="bar" aria-hidden="true"><span style="width:10%"></span></div></td><td>CLO 2, 4, 5</td><td class="num">10%</td></tr>
+      <tr><th scope="row">Team charter project</th><td>In teams of three or four: a team charter (week 5) and a team process review with peer feedback (week 7).<div class="bar" aria-hidden="true"><span style="width:15%"></span></div></td><td>CLO 3</td><td class="num">15%</td></tr>
+      <tr><th scope="row">Final project: Leading Change Plan</th><td>A change plan for your own organization: culture diagnosis, stakeholder map, staged plan, measures and a five-minute recorded briefing. Proposal due week 6, final due week 10.<div class="bar" aria-hidden="true"><span style="width:30%"></span></div></td><td>CLO 1, 4, 5</td><td class="num">30%</td></tr>
+      <tr><th scope="row">Strengths-based reflection</th><td>A reflective essay built from a strengths assessment, feedback you gather from colleagues and your weekly journal, ending in a development plan.<div class="bar" aria-hidden="true"><span style="width:10%"></span></div></td><td>CLO 2, 6</td><td class="num">10%</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="3">Total</td><td class="num">100%</td></tr></tfoot>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="map">
+  <h2 id="map">10-week quarter map</h2>
+  <p class="legend">Select a week to expand it, then open its full week page. Week 3 is the original fully built sample. Every week ends with a round of <a href="../boardroom-chase.html">The Boardroom Chase</a>, a quiz-show review game (choose Unit 1 for this course).</p>
+  <div class="weeks">
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>1</span><span class="sum-text"><strong>The Positive Lens on Organizational Behavior</strong><span>What OB studies, and what changes when we also ask what goes right</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Levels of analysis in OB (individual, group, organization); evidence-based management; positive organizational scholarship and the idea of positive deviance.</dd>
+        <dt>Key readings</dt><dd><ul><li>An introductory OB text chapter on the field and its levels of analysis</li><li>Cameron, Dutton and Quinn on positive organizational scholarship</li><li>Seligman and Csikszentmihalyi on the aims of positive psychology</li></ul></dd>
+        <dt>Activity</dt><dd>Introduce yourself with a "best self at work" story: one moment you were at your best as a leader and what conditions made it possible.</dd>
+        <dt>Deliverable</dt><dd>Discussion post and replies. Take a character strengths assessment and save your results for the reflection project.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 1</span><span class="pill navy">CLO 6</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week1.html">Open Week 1</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>2</span><span class="sum-text"><strong>Individual Differences, Strengths and Self-Awareness</strong><span>Personality, perception, emotions and character strengths</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>The Big Five personality traits; perception and attribution errors; emotional intelligence and its limits; character strengths as a language for what is best in people.</dd>
+        <dt>Key readings</dt><dd><ul><li>Research summaries on the Big Five and job performance</li><li>Peterson and Seligman on the classification of character strengths and virtues</li><li>Goleman on emotional intelligence, read alongside a critical review of the evidence</li></ul></dd>
+        <dt>Activity</dt><dd>Compare your strengths profile with how two colleagues describe you at your best (a short "reflected best self" request).</dd>
+        <dt>Deliverable</dt><dd>Applied memo 1: an attribution error you have seen in performance conversations and how you would correct it.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 1</span><span class="pill navy">CLO 6</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week2.html">Open Week 2</a></div>
+      </div>
+    </details>
+
+    <details class="week" open>
+      <summary><span class="wk sample"><small>WEEK</small>3</span><span class="sum-text"><strong>Motivation, Engagement and the Science of Flourishing</strong><span>Fully built sample week</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Herzberg's hygiene factors and motivators; self-determination theory (autonomy, competence, relatedness); Vroom's expectancy theory; Seligman's PERMA model; strengths-based feedback.</dd>
+        <dt>Key readings</dt><dd><ul><li>Herzberg on hygiene factors versus motivators</li><li>Deci and Ryan on self-determination theory</li><li>Vroom on expectancy, instrumentality and valence</li><li>Seligman on PERMA and flourishing</li><li>Buckingham and Goodall on why strengths-focused feedback works better than fault-finding</li></ul></dd>
+        <dt>Activity</dt><dd>Short lecture with diagram, five-question self-check, and a discussion on a motivation problem from your own workplace.</dd>
+        <dt>Deliverable</dt><dd>Applied memo 2: an engagement diagnosis and two evidence-based interventions.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 1</span><span class="pill navy">CLO 2</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week3.html">Open Week 3</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>4</span><span class="sum-text"><strong>Psychological Safety, Trust and Voice</strong><span>Why people speak up, and why they stay quiet</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Psychological safety and team learning; voice and silence; trust; Cameron's positive communication and supportive feedback; safety in clinical and high-accountability settings.</dd>
+        <dt>Key readings</dt><dd><ul><li>Edmondson on psychological safety and learning behavior in work teams</li><li>Cameron on positive climate and positive communication</li><li>A case summary of research on speaking up in health care teams</li></ul></dd>
+        <dt>Activity</dt><dd>Use a short team climate survey (adapted from Edmondson's published items) with a team you lead or belong to, and interpret the results.</dd>
+        <dt>Deliverable</dt><dd>Applied memo 3: three leader behaviors you will practice to raise psychological safety, with how you will know it is working.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 2</span><span class="pill navy">CLO 3</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week4.html">Open Week 4</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>5</span><span class="sum-text"><strong>Teams That Work: Development, Roles and Conflict</strong><span>Team charter project launches</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Tuckman's stages (forming, storming, norming, performing, and later adjourning); Hackman's conditions for team effectiveness; task versus relationship conflict; virtual and hybrid teams.</dd>
+        <dt>Key readings</dt><dd><ul><li>Tuckman on developmental sequence in small groups, with Tuckman and Jensen's later adjourning stage</li><li>Hackman on the enabling conditions for effective teams</li><li>Research summaries on constructive conflict</li></ul></dd>
+        <dt>Activity</dt><dd>Live team kickoff (optional session, recorded) and a structured working agreement exercise.</dd>
+        <dt>Deliverable</dt><dd>Team charter: purpose, roles, norms, decision rules, conflict plan and check-in schedule.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 3</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week5.html">Open Week 5</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>6</span><span class="sum-text"><strong>Servant and Transformational Leadership</strong><span>Leading by serving, leading by inspiring</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Greenleaf's servant leadership; Burns and Bass on transformational leadership and the "four I's" (idealized influence, inspirational motivation, intellectual stimulation, individualized consideration); authentic leadership; where each approach fits and where it struggles.</dd>
+        <dt>Key readings</dt><dd><ul><li>Greenleaf on the servant as leader</li><li>Bass on transformational and transactional leadership</li><li>A comparative review of servant and transformational leadership research</li></ul></dd>
+        <dt>Activity</dt><dd>Analyze a leader you admire from sport, health care or small business through both lenses.</dd>
+        <dt>Deliverable</dt><dd>Applied memo 4 and the one-page Leading Change Plan proposal.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 4</span><span class="pill navy">CLO 5</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week6.html">Open Week 6</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>7</span><span class="sum-text"><strong>Organizational Culture and Positive Climate</strong><span>Reading the culture you actually have</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Schein's three levels of culture (artifacts, espoused values, basic underlying assumptions); how leaders embed culture; Cameron's positive practices and positive meaning; culture in founder-led and small organizations.</dd>
+        <dt>Key readings</dt><dd><ul><li>Schein on organizational culture and leadership</li><li>Cameron on positive leadership strategies</li><li>A research summary on culture and employee retention</li></ul></dd>
+        <dt>Activity</dt><dd>Culture walk: document artifacts in your workplace and trace them to the assumptions underneath.</dd>
+        <dt>Deliverable</dt><dd>Applied memo 5 (culture diagnosis) and the team process review with peer feedback.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 3</span><span class="pill navy">CLO 5</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week7.html">Open Week 7</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>8</span><span class="sum-text"><strong>Leading Change</strong><span>Case simulation and debrief</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Kotter's eight steps; resistance as information; Lewin's unfreeze, change, refreeze as background; the role of psychological safety and motivation in sustaining change.</dd>
+        <dt>Key readings</dt><dd><ul><li>Kotter on why transformation efforts fail</li><li>Research on employee responses to change and on resistance as feedback</li><li>A short critique of step models of change</li></ul></dd>
+        <dt>Activity</dt><dd>Play the <a href="../case-simulator.html">Summit Wellness leadership case simulation</a> at least twice and compare paths. Optional live debrief session.</dd>
+        <dt>Deliverable</dt><dd>Leadership case simulation debrief: your two paths, final organizational health scores, and what the theory explains about the outcomes.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 2</span><span class="pill navy">CLO 4</span><span class="pill navy">CLO 5</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week8.html">Open Week 8</a><a class="btn" href="../case-simulator.html">Open the case simulator</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>9</span><span class="sum-text"><strong>Ethics, Purpose and Leading with Data</strong><span>Resource decisions that keep people and mission in view</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Ethical and purpose-driven leadership; fairness and organizational justice; making staffing, pricing and investment decisions with data without losing sight of people; how leaders explain hard trade-offs.</dd>
+        <dt>Key readings</dt><dd><ul><li>Brown and Trevi&ntilde;o on ethical leadership</li><li>Research summaries on organizational justice (distributive, procedural, interactional)</li><li>A reading on purpose-driven organizations and their measurement</li></ul></dd>
+        <dt>Activity</dt><dd>Work through a staffing or capacity scenario in the <a href="../practice-economics.html">Practice Economics Lab</a>, then decide how you would communicate the decision to your team.</dd>
+        <dt>Deliverable</dt><dd>Applied memo 6: a data-informed resource decision, the ethical tensions, and your communication plan.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 4</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Units 1 and 2</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week9.html">Open Week 9</a><a class="btn" href="../practice-economics.html">Open the Practice Economics Lab</a></div>
+      </div>
+    </details>
+
+    <details class="week">
+      <summary><span class="wk"><small>WEEK</small>10</span><span class="sum-text"><strong>Integration: Your Leading Change Plan</strong><span>Final project and strengths-based reflection</span></span><span class="chev" aria-hidden="true"></span></summary>
+      <div class="week-body"><dl>
+        <dt>Topic</dt><dd>Bringing the course together: motivation, safety, teams, culture and change as one system; sustaining your own wellbeing as a leader.</dd>
+        <dt>Key readings</dt><dd><ul><li>Revisit Cameron on positive leadership</li><li>A reading on leader wellbeing and burnout prevention</li></ul></dd>
+        <dt>Activity</dt><dd>Peer review exchange on draft plans early in the week; optional live showcase of recorded briefings.</dd>
+        <dt>Deliverable</dt><dd>Final Leading Change Plan with recorded briefing, and the strengths-based reflection.</dd>
+        <dt>Serves</dt><dd><span class="pill navy">CLO 5</span><span class="pill navy">CLO 6</span></dd>
+        <dt>Review</dt><dd><a href="../boardroom-chase.html">Boardroom Chase, Unit 1 full review</a></dd>
+      </dl>
+      <div class="btnrow"><a class="btn gold" href="week10.html">Open Week 10</a></div>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<section aria-labelledby="presence">
+  <h2 id="presence">Instructor presence</h2>
+  <p>Online learning works best when you can feel the instructor in the room. Here is what you can count on.</p>
+  <div class="grid-2">
+    <div class="card"><h3 style="margin-top:0">Responses within 24 hours</h3><p style="margin:0">Messages and Q&amp;A forum posts get a reply within 24 hours on weekdays. Messages sent over the weekend are answered by Monday afternoon.</p></div>
+    <div class="card"><h3 style="margin-top:0">A weekly video</h3><p style="margin:0">Every Monday, a short video opens the week: what matters, where students usually get stuck, and highlights from last week's discussion.</p></div>
+    <div class="card"><h3 style="margin-top:0">Feedback in 5 days</h3><p style="margin:0">Memos, discussions and projects are returned with rubric scores and written comments within 5 days of the due date, so feedback arrives before the next similar task.</p></div>
+    <div class="card"><h3 style="margin-top:0">Optional live session</h3><p style="margin:0">A 45-minute live session each week for questions, case discussion and team support. It is always recorded, and never required, so working schedules are respected.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="access">
+  <h2 id="access">Accessibility and Universal Design for Learning</h2>
+  <p>The course is designed so that every student can reach the same outcomes by more than one path.</p>
+  <ul class="clean">
+    <li><strong>Multiple means of representation.</strong> Each lecture is available as text and as captioned video, with a transcript. Diagrams carry text descriptions.</li>
+    <li><strong>Multiple means of action and expression.</strong> Applied memos may be submitted as a written memo or as a recorded five-minute briefing with an outline. Both use the same rubric.</li>
+    <li><strong>Multiple means of engagement.</strong> Every assignment asks you to use your own workplace, and you choose the case for your final project.</li>
+    <li><strong>Built to standards.</strong> Pages use real headings, keyboard-reachable controls, visible focus, sufficient color contrast and layouts that work on a phone.</li>
+    <li><strong>Flexibility for working professionals.</strong> Each student may use one 48-hour extension on any weekly memo without explanation. Accommodations through the disability services office are honored in full.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="ai">
+  <h2 id="ai">Using AI tools responsibly</h2>
+  <p>AI tools are part of the modern workplace, and learning to use them with judgment is a leadership skill. In this course:</p>
+  <div class="grid-2">
+    <div class="card" style="border-top:4px solid var(--sage)">
+      <h3 style="margin-top:0">Welcome uses</h3>
+      <ul class="clean" style="margin:0">
+        <li>Brainstorming examples or counterarguments before you write</li>
+        <li>Explaining a theory in another way when a reading is unclear</li>
+        <li>Checking grammar and clarity of text you wrote yourself</li>
+        <li>Practicing a difficult conversation through role play</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--gold)">
+      <h3 style="margin-top:0">Ground rules</h3>
+      <ul class="clean" style="margin:0">
+        <li>Your analysis and reflection must be your own work and your own voice</li>
+        <li>Add a one-line AI use note to any submission where you used a tool, saying what you used it for</li>
+        <li>Verify every factual claim and citation; AI tools can invent sources</li>
+        <li>Never enter patient, client, employee or confidential business information into an AI tool</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout sage"><strong>Why this matters here.</strong> Many of you work under health privacy rules or hold client data. The habit of stripping identifying details before using any outside tool protects the people you serve and your organization.</div>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap"><p>Dr. Akash Garg &middot; Leadership &amp; Management Teaching Portfolio</p></div></footer>
+</body>
+</html>

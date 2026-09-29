@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summit Wellness Case</title>
+<meta name="description" content="An interactive branching leadership case for Positive Leadership and Organizational Behavior.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14213D; --gold:#C9A227; --sage:#6B8F71; --paper:#F7F5F0; --ink:#1d232b;
+  --card:#ffffff; --line:#e4dfd3; --muted:#5b6470; --low:#B5543C;
+  --gold-soft:#f5ecd0; --sage-soft:#e6eee7; --low-soft:#f6e3de; --navy-soft:#e8ebf2;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius:14px; --shadow:0 1px 2px rgba(20,33,61,.06), 0 6px 24px rgba(20,33,61,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:var(--serif);color:var(--navy);line-height:1.25;margin:0 0 .5em}
+p{margin:0 0 1em}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* Header */
+.top{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+.top-inner{max-width:1120px;margin:0 auto;padding:18px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column}
+.brand .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.brand .name{font-family:var(--serif);font-size:1.35rem;font-weight:600}
+.progress-wrap{min-width:200px;flex:0 1 280px}
+.progress-label{font-size:.8rem;color:#cfd5e2;margin-bottom:6px;display:flex;justify-content:space-between}
+.steps{display:flex;gap:6px}
+.steps span{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.18);transition:background .4s}
+.steps span.done{background:var(--gold)}
+.steps span.current{background:#fff}
+
+/* Layout */
+main{max-width:1120px;margin:0 auto;padding:28px 16px 12px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+@media (max-width:860px){main{grid-template-columns:minmax(0,1fr)}.meters{order:-1}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+@media (max-width:560px){.card{padding:20px}}
+
+/* Stage */
+.stage{min-width:0}
+.screen{animation:fadeUp .45s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen,.feedback{animation:none!important}.bar-fill{transition:none!important}}
+.kicker{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:6px}
+.screen h2{font-size:1.7rem}
+.screen h2:focus{outline:none}
+.lede{font-size:1.05rem;color:#333b45}
+.quote{border-left:4px solid var(--gold);background:var(--gold-soft);padding:12px 16px;border-radius:0 10px 10px 0;margin:0 0 1.2em;font-family:var(--serif);font-style:italic;color:var(--navy)}
+.branch-note{display:inline-block;font-size:.78rem;background:var(--navy-soft);color:var(--navy);padding:3px 10px;border-radius:999px;margin-bottom:12px;font-weight:500}
+
+.challenges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+@media (max-width:560px){.challenges{grid-template-columns:minmax(0,1fr)}}
+.challenge{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fcfbf8}
+.challenge strong{display:block;font-family:var(--serif);color:var(--navy);font-size:1.02rem}
+.challenge span{font-size:.9rem;color:var(--muted)}
+.cast{font-size:.92rem;color:var(--muted);margin-bottom:1.4em}
+.cast b{color:var(--ink);font-weight:600}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.opt{all:unset;box-sizing:border-box;display:flex;gap:14px;align-items:flex-start;cursor:pointer;width:100%;padding:16px 18px;border:1.5px solid var(--line);border-radius:12px;background:#fff;transition:border-color .2s, background .2s, transform .15s, box-shadow .2s}
+.opt:hover:not([disabled]){border-color:var(--navy);box-shadow:0 4px 14px rgba(20,33,61,.08);transform:translateY(-1px)}
+.opt:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt .letter{flex:0 0 32px;height:32px;border-radius:50%;background:var(--navy-soft);color:var(--navy);font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--serif)}
+.opt .txt strong{display:block;color:var(--navy);font-weight:600;margin-bottom:2px}
+.opt .txt span{color:var(--muted);font-size:.93rem}
+.opt[disabled]{cursor:default;opacity:.5}
+.opt.chosen{opacity:1;border-color:var(--gold);background:#fffaf0}
+.opt.chosen .letter{background:var(--gold);color:var(--navy)}
+
+/* Feedback */
+.feedback{margin-top:20px;border-radius:12px;padding:18px 20px;border:1px solid var(--line);animation:fadeUp .4s ease both}
+.feedback.good{background:var(--sage-soft);border-color:#c9d9cb}
+.feedback.mixed{background:var(--gold-soft);border-color:#e8d9a6}
+.feedback.bad{background:var(--low-soft);border-color:#ecc7bd}
+.verdict{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+.pill{font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;color:#fff}
+.good .pill{background:var(--sage)} .mixed .pill{background:#9a7a12} .bad .pill{background:var(--low)}
+.concept{font-family:var(--serif);font-weight:600;color:var(--navy);font-size:1.08rem}
+.deltas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.delta{font-size:.8rem;padding:2px 9px;border-radius:6px;background:rgba(255,255,255,.7);border:1px solid rgba(20,33,61,.1)}
+.delta.up{color:#2f5a36} .delta.down{color:#8e3b27}
+.btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:12px 22px;border-radius:10px;background:var(--navy);color:#fff;font-weight:600;transition:background .2s, transform .15s}
+.btn:hover{background:#1f3160;transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn.gold{background:var(--gold);color:var(--navy)}
+.btn.gold:hover{background:#d8b33d}
+.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+
+/* Meters */
+.meters{position:sticky;top:16px}
+@media (max-width:860px){.meters{position:static}}
+.meters h3{font-size:1.1rem;margin-bottom:4px}
+.meters .sub{font-size:.82rem;color:var(--muted);margin-bottom:16px}
+.meter{margin-bottom:16px}
+.meter-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;font-weight:500;margin-bottom:5px}
+.meter-val{font-variant-numeric:tabular-nums;color:var(--navy);font-weight:600;display:flex;gap:6px;align-items:baseline}
+.meter-chg{font-size:.75rem;font-weight:600;opacity:0;transition:opacity .3s}
+.meter-chg.show{opacity:1}
+.meter-chg.up{color:var(--sage)} .meter-chg.down{color:var(--low)}
+.bar{height:12px;border-radius:6px;background:#ece8de;overflow:hidden;position:relative}
+.bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(20,33,61,.15)}
+.bar-fill{height:100%;border-radius:6px;transition:width .8s cubic-bezier(.2,.8,.2,1), background-color .6s}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.74rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.concepts-mini{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.concepts-mini .lbl{font-size:.74rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.78rem;background:var(--navy-soft);color:var(--navy);padding:3px 10px;border-radius:999px}
+.chips .empty{font-size:.8rem;color:var(--muted);font-style:italic}
+
+/* End screen */
+.profile{background:var(--navy);color:#fff;border-radius:12px;padding:22px 24px;margin:6px 0 22px;position:relative;overflow:hidden}
+.profile::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;border:18px solid rgba(201,162,39,.2)}
+.profile .eyebrow{color:var(--gold);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.profile h3{color:#fff;font-size:1.5rem;margin:4px 0 8px}
+.profile p{color:#dde2ec;margin:0;position:relative;z-index:1}
+.score-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 22px}
+@media (max-width:560px){.score-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.score{border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;background:#fcfbf8}
+.score b{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--navy)}
+.score span{font-size:.78rem;color:var(--muted)}
+.section-h{font-size:1.15rem;margin:22px 0 10px}
+.path{list-style:none;padding:0;margin:0;counter-reset:p}
+.path li{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid var(--line);font-size:.94rem}
+.path li:last-child{border-bottom:0}
+.path li::before{counter-increment:p;content:counter(p);position:absolute;left:0;top:10px;width:26px;height:26px;border-radius:50%;background:var(--navy-soft);color:var(--navy);font-weight:600;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.path li .tag{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-left:6px}
+.tag.good{color:var(--sage)} .tag.mixed{color:#9a7a12} .tag.bad{color:var(--low)}
+.path li small{display:block;color:var(--muted)}
+.reflect{padding-left:1.2em;margin:0}
+.reflect li{margin-bottom:10px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+/* Instructor notes */
+.notes-wrap{max-width:1120px;margin:0 auto;padding:12px 16px 8px}
+details.notes{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+details.notes summary{cursor:pointer;list-style:none;padding:16px 22px;font-family:var(--serif);font-weight:600;color:var(--navy);font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;border-radius:var(--radius)}
+details.notes summary::-webkit-details-marker{display:none}
+details.notes summary::after{content:"+";font-family:var(--sans);font-size:1.3rem;color:var(--gold);transition:transform .25s}
+details.notes[open] summary::after{transform:rotate(45deg)}
+.notes-body{padding:0 22px 20px;font-size:.94rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media (max-width:860px){.notes-body{grid-template-columns:minmax(0,1fr)}}
+.notes-body h4{font-family:var(--serif);color:var(--navy);margin:0 0 6px;font-size:1rem}
+.notes-body ul,.notes-body ol{padding-left:1.1em;margin:0}
+.notes-body li{margin-bottom:6px}
+
+footer{max-width:1120px;margin:0 auto;padding:22px 16px 34px;text-align:center;color:var(--muted);font-size:.85rem}
+footer .rule{width:48px;height:2px;background:var(--gold);margin:0 auto 12px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <span class="eyebrow">Positive Leadership &amp; Organizational Behavior</span>
+      <span class="name">Summit Wellness Collective: A Leadership Case</span>
+    </div>
+    <div class="progress-wrap" aria-hidden="false">
+      <div class="progress-label"><span id="progText">Briefing</span><span id="progCount">0 / 5</span></div>
+      <div class="steps" id="steps"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="stage" aria-live="polite">
+    <div class="card" id="stage"></div>
+  </section>
+
+  <aside class="meters card" aria-labelledby="metersTitle">
+    <h3 id="metersTitle">Organizational Health</h3>
+    <div class="sub">Every decision moves these four meters.</div>
+    <div id="meterList"></div>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--low)"></i>At risk</span>
+      <span><i style="background:var(--gold)"></i>Fragile</span>
+      <span><i style="background:var(--sage)"></i>Healthy</span>
+    </div>
+    <div class="concepts-mini">
+      <div class="lbl">Concepts encountered</div>
+      <div class="chips" id="miniChips"><span class="empty">None yet</span></div>
+    </div>
+  </aside>
+</main>
+
+<div class="notes-wrap">
+  <details class="notes">
+    <summary>Instructor notes</summary>
+    <div class="notes-body">
+      <div>
+        <h4>Learning objectives</h4>
+        <ol>
+          <li>Distinguish hygiene factors from motivators (Herzberg) and apply the difference to retention decisions.</li>
+          <li>Explain how psychological safety, transparent communication, and servant leadership build trust during change.</li>
+          <li>Apply Kotter's early change steps (urgency and a guiding coalition) to a real rollout that stalled.</li>
+          <li>Use self-determination theory, strengths-based feedback, and PERMA to design sustainable engagement practices.</li>
+          <li>Evaluate trade-offs among people, patient, and financial outcomes in a single leadership decision.</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Module mapping</h4>
+        <ul>
+          <li><b>Best placed:</b> the module on leading change and positive organizational behavior, after readings on motivation theory and before the change management unit closes.</li>
+          <li><b>Pre-work:</b> short readings on Herzberg's two-factor theory, Edmondson on psychological safety, Kotter's 8 steps, Seligman's PERMA, and Deci and Ryan on self-determination theory.</li>
+          <li><b>Time:</b> 15 to 20 minutes per play. Students should play at least twice and compare paths.</li>
+          <li>Decision 3 changes depending on the student's first move, so classmates will see different scenarios.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Using it as a graded discussion</h4>
+        <ul>
+          <li>Students post their leadership profile, final meter values, and answer the three reflection questions shown on the end screen (250 to 400 words).</li>
+          <li>Require citation of at least two named concepts from the case and one course reading.</li>
+          <li>Replies: respond to a classmate whose path differed from yours and argue which decision mattered most.</li>
+          <li><b>Suggested rubric (20 pts):</b> concept application 8, evidence and citation 4, critical reflection on trade-offs 5, peer engagement 3.</li>
+          <li>Grade the reasoning, not the score. A student who reflects well on a poor path can earn full marks.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</div>
+
+<footer>
+  <div class="rule"></div>
+  Dr. Akash Garg &middot; Leadership &amp; Management Teaching Portfolio
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+var METERS = [
+  {key:"eng",   label:"Team Engagement"},
+  {key:"pe",    label:"Patient Experience"},
+  {key:"fin",   label:"Financial Health"},
+  {key:"trust", label:"Trust in Leadership"}
+];
+var START = {eng:38, pe:55, fin:48, trust:34};
+var STEP_TOTAL = 5;
+
+/* Styles: servant (people-first, participative), directive (top-down, control), transactional (quick fixes, extrinsic levers) */
+var SCENES = {
+  d1: {
+    step:1, kicker:"Decision 1 of 5 · Your first week",
+    title:"Where do you start?",
+    body:function(){return "<p class='lede'>It is Monday of your first week. The scheduling software went live six weeks ago and staff still double-book rooms, patients wait on hold, and the break room has gone quiet. The owners, Drs. Lena and Paul Whitfield, want to see a plan by Friday.</p><div class='quote'>\"Every new administrator shows up with a slideshow. We just want someone to ask us what is actually broken.\" Jordan Reyes, front desk lead</div>";},
+    options:[
+      {label:"Hold listening sessions first", detail:"Meet every staff member one to one this week. Ask what is working, what is broken, and what they would change. No plan until you have heard everyone.",
+       style:"servant", fx:{eng:10,pe:2,fin:-2,trust:12}, verdict:"good", concept:"Psychological safety and servant leadership",
+       why:"Asking before telling signals that speaking up is safe and valued (Edmondson). Servant leaders put the needs of the team first, and after a rocky rollout, people need to be heard before they can be led. The small cost is a slower start on the numbers."},
+      {label:"Announce a turnaround plan on day one", detail:"Present a crisp 90-day plan with revenue targets and new scheduling rules at Wednesday's all-staff meeting to create urgency.",
+       style:"directive", fx:{eng:-7,pe:0,fin:4,trust:-9}, verdict:"bad", concept:"Kotter's urgency without a coalition",
+       why:"Kotter's first step is a sense of urgency, but urgency imposed by a newcomer who has not built a guiding coalition reads as blame. Staff who already feel unheard hear another top-down rollout. Finances tick up on paper while trust drops sharply."},
+      {label:"Fix the software configuration first", detail:"Bring in the vendor, clean up the room and provider templates, and stop the double-booking before anything else.",
+       style:"transactional", fx:{eng:4,pe:7,fin:-3,trust:4}, verdict:"mixed", concept:"Herzberg's hygiene factors",
+       why:"Broken tools are a classic hygiene factor: fixing them removes dissatisfaction and patients notice right away. But Herzberg's point is that hygiene fixes do not create motivation. You have stopped some bleeding without yet reconnecting people to purpose or to you."}
+    ],
+    next:function(){return "d2";}
+  },
+  d2: {
+    step:2, kicker:"Decision 2 of 5 · The star provider",
+    title:"Dr. Maya Okafor is thinking about leaving",
+    body:function(s){
+      var lead = s.choices.d1===0 ? "In your listening session, Dr. Okafor was candid: she feels like a production line." :
+                 s.choices.d1===1 ? "Two days after your announcement, Dr. Okafor asks for a meeting." :
+                 "The software is steadier, but Dr. Okafor still asks for a meeting.";
+      return "<p class='lede'>"+lead+" She is the practice's most requested chiropractor, carries about 18% of visits, and has an offer from a competitor across town with a 10% higher base.</p><div class='quote'>\"I did not become a doctor to click through templates all day. I used to build things here.\"</div>";
+    },
+    options:[
+      {label:"Match the offer with a raise", detail:"Counter at 12% above her current pay and ask for a one-year commitment.",
+       style:"transactional", fx:{eng:-4,pe:3,fin:-8,trust:-2}, verdict:"mixed", concept:"Herzberg: pay as a hygiene factor",
+       why:"Pay removes a reason to leave but rarely adds a reason to stay. She told you her problem was meaning and autonomy, not money. Other providers hear about the raise, which creates equity concerns (Adams) and costs you engagement elsewhere."},
+      {label:"Have a strengths-based conversation", detail:"Ask what energizes her. Offer her the lead on a new sports rehab program with protected time to design it and mentor two newer providers.",
+       style:"servant", fx:{eng:6,pe:6,fin:2,trust:6}, verdict:"good", concept:"Strengths-based feedback and SDT autonomy",
+       why:"Self-determination theory says autonomy, competence, and relatedness drive intrinsic motivation. Building a role around her signature strengths is a motivator in Herzberg's terms, costs little, and the mentoring spreads her expertise across the team."},
+      {label:"Let her go; no one is irreplaceable", detail:"Wish her well, redistribute her patients, and post the position.",
+       style:"directive", fx:{eng:-6,pe:-9,fin:-6,trust:-5}, verdict:"bad", concept:"Ignoring voluntary turnover signals",
+       why:"Losing a high performer is expensive: patient attrition, recruiting costs, and a message to everyone else that the organization does not fight for its people. Staff read the departure as confirmation that leadership does not listen."}
+    ],
+    next:function(s){return s.choices.d1===1 ? "d3b" : "d3a";}
+  },
+  d3a: {
+    step:3, kicker:"Decision 3 of 5 · Front desk turnover",
+    title:"A third front desk resignation this quarter",
+    branch:"This scenario appears because you did not open with a top-down plan.",
+    body:function(){
+      return "<p class='lede'>Priya, a front desk coordinator hired four months ago, has resigned. Exit notes mention the scheduling system, angry callers, and \"no say in how the desk runs.\" Jordan is covering two shifts and the phones ring out at lunch.</p>";
+    },
+    options:[
+      {label:"Form a guiding coalition to redesign the workflow", detail:"Invite Jordan, a therapist, a massage therapist, and a provider to redesign scheduling rules and call scripts in two weeks, with authority to make changes.",
+       style:"servant", fx:{eng:8,pe:6,fin:1,trust:7}, verdict:"good", concept:"Kotter's guiding coalition and participative change",
+       why:"A cross-functional coalition gives the change credibility and local knowledge you do not have. The people closest to the problem design the fix, which builds ownership and autonomy. Front desk staff finally get the voice their exit notes said was missing."},
+      {label:"Backfill quickly with a staffing agency", detail:"Bring in two temps to stabilize the phones while you recruit.",
+       style:"transactional", fx:{eng:-2,pe:2,fin:-5,trust:0}, verdict:"mixed", concept:"Treating symptoms versus root causes",
+       why:"Temps keep the lights on, which matters for patients, but they do not address why people leave. Without changing the job design, the next hire walks into the same conditions. It is a reasonable bridge, not a solution."},
+      {label:"Tighten policies and scripts", detail:"Issue a stricter attendance policy and a mandatory call script to create consistency.",
+       style:"directive", fx:{eng:-8,pe:-3,fin:1,trust:-7}, verdict:"bad", concept:"Control over commitment",
+       why:"More control lowers autonomy exactly where it was already lacking. SDT predicts the remaining staff will comply at best and disengage at worst. Scripts also make callers feel processed, not cared for."}
+    ],
+    next:function(){return "d4";}
+  },
+  d3b: {
+    step:3, kicker:"Decision 3 of 5 · The anonymous letter",
+    title:"An unsigned letter lands on your desk",
+    branch:"This scenario appears because you opened with a top-down turnaround plan.",
+    body:function(){
+      return "<p class='lede'>Two weeks after your announcement, an unsigned letter appears under your door. It is signed \"a group of your staff.\" It is respectful but direct.</p><div class='quote'>\"You told us what to fix before you asked what was broken. The software was pushed on us the same way. We want to help, but we are tired of being told.\"</div><p>The front desk has also lost its third coordinator this quarter.</p>";
+    },
+    options:[
+      {label:"Acknowledge it openly and reset", detail:"Read the letter's main points at the next huddle, thank the authors, own the misstep, and launch listening sessions and a staff working group on scheduling.",
+       style:"servant", fx:{eng:9,pe:3,fin:-1,trust:13}, verdict:"good", concept:"Leader humility and repairing trust",
+       why:"Owning a mistake in public is one of the fastest ways to restore trust. It models the psychological safety you want, shows the letter was safe to write, and turns critics into a guiding coalition. Humble leadership is linked to higher team learning and engagement."},
+      {label:"Find out who wrote it", detail:"Ask supervisors to identify the authors so you can address their concerns directly.",
+       style:"directive", fx:{eng:-10,pe:-2,fin:0,trust:-15}, verdict:"bad", concept:"Destroying psychological safety",
+       why:"Hunting for the authors tells everyone that dissent is punished. Edmondson's research shows that once people learn speaking up is risky, they stop reporting problems, including patient safety problems. This is the costliest move in the case."},
+      {label:"Stay the course and share the numbers again", detail:"Reply by email restating why the 90-day plan matters and attaching the revenue chart.",
+       style:"transactional", fx:{eng:-5,pe:0,fin:2,trust:-6}, verdict:"bad", concept:"One-way communication",
+       why:"Repeating the rationale answers a question nobody asked. The letter was about voice, not understanding. Treating it as an information gap confirms the staff's complaint and deepens the trust deficit."}
+    ],
+    next:function(){return "d4";}
+  },
+  d4: {
+    step:4, kicker:"Decision 4 of 5 · The revenue dip",
+    title:"Revenue is down 12% and the owners want action",
+    body:function(s){
+      var t = s.m.trust >= 50 ? "Your standing with staff is solid enough that people will likely hear bad news from you calmly." :
+              "Trust is still thin, so how you deliver hard news matters as much as the news itself.";
+      return "<p class='lede'>The quarter closed 12% below last year. The Whitfields ask for a response by month end and float cutting the fitness studio's evening classes and massage hours. "+t+"</p>";
+    },
+    options:[
+      {label:"Open the books at an all-hands", detail:"Share the real numbers, explain what is driving the dip, and ask every team for two revenue or efficiency ideas. Commit to explaining any cuts before they happen.",
+       style:"servant", fx:{eng:5,pe:2,fin:6,trust:9}, verdict:"good", concept:"Transparent communication and open-book management",
+       why:"Transparency treats staff as adults and partners. People who understand the numbers find savings leaders miss, such as no-show follow-up and underused rooms. Even if cuts come later, being told the truth first protects trust."},
+      {label:"Quietly cut massage hours and evening classes", detail:"Make the reductions the owners suggested and inform affected staff individually.",
+       style:"directive", fx:{eng:-8,pe:-6,fin:8,trust:-9}, verdict:"bad", concept:"Survivor syndrome and procedural justice",
+       why:"The finances improve fastest, but quiet cuts violate procedural justice: people judge fairness by the process as much as the outcome. Remaining staff wonder who is next, and patients lose appointments they valued."},
+      {label:"Launch a discounted membership blitz", detail:"Run a 30-day promotion on bundled visits to bring volume back quickly.",
+       style:"transactional", fx:{eng:-4,pe:1,fin:2,trust:-1}, verdict:"mixed", concept:"Short-termism and workload strain",
+       why:"Volume comes back, but at lower margins, and an already stretched team absorbs the extra load. It shows action without addressing the underlying causes, and it risks trading the revenue problem for a burnout problem."}
+    ],
+    next:function(){return "d5";}
+  },
+  d5: {
+    step:5, kicker:"Decision 5 of 5 · Sustaining the gains",
+    title:"How will you keep people well and engaged?",
+    body:function(s){
+      var lead = s.choices.d2===2 ? "It is three months on. Dr. Okafor's departure still echoes: two of her patients a week ask where she went, and the newer providers feel unsupported." :
+                 s.choices.d2===1 ? "It is three months on. Dr. Okafor's sports rehab program has a waitlist and the two providers she mentors are growing quickly." :
+                 "It is three months on. Dr. Okafor stayed, though colleagues still mention her raise in the break room.";
+      return "<p class='lede'>"+lead+" The owners have approved a modest budget for a staff well-being and engagement initiative. You want something that lasts beyond a single quarter.</p>";
+    },
+    options:[
+      {label:"Build a PERMA-based engagement practice", detail:"Weekly huddles open with a patient story, peers recognize each other by strength, each person sets a growth goal, and teams get one protected planning hour a month.",
+       style:"servant", fx:{eng:10,pe:5,fin:1,trust:6}, verdict:"good", concept:"PERMA and positive organizational behavior",
+       why:"Seligman's PERMA model (positive emotion, engagement, relationships, meaning, accomplishment) gives a structure for well-being that is built into the work rather than bolted on. Patient stories restore meaning, and strength-based recognition strengthens relationships."},
+      {label:"Employee of the month and a quarterly party", detail:"Recognize one top performer each month with a gift card and host a team celebration each quarter.",
+       style:"transactional", fx:{eng:2,pe:0,fin:-2,trust:1}, verdict:"mixed", concept:"Extrinsic rewards and their limits",
+       why:"Celebrations are pleasant and not harmful, but single-winner awards can feel political on small teams, and extrinsic rewards fade quickly. They support culture without changing how the work feels day to day."},
+      {label:"Publish a provider performance leaderboard", detail:"Post weekly rankings of visits, rebooking rates, and reviews to drive friendly competition.",
+       style:"directive", fx:{eng:-8,pe:-2,fin:3,trust:-6}, verdict:"bad", concept:"Undermining intrinsic motivation",
+       why:"Public rankings shift attention from patients to metrics and can crowd out intrinsic motivation (the overjustification effect). In a collaborative, multi-discipline practice, they discourage referrals across teams, which is where patient experience is won."}
+    ],
+    next:function(){return "end";}
+  }
+};
+
+var PROFILES = {
+  servant:{name:"The Servant Builder",
+    text:"You led by listening, sharing power, and building conditions for people to do their best work. Your choices consistently strengthened trust and engagement, which in turn protected patient experience. Watch for the risk of moving slowly when the numbers demand speed, and practice pairing empathy with clear accountability."},
+  directive:{name:"The Command Turnaround Manager",
+    text:"You moved fast and kept control close. Some decisions protected short-term finances, but the team experienced them as imposed, and trust paid the price. Your growth edge is building a guiding coalition before acting, and treating dissent as data rather than defiance."},
+  transactional:{name:"The Pragmatic Fixer",
+    text:"You reached for concrete levers: tools, pay, staffing, promotions. Those moves removed friction and showed action, but hygiene fixes alone rarely create commitment. Your growth edge is connecting practical fixes to meaning, autonomy, and voice so improvements stick."},
+  adaptive:{name:"The Adaptive Leader",
+    text:"You mixed approaches, sometimes listening and sharing power, sometimes taking direct control or reaching for quick fixes. Adaptability is a strength when it is deliberate. Your growth edge is naming the principle behind each choice so the team experiences you as consistent even when your tactics change."}
+};
+
+var state;
+function reset(){
+  state = {scene:"intro", m:Object.assign({},START), choices:{}, log:[], concepts:[], answered:false};
+}
+
+var stage = document.getElementById("stage");
+var meterList = document.getElementById("meterList");
+
+function clamp(v){return Math.max(0,Math.min(100,v));}
+function colorFor(v){return v<35?"var(--low)":(v<60?"var(--gold)":"var(--sage)");}
+function statusFor(v){return v<35?"at risk":(v<60?"fragile":"healthy");}
+
+function buildMeters(){
+  meterList.innerHTML = METERS.map(function(mt){
+    return '<div class="meter"><div class="meter-head"><span id="lbl-'+mt.key+'">'+mt.label+'</span>'+
+      '<span class="meter-val"><span class="meter-chg" id="chg-'+mt.key+'"></span><span id="val-'+mt.key+'"></span></span></div>'+
+      '<div class="bar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-labelledby="lbl-'+mt.key+'" id="bar-'+mt.key+'"><div class="bar-fill" id="fill-'+mt.key+'"></div></div></div>';
+  }).join("");
+}
+function renderMeters(fx){
+  METERS.forEach(function(mt){
+    var v = state.m[mt.key];
+    document.getElementById("val-"+mt.key).textContent = v;
+    var f = document.getElementById("fill-"+mt.key);
+    f.style.width = v+"%"; f.style.backgroundColor = colorFor(v);
+    var bar = document.getElementById("bar-"+mt.key);
+    bar.setAttribute("aria-valuenow", v);
+    bar.setAttribute("aria-valuetext", v+" out of 100, "+statusFor(v));
+    var c = document.getElementById("chg-"+mt.key);
+    if(fx && fx[mt.key]){
+      var d = fx[mt.key];
+      c.textContent = (d>0?"+":"")+d;
+      c.className = "meter-chg show "+(d>0?"up":"down");
+    } else { c.className = "meter-chg"; c.textContent = ""; }
+  });
+}
+function renderChips(){
+  var el = document.getElementById("miniChips");
+  el.innerHTML = state.concepts.length ? state.concepts.map(function(c){return '<span class="chip">'+c+'</span>';}).join("") : '<span class="empty">None yet</span>';
+}
+function renderProgress(step, label){
+  var spans = document.querySelectorAll("#steps span");
+  spans.forEach(function(s,i){
+    s.className = i < step-1 ? "done" : (i===step-1 ? "current" : "");
+    if(step>STEP_TOTAL) s.className="done";
+  });
+  document.getElementById("progText").textContent = label;
+  document.getElementById("progCount").textContent = Math.min(Math.max(step-1,0),STEP_TOTAL)+" / "+STEP_TOTAL;
+}
+function focusHeading(){
+  var h = stage.querySelector("h2");
+  if(h){ h.setAttribute("tabindex","-1"); h.focus({preventScroll:true}); }
+  var top = stage.getBoundingClientRect().top + window.scrollY - 12;
+  if(window.scrollY > top) window.scrollTo({top:top, behavior:"smooth"});
+}
+
+function showIntro(){
+  renderProgress(0,"Briefing");
+  stage.innerHTML = '<div class="screen">'+
+    '<div class="kicker">Case briefing</div>'+
+    '<h2>You are the new practice administrator</h2>'+
+    '<p class="lede">Summit Wellness Collective is a growing multi-provider practice offering chiropractic care, physical therapy, massage therapy, and a small fitness studio. It employs 22 staff. The owners hired you to steady a team that has lost its footing.</p>'+
+    '<div class="challenges">'+
+      '<div class="challenge"><strong>Falling morale</strong><span>A rushed scheduling-software rollout left staff frustrated and feeling unheard.</span></div>'+
+      '<div class="challenge"><strong>A star at risk</strong><span>The most requested provider is weighing an outside offer.</span></div>'+
+      '<div class="challenge"><strong>Front desk turnover</strong><span>Three coordinators have left in a single quarter.</span></div>'+
+      '<div class="challenge"><strong>Revenue down 12%</strong><span>The owners want a credible plan, soon.</span></div>'+
+    '</div>'+
+    '<p class="cast"><b>Key people:</b> Drs. Lena and Paul Whitfield (owners), Dr. Maya Okafor (lead chiropractor), Jordan Reyes (front desk lead). All people and the organization are fictional.</p>'+
+    '<p>You will make five decisions. Each has three options and moves the four meters on the right. After each choice you will see which leadership concept is at work and why the move helps or backfires. Some later scenarios depend on your earlier choices.</p>'+
+    '<div class="actions"><button class="btn gold" id="startBtn" type="button">Begin the case</button></div>'+
+  '</div>';
+  document.getElementById("startBtn").addEventListener("click", function(){ goTo("d1"); });
+}
+
+function goTo(id){
+  state.scene = id; state.answered = false;
+  if(id==="end"){ showEnd(); return; }
+  var sc = SCENES[id];
+  renderProgress(sc.step, "Decision "+sc.step);
+  renderMeters(null);
+  var letters = ["A","B","C"];
+  stage.innerHTML = '<div class="screen">'+
+    '<div class="kicker">'+sc.kicker+'</div>'+
+    (sc.branch ? '<div class="branch-note">Branch: '+sc.branch+'</div>' : '')+
+    '<h2>'+sc.title+'</h2>'+ sc.body(state) +
+    '<p style="margin:0;font-weight:500;color:var(--navy)">What do you do?</p>'+
+    '<div class="options" role="group" aria-label="Choose one option">'+
+      sc.options.map(function(o,i){
+        return '<button type="button" class="opt" data-i="'+i+'"><span class="letter" aria-hidden="true">'+letters[i]+'</span><span class="txt"><strong>'+o.label+'</strong><span>'+o.detail+'</span></span></button>';
+      }).join("")+
+    '</div><div id="fbSlot"></div></div>';
+  stage.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){ choose(id, +b.getAttribute("data-i")); });
+  });
+  focusHeading();
+}
+
+function choose(id, i){
+  if(state.answered) return;
+  state.answered = true;
+  var sc = SCENES[id], o = sc.options[i];
+  state.choices[id.slice(0,2)] = i;
+  var applied = {};
+  Object.keys(o.fx).forEach(function(k){
+    var before = state.m[k]; state.m[k] = clamp(before + o.fx[k]); applied[k] = state.m[k]-before;
+  });
+  if(state.concepts.indexOf(o.concept)<0) state.concepts.push(o.concept);
+  state.log.push({scene:id, title:sc.title, label:o.label, style:o.style, verdict:o.verdict, concept:o.concept});
+  stage.querySelectorAll(".opt").forEach(function(b,j){
+    b.disabled = true;
+    if(j===i){ b.classList.add("chosen"); b.setAttribute("aria-label","Your choice: "+o.label); }
+  });
+  renderMeters(applied); renderChips();
+  var vText = {good:"Strong move", mixed:"Mixed result", bad:"Backfired"}[o.verdict];
+  var deltas = METERS.map(function(mt){
+    var d = applied[mt.key]||0; if(!d) return '<span class="delta">'+mt.label+' 0</span>';
+    return '<span class="delta '+(d>0?"up":"down")+'">'+mt.label+' '+(d>0?"+":"")+d+'</span>';
+  }).join("");
+  var last = sc.step===STEP_TOTAL;
+  document.getElementById("fbSlot").innerHTML =
+    '<div class="feedback '+o.verdict+'" role="status">'+
+      '<div class="verdict"><span class="pill">'+vText+'</span><span class="concept">'+o.concept+'</span></div>'+
+      '<p style="margin:0">'+o.why+'</p>'+
+      '<div class="deltas">'+deltas+'</div>'+
+      '<button type="button" class="btn" id="nextBtn">'+(last?"See your leadership profile":"Continue to decision "+(sc.step+1))+'</button>'+
+    '</div>';
+  var nb = document.getElementById("nextBtn");
+  nb.addEventListener("click", function(){ goTo(sc.next(state)); });
+  nb.focus({preventScroll:true});
+  nb.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function profileFor(){
+  var c = {servant:0, directive:0, transactional:0};
+  state.log.forEach(function(l){ c[l.style]++; });
+  if(c.servant>=4) return "servant";
+  if(c.directive>=3) return "directive";
+  if(c.transactional>=3) return "transactional";
+  if(c.servant>=3 && c.directive===0) return "servant";
+  return "adaptive";
+}
+
+function showEnd(){
+  renderProgress(STEP_TOTAL+1,"Case complete");
+  document.getElementById("progCount").textContent = STEP_TOTAL+" / "+STEP_TOTAL;
+  renderMeters(null);
+  var key = profileFor(), p = PROFILES[key];
+  var avg = Math.round((state.m.eng+state.m.pe+state.m.fin+state.m.trust)/4);
+  var sorted = METERS.slice().sort(function(a,b){return state.m[a.key]-state.m[b.key];});
+  var weakest = sorted[0], strongest = sorted[3];
+  var worst = state.log.filter(function(l){return l.verdict==="bad";})[0];
+  var best = state.log.filter(function(l){return l.verdict==="good";})[0];
+  var tookLetter = state.log.some(function(l){return l.scene==="d3b";});
+
+  var q1 = worst ?
+    'Your choice to "'+worst.label.toLowerCase()+'" backfired through the lens of '+worst.concept.toLowerCase()+'. Describe a time you saw a similar move play out at work. What would a positive leader have done instead, and why?' :
+    'You avoided every choice that backfired. Which decision felt most tempting to get wrong, and which course concept helped you resist it?';
+  var q2 = 'Your lowest meter at the end was '+weakest.label+' ('+state.m[weakest.key]+') and your highest was '+strongest.label+' ('+state.m[strongest.key]+'). Using Herzberg\'s two-factor theory or PERMA, explain what trade-off your path made and whether it was worth it for a practice like Summit.';
+  var q3 = tookLetter ?
+    'Your opening plan led to an anonymous letter from staff. How does psychological safety explain why staff chose to write anonymously, and what would you do in your first 30 days in a real leadership role to prevent that?' :
+    'Kotter argues that change needs both urgency and a guiding coalition. Where in your path did you build a coalition, and where did you act alone? Which mattered more for Trust in Leadership?';
+
+  stage.innerHTML = '<div class="screen">'+
+    '<div class="kicker">Case complete</div>'+
+    '<h2>Your leadership profile</h2>'+
+    '<div class="profile"><div class="eyebrow">Your path suggests</div><h3>'+p.name+'</h3><p>'+p.text+'</p></div>'+
+    '<div class="score-row">'+ METERS.map(function(mt){
+      return '<div class="score"><b style="color:'+colorFor(state.m[mt.key])+'">'+state.m[mt.key]+'</b><span>'+mt.label+'</span></div>';
+    }).join("") +'</div>'+
+    '<p>Overall organizational health: <b>'+avg+' / 100</b>, starting from '+Math.round((START.eng+START.pe+START.fin+START.trust)/4)+'. '+(best?'Your strongest move was "'+best.label.toLowerCase()+'".':'')+'</p>'+
+    '<h3 class="section-h">Your path</h3>'+
+    '<ol class="path">'+ state.log.map(function(l){
+      var t = {good:"Strong move", mixed:"Mixed", bad:"Backfired"}[l.verdict];
+      return '<li><b>'+l.label+'</b><span class="tag '+l.verdict+'">'+t+'</span><small>'+l.title+' · '+l.concept+'</small></li>';
+    }).join("") +'</ol>'+
+    '<h3 class="section-h">Concepts encountered</h3>'+
+    '<div class="chips">'+ state.concepts.map(function(c){return '<span class="chip">'+c+'</span>';}).join("") +'</div>'+
+    '<h3 class="section-h">Reflection questions for your discussion post</h3>'+
+    '<ol class="reflect"><li>'+q1+'</li><li>'+q2+'</li><li>'+q3+'</li></ol>'+
+    '<div class="actions"><button type="button" class="btn gold" id="againBtn">Play again</button></div>'+
+  '</div>';
+  document.getElementById("againBtn").addEventListener("click", function(){
+    reset(); buildMeters(); renderMeters(null); renderChips(); goTo("d1");
+  });
+  focusHeading();
+}
+
+reset(); buildMeters(); renderMeters(null); renderChips(); showIntro();
+})();
+</script>
+</body>
+</html>

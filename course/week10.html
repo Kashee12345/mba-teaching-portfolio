@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 10: Integration</title>
+<meta name="description" content="Week 10 of a sample MBA course: integrating motivation, safety, teams, culture and change into one system, leader wellbeing and burnout prevention, the final Leading Change Plan and the strengths-based reflection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14213D; --navy-2:#1f3160; --gold:#C9A227; --gold-soft:#f3e9c6; --sage:#6B8F71; --sage-dark:#4f6f55; --sage-soft:#e3ece4;
+  --paper:#F7F5F0; --card:#ffffff; --ink:#1d232b; --muted:#555f6b; --line:#dcd7cb;
+  --good:#2f6b3a; --good-bg:#e5f1e7; --bad:#9a2f22; --bad-bg:#f8e6e2;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;overflow-x:hidden}
+a{color:var(--navy-2);text-decoration-color:var(--gold);text-underline-offset:3px;text-decoration-thickness:2px}
+a:hover{color:var(--navy)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,label:focus-within{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--navy);padding:.5rem 1rem;z-index:10;font-weight:600}
+.skip:focus{left:16px;top:8px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:16px;padding-right:16px}
+.narrow{max-width:760px}
+.topbar{background:var(--navy);color:#fff}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:.5rem 1rem;padding-top:.7rem;padding-bottom:.7rem;flex-wrap:wrap}
+.topbar a{color:#fff;text-decoration:none;font-weight:500;font-size:.95rem}
+.topbar a:hover{text-decoration:underline;text-decoration-color:var(--gold)}
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:2.8rem 0 3rem;border-bottom:5px solid var(--gold)}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 .6rem}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--navy);line-height:1.25;font-weight:600}
+.hero h1{color:#fff;font-size:clamp(1.9rem,5vw,2.9rem);margin:0 0 .8rem;max-width:24ch}
+.hero p{color:#e6e9f0;max-width:62ch;font-size:1.08rem;margin:0 0 1.2rem}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:0;list-style:none}
+.facts li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.3rem .85rem;font-size:.88rem}
+nav.toc{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav.toc ul{list-style:none;margin:0 auto;padding:.55rem 16px;display:flex;gap:.4rem;overflow-x:auto;max-width:1040px;scrollbar-width:thin}
+nav.toc a{display:block;white-space:nowrap;text-decoration:none;font-size:.86rem;font-weight:500;color:var(--navy);padding:.3rem .7rem;border-radius:999px;border:1px solid var(--line);background:var(--paper)}
+nav.toc a:hover{border-color:var(--gold)}
+main{padding:2.5rem 0 3rem}
+section{margin:0 0 3.2rem;scroll-margin-top:4rem}
+h2{font-size:clamp(1.5rem,3.2vw,1.9rem);margin:0 0 1rem;padding-bottom:.45rem;border-bottom:2px solid var(--line);position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-2px;width:64px;height:2px;background:var(--gold)}
+h3{font-size:1.3rem;margin:2rem 0 .6rem}
+p{margin:0 0 1.05rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.25rem 1.4rem;box-shadow:0 1px 2px rgba(20,33,61,.05)}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.callout{background:var(--gold-soft);border-left:5px solid var(--gold);border-radius:8px;padding:1rem 1.2rem;margin:1.4rem 0}
+.callout.sage{background:var(--sage-soft);border-left-color:var(--sage)}
+.callout p:last-child{margin-bottom:0}
+.callout strong.lab{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:.25rem}
+ol.obj{counter-reset:o;list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
+ol.obj li{counter-increment:o;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem .8rem 3.3rem;position:relative}
+ol.obj li::before{content:counter(o);position:absolute;left:.9rem;top:.8rem;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--sage);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+ol.obj .clo{font-size:.75rem;font-weight:600;color:var(--navy);background:#e4e8f1;border-radius:999px;padding:.05rem .5rem;margin-left:.3rem;white-space:nowrap}
+/* lecture */
+.lecture{background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(1.2rem,4vw,2.6rem)}
+.lecture p{font-size:1.04rem}
+.lecture h3:first-child{margin-top:0}
+.lecture .byline{font-size:.9rem;color:var(--muted);margin-bottom:1.4rem}
+figure{margin:1.8rem 0;padding:1rem;background:var(--paper);border:1px solid var(--line);border-radius:12px}
+figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto}
+figure.small svg{max-width:440px}
+figure svg.fig-narrow{display:none;max-width:420px}
+@media (max-width:560px){figure svg.fig-wide{display:none}figure svg.fig-narrow{display:block}figure{padding:.6rem}}
+.hero .eyebrow{color:var(--gold);font-size:.8rem;margin:0 0 .6rem}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:.75rem;text-align:center}
+.perma{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem;margin:1.2rem 0 1.4rem;padding:0;list-style:none}
+.perma li{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--sage);border-radius:10px;padding:.7rem .85rem;font-size:.93rem;line-height:1.5}
+.perma b{display:block;font-family:var(--serif);color:var(--navy);font-size:1.05rem}
+/* quiz */
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.q fieldset{border:0;margin:0;padding:0;min-width:0}
+.q legend{font-weight:600;color:var(--navy);margin-bottom:.7rem;padding:0;font-size:1rem;line-height:1.5}
+.q legend .n{display:inline-block;background:var(--navy);color:#fff;border-radius:6px;font-size:.78rem;padding:.05rem .45rem;margin-right:.45rem;vertical-align:1px}
+.opts{display:grid;gap:.45rem}
+.opt{width:100%;text-align:left;font:inherit;font-size:.96rem;line-height:1.45;background:var(--paper);border:1.5px solid var(--line);border-radius:9px;padding:.6rem .8rem;cursor:pointer;color:var(--ink)}
+.opt:hover:not([disabled]){border-color:var(--navy-2)}
+.opt[disabled]{cursor:default}
+.opt.correct{background:var(--good-bg);border-color:var(--good);color:#173d1e}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:#5c1a12}
+.opt .mark{font-weight:700;margin-right:.35rem}
+.fb{margin-top:.7rem;padding:.7rem .9rem;border-radius:8px;font-size:.94rem;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-bg);border-left:4px solid var(--good)}
+.fb.no{background:var(--bad-bg);border-left:4px solid var(--bad)}
+.score{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;justify-content:space-between;background:var(--navy);color:#fff;border-radius:12px;padding:.9rem 1.2rem}
+.score strong{font-family:var(--serif);font-size:1.25rem}
+button.btn,.btn{display:inline-block;font:inherit;background:var(--navy);color:#fff;text-decoration:none;padding:.55rem 1.05rem;border-radius:8px;font-weight:600;font-size:.95rem;border:2px solid var(--navy);cursor:pointer}
+.btn:hover{background:var(--navy-2);color:#fff}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.gold:hover{background:#b8931f}
+.btn.light{background:#fff;color:var(--navy);border-color:#fff}
+.btn.light:hover{background:var(--gold-soft);color:var(--navy)}
+/* rubric */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:#fff;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem;line-height:1.5}
+th,td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top}
+th:last-child,td:last-child{border-right:0}
+thead th{background:var(--navy);color:#fff;font-weight:600}
+thead th span{display:block;font-weight:500;color:var(--gold);font-size:.8rem}
+tbody th{background:#fbfaf6;color:var(--navy);min-width:9rem}
+tbody th span{display:block;font-weight:500;color:var(--muted);font-size:.8rem}
+.rubric{min-width:760px}
+.table-note{font-size:.85rem;color:var(--muted);margin:.5rem 0 0}
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.checklist label{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;cursor:pointer}
+.checklist input{width:1.25rem;height:1.25rem;margin:.2rem 0 0;accent-color:var(--sage);flex:0 0 auto}
+.checklist .t{flex:1}
+.checklist .t small{display:block;color:var(--muted);font-size:.82rem}
+.checklist input:checked + .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--sage)}
+.progress{display:flex;align-items:center;gap:.8rem;margin:0 0 1rem}
+.progress .track{flex:1;height:10px;background:#e6e1d4;border-radius:6px;overflow:hidden}
+.progress .fill{height:100%;background:var(--sage);width:0;transition:width .25s}
+.progress output{font-weight:600;color:var(--navy);font-size:.92rem;white-space:nowrap}
+.review{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:14px;padding:1.4rem 1.5rem;border-bottom:4px solid var(--gold)}
+.review h2{color:#fff;border:0;margin:0 0 .3rem;padding:0;font-size:1.45rem}
+.review h2::after{display:none}
+.review p{margin:0;color:#dfe4ee;max-width:52ch}
+.pager{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+footer{background:var(--navy);color:#d4d9e4;padding:1.6rem 0;font-size:.92rem;border-top:4px solid var(--gold)}
+footer p{margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:600px){
+  body{font-size:16px}
+  .hero{padding:2rem 0 2.3rem}
+  .card{padding:1rem}
+  ol.obj li{padding-left:3rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar"><div class="wrap">
+  <a href="../index.html">&larr; Portfolio home</a>
+  <a href="index.html">Course overview</a>
+</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Positive Leadership &amp; Organizational Behavior &middot; Week 10 of 10</p>
+    <h1>Week 10: Integration: Your Leading Change Plan</h1>
+    <p>Ten weeks of theory become one plan for one organization, and one honest look at the leader you are becoming. This week you bring the course together and look after the person doing the leading.</p>
+    <ul class="facts" aria-label="Week facts">
+      <li>About 10 to 12 hours</li>
+      <li>Peer review exchange early in the week</li>
+      <li>Final plan and reflection due Sunday, 11:59 pm</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#objectives">Objectives</a></li>
+    <li><a href="#lecture-sec">Lecture</a></li>
+    <li><a href="#selfcheck">Self-check</a></li>
+    <li><a href="#discussion">Peer review</a></li>
+    <li><a href="#final">Final project</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+    <li><a href="#review">Review game</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<div class="wrap">
+
+<section id="overview" aria-labelledby="h-overview">
+  <h2 id="h-overview">Overview</h2>
+  <div class="grid-2">
+    <div>
+      <p>This is the final week. You have studied motivation, individual differences, psychological safety, teams, leadership approaches, culture, change, ethics and data. This week asks you to see them as one system and to apply that system to your own organization in your final Leading Change Plan.</p>
+      <p>We also turn to a topic that leaders often neglect: their own wellbeing. Leading change is demanding, and burned-out leaders cannot build flourishing teams. Early in the week you exchange draft plans with a peer reviewer. By Sunday you submit your final plan with a recorded briefing, and your strengths-based reflection. An optional live showcase lets you share your briefing with the class.</p>
+    </div>
+    <div class="card" style="background:var(--sage-soft);border-color:#c6d6c8">
+      <h3 style="margin-top:0;font-size:1.1rem">This week's readings</h3>
+      <ul style="margin:0;padding-left:1.1rem">
+        <li>Revisit Cameron on positive leadership</li>
+        <li>A reading on leader wellbeing and burnout prevention</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout sage" id="read" style="margin-top:1.4rem">
+    <strong class="lab">Read</strong>
+    <p>Companion text: <a href="../book/ch10.html"><em>Leading With Purpose</em>, Chapter 10</a>. The chapter goes deeper into this week's ideas, with extended cases and further reading. Read it before or alongside the short lecture below.</p>
+    <p><a class="btn" href="../book/ch10.html">Open Chapter 10</a></p>
+  </div>
+</section>
+
+<section id="objectives" aria-labelledby="h-obj">
+  <h2 id="h-obj">Learning objectives</h2>
+  <p>By the end of this week you will be able to:</p>
+  <ol class="obj">
+    <li>Explain how motivation, psychological safety, team development, culture and change interact as one system. <span class="clo">CLO 5</span></li>
+    <li>Describe the three dimensions of burnout and use the job demands-resources model to plan for your own sustainability. <span class="clo">CLO 6</span></li>
+    <li>Give structured, strengths-based peer feedback on a change plan. <span class="clo">CLO 5</span></li>
+    <li>Complete a staged change plan and a personal leadership development plan grounded in your strengths. <span class="clo">CLO 5</span> <span class="clo">CLO 6</span></li>
+  </ol>
+</section>
+
+<section id="lecture-sec" aria-labelledby="h-lecture">
+  <h2 id="h-lecture">Short lecture: one system, one leader</h2>
+  <article class="lecture" id="lecture">
+    <p class="byline">Reading time about 8 minutes. A captioned video version and transcript accompany this text in the live course.</p>
+
+    <h3>Start with a clinic director</h3>
+    <p>Jordan directs Riverside Community Rehab, a fictional outpatient clinic with fourteen staff. Over ten weeks in a course much like this one, Jordan diagnosed a motivation problem among therapists, measured low psychological safety at the front desk, chartered a cross-functional team, traced a culture of overwork back to its founder's assumptions, and designed a change to patient scheduling. Jordan is also exhausted, answering messages at midnight and quietly wondering whether leadership is worth it.</p>
+    <p>Both halves of Jordan's story matter this week. The first is about integration. The second is about the leader.</p>
+
+    <h3>1. The course as one system</h3>
+    <p>It is tempting to treat each week's theory as a separate tool. In practice they are connected, and changes in one ripple through the others.</p>
+    <figure class="small" aria-labelledby="fig1cap">
+      <svg viewBox="0 0 420 400" role="img" aria-labelledby="w10f1t w10f1d" xmlns="http://www.w3.org/2000/svg">
+        <title id="w10f1t">The course as one system</title>
+        <desc id="w10f1d">Five connected circles arranged in a ring: motivation, safety and voice, teams, culture, and change, each linked to the next by an arrow. At the center, connected to all five, is the leader: strengths and wellbeing.</desc>
+        <defs><marker id="w10a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6B8F71"/></marker></defs>
+        <rect x="1" y="1" width="418" height="398" rx="12" fill="#ffffff" stroke="#dcd7cb" stroke-width="1.5"/>
+        <line x1="210" y1="212" x2="210.0" y2="66.0" stroke="#C9A227" stroke-width="2" stroke-dasharray="5 5"/>
+        <line x1="210" y1="212" x2="348.9" y2="166.9" stroke="#C9A227" stroke-width="2" stroke-dasharray="5 5"/>
+        <line x1="210" y1="212" x2="295.8" y2="330.1" stroke="#C9A227" stroke-width="2" stroke-dasharray="5 5"/>
+        <line x1="210" y1="212" x2="124.2" y2="330.1" stroke="#C9A227" stroke-width="2" stroke-dasharray="5 5"/>
+        <line x1="210" y1="212" x2="71.1" y2="166.9" stroke="#C9A227" stroke-width="2" stroke-dasharray="5 5"/>
+        <line x1="252.1" y1="96.6" x2="301.9" y2="132.8" stroke="#6B8F71" stroke-width="3" marker-end="url(#w10a)"/>
+        <line x1="332.8" y1="216.3" x2="313.7" y2="275.0" stroke="#6B8F71" stroke-width="3" marker-end="url(#w10a)"/>
+        <line x1="243.8" y1="330.1" x2="182.2" y2="330.1" stroke="#6B8F71" stroke-width="3" marker-end="url(#w10a)"/>
+        <line x1="108.1" y1="280.7" x2="89.1" y2="222.0" stroke="#6B8F71" stroke-width="3" marker-end="url(#w10a)"/>
+        <line x1="113.2" y1="136.3" x2="163.1" y2="100.1" stroke="#6B8F71" stroke-width="3" marker-end="url(#w10a)"/>
+        <circle cx="210" cy="212" r="54" fill="#f3e9c6" stroke="#C9A227" stroke-width="3"/>
+        <text x="210" y="204" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="16" font-weight="600" fill="#14213D">The leader</text>
+        <text x="210" y="224" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#5b4708">strengths and</text>
+        <text x="210" y="240" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#5b4708">wellbeing</text>
+        <circle cx="210.0" cy="66.0" r="50" fill="#14213D"/>
+        <text x="210.0" y="64.0" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="14" font-weight="600" fill="#ffffff">Motivation</text>
+        <text x="210.0" y="83.0" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#C9A227">Weeks 2 and 3</text>
+        <circle cx="348.9" cy="166.9" r="50" fill="#14213D"/>
+        <text x="348.9" y="154.9" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="14" font-weight="600" fill="#ffffff">Safety and</text>
+        <text x="348.9" y="171.9" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="14" font-weight="600" fill="#ffffff">voice</text>
+        <text x="348.9" y="189.9" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#C9A227">Week 4</text>
+        <circle cx="295.8" cy="330.1" r="50" fill="#14213D"/>
+        <text x="295.8" y="328.1" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="16" font-weight="600" fill="#ffffff">Teams</text>
+        <text x="295.8" y="347.1" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#C9A227">Week 5</text>
+        <circle cx="124.2" cy="330.1" r="50" fill="#14213D"/>
+        <text x="124.2" y="328.1" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="16" font-weight="600" fill="#ffffff">Culture</text>
+        <text x="124.2" y="347.1" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#C9A227">Week 7</text>
+        <circle cx="71.1" cy="166.9" r="50" fill="#14213D"/>
+        <text x="71.1" y="164.9" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="16" font-weight="600" fill="#ffffff">Change</text>
+        <text x="71.1" y="183.9" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11.5" fill="#C9A227">Weeks 8 and 9</text>
+      </svg>
+      <figcaption id="fig1cap">Figure 1. The course as one system. Each element shapes the next, and the leader's own strengths and wellbeing sit at the center of all of them.</figcaption>
+    </figure>
+    <p><strong>Motivation</strong> depends on whether people's needs for autonomy, competence and relatedness are met, and whether their strengths are seen. People who feel competent and connected are more willing to take interpersonal risks, which builds <strong>psychological safety</strong>. Safety allows <strong>teams</strong> to work through storming instead of around it, and to use task conflict productively. The patterns teams repeat, and that leaders reward, become <strong>culture</strong>. And culture decides whether a <strong>change</strong> sticks or quietly reverts. A well-led change, in turn, can restore motivation by giving people a real voice and visible wins, which is the loop Jordan's plan aims to start.</p>
+    <p>The same connections explain why single fixes so often fail. A new recognition program (motivation) will not survive a culture that punishes mistakes. A team charter (teams) will not help if nobody feels safe to invoke it. Your final plan should show that you see these links, which is why the rubric rewards integration, not just coverage.</p>
+
+    <h3>2. The leader at the center</h3>
+    <p>At the center of the system sits the leader, whose own motivation and wellbeing shape everything around them. Christina Maslach's research describes burnout as a response to chronic workplace stress with three dimensions: <strong>exhaustion</strong>, <strong>cynicism</strong> or detachment from the work, and a reduced sense of <strong>professional efficacy</strong>. The World Health Organization classifies burnout as an occupational phenomenon resulting from chronic workplace stress that has not been successfully managed, rather than as a medical condition.</p>
+    <p>The <strong>job demands-resources model</strong>, developed by Arnold Bakker and Evangelia Demerouti, offers a useful way to think about prevention. Every job has demands, such as workload, emotional labor and time pressure, and resources, such as autonomy, support, feedback and development opportunities. High demands without matching resources drive exhaustion. Resources buffer demands and fuel engagement. The model applies to leaders as much as to anyone else.</p>
+    <p>For Jordan, demands are high: a change effort on top of daily operations. But resources can be built. A small guiding coalition shares the load. A peer network of other clinic directors provides support. Protected time for the work Jordan finds most meaningful, such as mentoring new therapists, restores energy. Using signature strengths, as you learned in weeks 1 and 2, is itself a resource: work that draws on your strengths tends to energize rather than drain.</p>
+    <p>Cameron's positive leadership strategies apply inward too. Positive meaning, positive relationships and a positive climate are as important for the leader as for the team. Leaders who model sustainable habits also give their teams permission to do the same, which is an embedding mechanism in Schein's sense.</p>
+
+    <h3>3. Your two final pieces</h3>
+    <p>The <strong>Leading Change Plan</strong> brings the system view to your own organization: a culture diagnosis, a stakeholder map, a staged plan informed by Kotter and the course's positive leadership practices, measures of success, and a five-minute recorded briefing. The <strong>strengths-based reflection</strong> brings the leader view to you: your character strengths results from week 1, the reflected best self feedback from week 2, your weekly journal, and a development plan that builds on what is already best in you.</p>
+    <p>Treat the peer review exchange early in the week as a gift. A reviewer who has studied the same frameworks can see gaps you cannot, and giving feedback sharpens your own thinking.</p>
+
+    <h3>Putting it together</h3>
+    <p>Positive leadership is not a set of techniques applied to other people. It is a way of seeing organizations as systems where people can flourish, and a commitment to be a leader who can sustain that work over years, not weeks. Thank you for bringing your workplaces and your experience into this course. I look forward to reading your plans.</p>
+  </article>
+</section>
+
+<section id="selfcheck" aria-labelledby="h-quiz">
+  <h2 id="h-quiz">Self-check</h2>
+  <p>Five quick questions. Choose an answer to see instant feedback. This check is ungraded and you may retake it as often as you like.</p>
+  <div id="quiz"></div>
+  <div class="score" aria-live="polite">
+    <span>Score: <strong id="scoreVal">0 of 5</strong> <span id="scoreMsg" style="margin-left:.4rem;color:#dfe4ee"></span></span>
+    <button type="button" class="btn light" id="quizReset">Reset self-check</button>
+  </div>
+</section>
+
+<section id="discussion" aria-labelledby="h-disc">
+  <h2 id="h-disc">Peer review exchange</h2>
+  <div class="card">
+    <p><strong>Prompt.</strong> Post a draft of your Leading Change Plan (or a detailed outline) in your peer review group by Tuesday at 11:59 pm. Review the draft assigned to you and post your feedback by Thursday at 11:59 pm. Structure your feedback in three parts: two specific strengths of the plan and why they work; one place where the plan could better connect the course frameworks as a system; and one question the author should answer before submitting.</p>
+    <p style="margin-bottom:0"><strong>Replies.</strong> Reply to the feedback you receive, saying what you will change and why. You may also post your recorded briefing for the optional live showcase and comment on at least one classmate's briefing.</p>
+  </div>
+  <div class="grid-2" style="margin-top:1rem">
+    <div class="callout sage" style="margin:0">
+      <strong class="lab">Participation expectations</strong>
+      <p>Draft posted by Tuesday at 11:59 pm. Feedback of at least 250 words posted by Thursday at 11:59 pm. Your reply to your reviewer by Sunday at 11:59 pm. Use strengths-based language: specific, tied to outcomes, and honest about what needs work.</p>
+    </div>
+    <div class="callout" style="margin:0">
+      <strong class="lab">What a substantive reply looks like</strong>
+      <p>It adds something: a new angle, a question that moves thinking forward, evidence, or a respectful challenge. "Great post, I agree" is a kind thing to say but does not count toward participation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="final" aria-labelledby="h-deliv">
+  <h2 id="h-deliv">Final project: Leading Change Plan and strengths-based reflection</h2>
+  <div class="card">
+    <p><strong>Leading Change Plan.</strong> Build on your week 6 proposal and week 7 culture diagnosis to present a complete plan for leading your chosen change.</p>
+    <p><strong>Your plan should include:</strong></p>
+    <ol style="padding-left:1.3rem;margin-top:0">
+      <li><strong>Culture diagnosis:</strong> artifacts, espoused values and underlying assumptions relevant to the change, revised from your memo 5 feedback.</li>
+      <li><strong>Stakeholder map:</strong> who is affected, their likely concerns and how resistance will be heard and used.</li>
+      <li><strong>Staged plan:</strong> the change organized around Kotter's steps, with specific positive leadership practices (such as strengths-based feedback, psychological safety behaviors and team charters) built into each stage.</li>
+      <li><strong>Measures:</strong> how you will know the change is working, including people measures and at least one operational or financial measure.</li>
+      <li><strong>Recorded briefing:</strong> a five-minute video or audio briefing presenting the plan to your organization's leaders.</li>
+    </ol>
+    <p><strong>Format.</strong> 2,500 to 3,500 words plus the stakeholder map and any tables, with at least six course readings cited in APA style, and the five-minute recorded briefing. Due Sunday at 11:59 pm. 100 points (30% of the course grade).</p>
+    <p style="margin-bottom:0"><strong>Strengths-based reflection.</strong> A reflective essay of 1,200 to 1,500 words drawing on your character strengths results from week 1, the reflected best self feedback from week 2 and your weekly journal. Describe how your signature strengths showed up in your leadership this term, one strength you overuse and its cost, and a development plan for the next six months with specific practices and a source of feedback. Due Sunday at 11:59 pm. 100 points (10% of the course grade).</p>
+  </div>
+  <h3>Scoring rubric: Leading Change Plan</h3>
+  <div class="table-wrap" role="region" aria-label="Leading Change Plan rubric, scroll horizontally on small screens" tabindex="0">
+    <table class="rubric">
+      <caption class="sr">Analytic rubric for Leading Change Plan, four criteria by four performance levels</caption>
+      <thead>
+        <tr>
+          <th scope="col">Criterion</th>
+          <th scope="col">Exemplary <span>90 to 100% of points</span></th>
+          <th scope="col">Proficient <span>80 to 89%</span></th>
+          <th scope="col">Developing <span>70 to 79%</span></th>
+          <th scope="col">Beginning <span>below 70%</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Diagnosis and stakeholders <span>25 points</span></th>
+          <td>23 to 25 pts. Culture diagnosis is evidence-based and uses Schein accurately; stakeholder map is complete and treats resistance as information.</td>
+          <td>20 to 22 pts. Sound diagnosis and map, with minor gaps.</td>
+          <td>18 to 19 pts. Diagnosis is general or stakeholders are only partly identified.</td>
+          <td>0 to 17 pts. Diagnosis or stakeholder map is missing or inaccurate.</td>
+        </tr>
+        <tr>
+          <th scope="row">Staged plan and integration <span>35 points</span></th>
+          <td>32 to 35 pts. Plan follows Kotter's steps and integrates motivation, safety, teams and culture as one system, with specific positive leadership practices at each stage.</td>
+          <td>28 to 31 pts. Clear staged plan with good use of several frameworks.</td>
+          <td>25 to 27 pts. Plan is staged but frameworks are listed rather than integrated.</td>
+          <td>0 to 24 pts. Plan is unstaged, generic or disconnected from course theory.</td>
+        </tr>
+        <tr>
+          <th scope="row">Measures and feasibility <span>20 points</span></th>
+          <td>18 to 20 pts. Realistic plan with specific people and operational measures, timelines and resources.</td>
+          <td>16 to 17 pts. Feasible plan with reasonable measures.</td>
+          <td>14 to 15 pts. Measures are vague or feasibility is doubtful.</td>
+          <td>0 to 13 pts. No meaningful measures or an unrealistic plan.</td>
+        </tr>
+        <tr>
+          <th scope="row">Recorded briefing and writing <span>20 points</span></th>
+          <td>18 to 20 pts. Briefing is clear, persuasive and within five minutes; written plan is polished with correct APA citations.</td>
+          <td>16 to 17 pts. Clear briefing and writing with minor issues.</td>
+          <td>14 to 15 pts. Briefing is unfocused or over time; several writing or citation errors.</td>
+          <td>0 to 13 pts. Briefing missing, or writing hard to follow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note">Total: 100 points. On narrow screens, scroll the table sideways to see all levels.</p>
+  <h3>Scoring rubric: Strengths-based reflection</h3>
+  <div class="table-wrap" role="region" aria-label="Strengths-based reflection rubric, scroll horizontally on small screens" tabindex="0">
+    <table class="rubric">
+      <caption class="sr">Analytic rubric for Strengths-based reflection, four criteria by four performance levels</caption>
+      <thead>
+        <tr>
+          <th scope="col">Criterion</th>
+          <th scope="col">Exemplary <span>90 to 100% of points</span></th>
+          <th scope="col">Proficient <span>80 to 89%</span></th>
+          <th scope="col">Developing <span>70 to 79%</span></th>
+          <th scope="col">Beginning <span>below 70%</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Use of strengths evidence <span>30 points</span></th>
+          <td>27 to 30 pts. Integrates assessment results, colleagues' feedback and journal entries with specific examples.</td>
+          <td>24 to 26 pts. Uses all three sources, with some general statements.</td>
+          <td>21 to 23 pts. Relies mainly on one source.</td>
+          <td>0 to 20 pts. Little or no evidence.</td>
+        </tr>
+        <tr>
+          <th scope="row">Depth of reflection <span>30 points</span></th>
+          <td>27 to 30 pts. Honest, specific insight into how strengths helped and when an overused strength caused problems.</td>
+          <td>24 to 26 pts. Thoughtful reflection with some surface-level sections.</td>
+          <td>21 to 23 pts. Mostly descriptive rather than reflective.</td>
+          <td>0 to 20 pts. Little genuine reflection.</td>
+        </tr>
+        <tr>
+          <th scope="row">Development plan <span>25 points</span></th>
+          <td>23 to 25 pts. Specific six-month practices built on strengths, with a clear source of ongoing feedback.</td>
+          <td>20 to 22 pts. Sound plan, somewhat general.</td>
+          <td>18 to 19 pts. Plan is vague or focused only on fixing weaknesses.</td>
+          <td>0 to 17 pts. No meaningful plan.</td>
+        </tr>
+        <tr>
+          <th scope="row">Clarity and connection to course <span>15 points</span></th>
+          <td>14 to 15 pts. Clear, well organized, and connects accurately to course frameworks.</td>
+          <td>12 to 13 pts. Clear, with light connection to the course.</td>
+          <td>11 pts. Some organizational problems or weak connection.</td>
+          <td>0 to 10 pts. Hard to follow, with no connection to the course.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note">Total: 100 points. On narrow screens, scroll the table sideways to see all levels.</p>
+
+</section>
+
+<section id="checklist" aria-labelledby="h-check">
+  <h2 id="h-check">Tick-off checklist</h2>
+  <p>Track your week. Your ticks are saved in this browser, so they will still be here when you come back.</p>
+  <div class="progress"><div class="track" aria-hidden="true"><div class="fill" id="chkFill"></div></div><output id="chkCount" aria-live="polite">0 of 10 done</output></div>
+  <ul class="checklist" id="chkList">
+    <li><label><input type="checkbox" data-id="video"><span class="t">Watch the Monday welcome video<small>About 8 minutes</small></span></label></li>
+    <li><label><input type="checkbox" data-id="readings"><span class="t">Complete the two readings<small>About 1.5 hours</small></span></label></li>
+    <li><label><input type="checkbox" data-id="lecture"><span class="t">Read the short lecture and study the figure<small>About 9 minutes</small></span></label></li>
+    <li><label><input type="checkbox" data-id="draft"><span class="t">Post your draft plan for peer review<small>Due Tuesday, 11:59 pm</small></span></label></li>
+    <li><label><input type="checkbox" data-id="feedback"><span class="t">Post feedback on your assigned peer's draft<small>Due Thursday, 11:59 pm</small></span></label></li>
+    <li><label><input type="checkbox" data-id="selfcheck"><span class="t">Take the self-check until you score 5 of 5<small>Ungraded</small></span></label></li>
+    <li><label><input type="checkbox" data-id="briefing"><span class="t">Record your five-minute briefing<small>Optional: share at the live showcase</small></span></label></li>
+    <li><label><input type="checkbox" data-id="plan"><span class="t">Submit the final Leading Change Plan with briefing<small>Due Sunday, 11:59 pm</small></span></label></li>
+    <li><label><input type="checkbox" data-id="reflection"><span class="t">Submit the strengths-based reflection<small>Due Sunday, 11:59 pm</small></span></label></li>
+    <li><label><input type="checkbox" data-id="chase"><span class="t">Play The Boardroom Chase, Unit 1 full review<small>About 20 minutes</small></span></label></li>
+  </ul>
+  <p style="margin-top:.9rem"><button type="button" class="btn" id="chkReset">Clear all ticks</button></p>
+</section>
+
+<section id="review" aria-labelledby="h-review">
+  <div class="review">
+    <div>
+      <h2 id="h-review">Weekly review: The Boardroom Chase</h2>
+      <p>Finish the course with a full review of Unit 1: Positive Leadership &amp; Organizational Behavior. Every topic from weeks 1 to 9 is in play, so it is a good check on the system view before you submit your plan.</p>
+    </div>
+    <a class="btn gold" href="../boardroom-chase.html">Play the full Unit 1 review</a>
+  </div>
+  <div class="card" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between">
+    <p style="margin:0"><strong style="color:var(--navy)">More review.</strong> Drill the key terms with flashcards, then check your understanding against the study guide for this chapter.</p>
+    <span style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn" href="../flashcards.html">Flashcards</a><a class="btn" href="../study-guides.html#ch10">Study guide, Chapter 10</a></span>
+  </div>
+  <nav class="pager" aria-label="Week navigation">
+    <a href="week9.html">&larr; Week 9: Ethics, Purpose and Leading with Data</a>
+    <a href="index.html">Course overview &rarr;</a>
+  </nav>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap"><p>Dr. Akash Garg &middot; Leadership &amp; Management Teaching Portfolio</p></div></footer>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- Self-check ---------- */
+  var QUESTIONS = [
+ {
+  "q": "A clinic launches a new recognition program, but staff who admit mistakes are still criticized publicly. Using the course's system view, the most likely result is:",
+  "opts": [
+   "The program will fully solve the engagement problem",
+   "Team development will be unaffected",
+   "Culture will change immediately",
+   "The program will struggle because low psychological safety and culture undercut it"
+  ],
+  "a": 3,
+  "why": "The course's frameworks are linked. A motivation intervention is unlikely to last in a culture that punishes candor, because safety and culture shape whether it is believed."
+ },
+ {
+  "q": "Which are the three dimensions of burnout in Maslach's research?",
+  "opts": [
+   "Stress, anxiety and depression",
+   "Exhaustion, cynicism and reduced professional efficacy",
+   "Autonomy, competence and relatedness",
+   "Forming, storming and norming"
+  ],
+  "a": 1,
+  "why": "Maslach describes burnout in terms of exhaustion, cynicism or detachment, and a reduced sense of professional efficacy."
+ },
+ {
+  "q": "In the job demands-resources model, which is an example of a job resource?",
+  "opts": [
+   "Heavy caseload",
+   "Tight deadlines",
+   "Supportive colleagues and useful feedback",
+   "Emotional labor with difficult clients"
+  ],
+  "a": 2,
+  "why": "Resources include support, feedback, autonomy and development opportunities. Workload, deadlines and emotional labor are demands."
+ },
+ {
+  "q": "How does the World Health Organization classify burnout?",
+  "opts": [
+   "As an occupational phenomenon resulting from chronically unmanaged workplace stress",
+   "As a psychiatric disorder",
+   "As a personality trait",
+   "As a physical injury"
+  ],
+  "a": 0,
+  "why": "The WHO describes burnout as an occupational phenomenon, not a medical condition, arising from chronic workplace stress that has not been successfully managed."
+ },
+ {
+  "q": "Which approach best reflects the strengths-based reflection due this week?",
+  "opts": [
+   "Listing your weaknesses and how to fix each one",
+   "Building a development plan on your assessed strengths, colleagues' feedback and your journal",
+   "Comparing yourself with the highest performer you know",
+   "Summarizing the course readings"
+  ],
+  "a": 1,
+  "why": "The reflection draws on your strengths assessment, reflected best self feedback and journal to build a plan that grows what is already best in you."
+ }
+];
+  var quiz = document.getElementById("quiz");
+  var answered = {}, correct = 0;
+  var scoreVal = document.getElementById("scoreVal"), scoreMsg = document.getElementById("scoreMsg");
+  function updateScore(){
+    var n = Object.keys(answered).length;
+    scoreVal.textContent = correct + " of " + QUESTIONS.length;
+    scoreMsg.textContent = n === QUESTIONS.length ? (correct === QUESTIONS.length ? "Excellent. You are ready for the discussion." : "Review the lecture sections for any you missed, then reset and try again.") : "";
+  }
+  function build(){
+    quiz.innerHTML = ""; answered = {}; correct = 0;
+    QUESTIONS.forEach(function(item, qi){
+      var box = document.createElement("div"); box.className = "q";
+      var fs = document.createElement("fieldset");
+      var lg = document.createElement("legend");
+      lg.innerHTML = '<span class="n">Q' + (qi+1) + '</span>';
+      lg.appendChild(document.createTextNode(item.q));
+      fs.appendChild(lg);
+      var opts = document.createElement("div"); opts.className = "opts";
+      var fb = document.createElement("div"); fb.className = "fb"; fb.setAttribute("role","status"); fb.id = "fb" + qi;
+      item.opts.forEach(function(text, oi){
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "opt"; b.textContent = text;
+        b.setAttribute("data-q", qi); b.setAttribute("data-o", oi);
+        b.addEventListener("click", function(){
+          if (answered[qi] !== undefined) return;
+          answered[qi] = oi;
+          var ok = oi === item.a;
+          if (ok) correct++;
+          Array.prototype.forEach.call(opts.children, function(btn, k){
+            btn.disabled = true;
+            if (k === item.a){ btn.classList.add("correct"); btn.insertAdjacentHTML("afterbegin",'<span class="mark" aria-hidden="true">&#10003;</span>'); btn.setAttribute("aria-label", btn.textContent + " (correct answer)"); }
+            else if (k === oi){ btn.classList.add("wrong"); btn.insertAdjacentHTML("afterbegin",'<span class="mark" aria-hidden="true">&#10007;</span>'); btn.setAttribute("aria-label", btn.textContent + " (your answer, incorrect)"); }
+          });
+          fb.className = "fb show " + (ok ? "ok" : "no");
+          fb.innerHTML = "<strong>" + (ok ? "Correct." : "Not quite.") + "</strong> ";
+          fb.appendChild(document.createTextNode(item.why));
+          updateScore();
+        });
+        opts.appendChild(b);
+      });
+      fs.appendChild(opts); fs.appendChild(fb); box.appendChild(fs); quiz.appendChild(box);
+    });
+    updateScore();
+  }
+  build();
+  document.getElementById("quizReset").addEventListener("click", build);
+
+  /* ---------- Checklist with localStorage ---------- */
+  var KEY = "plob_week10_checklist_v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("#chkList input[type=checkbox]"));
+  function load(){ try { var raw = window.localStorage.getItem(KEY); return raw ? JSON.parse(raw) : {}; } catch(e){ return {}; } }
+  function save(state){ try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  function refresh(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    document.getElementById("chkCount").textContent = done + " of " + boxes.length + " done";
+    document.getElementById("chkFill").style.width = (done / boxes.length * 100) + "%";
+  }
+  var state = load();
+  boxes.forEach(function(b){
+    b.checked = !!state[b.getAttribute("data-id")];
+    b.addEventListener("change", function(){
+      state[b.getAttribute("data-id")] = b.checked; save(state); refresh();
+    });
+  });
+  document.getElementById("chkReset").addEventListener("click", function(){
+    state = {}; boxes.forEach(function(b){ b.checked = false; }); save(state); refresh();
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>

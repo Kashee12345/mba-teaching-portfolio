@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leadership Lab</title>
+<meta name="description" content="Six self-checking interactive activities for an MBA course in Positive Leadership and Organizational Behavior: Herzberg, Tuckman, Kotter, Schein, organizational justice and a PERMA workplace audit.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14213D;--navy2:#1d2d52;--gold:#C9A227;--gold-soft:#f3e7bf;--sage:#6B8F71;--sage-soft:#e3ece4;--paper:#F7F5F0;--ink:#1d232b;--muted:#5a6270;--line:#e2ddd1;--card:#fff;--rose:#a3485a;--rose-soft:#f6e3e7;--focus:#2f5fd0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px;overflow-x:hidden}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;line-height:1.2;margin:0}
+a{color:inherit}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar + hero */
+.topbar{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;padding-bottom:12px}
+.back{color:#f3efe4;text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.18)}
+.back:hover{background:rgba(255,255,255,.08)}
+.topbar .tag{color:#b9c1d4;font-size:13px}
+.hero{background:var(--navy);color:#f3efe4;padding:40px 0 48px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;position:relative;z-index:1}
+.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-size:clamp(34px,6vw,54px);margin:8px 0 12px;color:#fff}
+.hero p{margin:0 0 8px;color:#d6dbe7;max-width:560px}
+.hero-art{width:100%;max-width:380px;justify-self:end}
+.hero:after{content:"";position:absolute;right:-160px;bottom:-200px;width:460px;height:460px;border-radius:50%;border:56px solid rgba(201,162,39,.10)}
+
+/* jump menu */
+.jump{position:sticky;top:0;z-index:20;background:rgba(247,245,240,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.jump ul{list-style:none;margin:0;padding:10px 0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin}
+.jump a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none;font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--navy)}
+.jump a:hover{border-color:var(--gold)}
+.jump .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px}
+
+/* progress */
+.progress{margin:28px auto 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 1px 0 rgba(20,33,61,.04)}
+.progress-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:14px}
+.progress h2{font-size:22px;color:var(--navy)}
+.overall{font-weight:700;color:var(--navy)}
+.overall-bar{height:10px;border-radius:99px;background:#ece8dd;overflow:hidden;margin-bottom:16px}
+.overall-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .5s}
+.ptrack{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pitem{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--paper);text-decoration:none;display:block}
+.pitem b{display:block;font-size:13px;color:var(--navy);line-height:1.3}
+.pitem small{color:var(--muted);font-size:12px}
+.pitem .bar{height:6px;border-radius:99px;background:#e6e1d4;margin-top:6px;overflow:hidden}
+.pitem .bar span{display:block;height:100%;width:0;background:var(--sage);transition:width .4s}
+.pitem.done{border-color:var(--sage);background:var(--sage-soft)}
+.progress .note{font-size:13px;color:var(--muted);margin:12px 0 0}
+.linkbtn{background:none;border:none;color:var(--rose);text-decoration:underline;cursor:pointer;font-size:13px;padding:0}
+
+/* activity cards */
+main{padding-bottom:40px}
+.act{margin-top:32px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;scroll-margin-top:64px}
+.act-head{display:flex;gap:16px;align-items:center;padding:20px 22px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;position:relative;overflow:hidden}
+.act-head:after{content:"";position:absolute;right:-40px;top:-60px;width:180px;height:180px;border-radius:50%;background:rgba(201,162,39,.10)}
+.badge{flex:0 0 64px;width:64px;height:64px;border-radius:16px;background:var(--paper);display:grid;place-items:center;box-shadow:inset 0 0 0 2px var(--gold)}
+.badge svg{width:46px;height:46px}
+.act-head .num{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.act-head h2{font-size:clamp(22px,3.4vw,28px);color:#fff}
+.act-head p{margin:2px 0 0;color:#c9d0df;font-size:14px}
+.act-body{padding:20px 22px 24px}
+.instr{background:var(--paper);border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 10px 10px 0;margin:0 0 18px;font-size:15px}
+.scorebar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.score{font-weight:700;color:var(--navy);font-size:17px}
+.score .of{color:var(--muted);font-weight:500}
+.btn{cursor:pointer;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:10px;padding:8px 16px;font-weight:600;font-size:14px}
+.btn:hover{background:var(--navy2)}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.live{min-height:1.4em;font-size:14px;color:var(--muted)}
+.complete-msg{display:none;background:var(--sage-soft);border:1px solid var(--sage);border-radius:10px;padding:10px 14px;margin-top:14px;font-size:15px}
+.complete-msg.show{display:block}
+details.inotes{margin-top:18px;border:1px dashed #c9c1ad;border-radius:12px;background:#fcfbf7}
+details.inotes summary{cursor:pointer;padding:10px 14px;font-weight:600;color:var(--navy);font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+details.inotes summary::-webkit-details-marker{display:none}
+details.inotes summary:before{content:"";width:8px;height:8px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg);transition:transform .2s}
+details.inotes[open] summary:before{transform:rotate(45deg)}
+details.inotes .in{padding:0 16px 14px;font-size:14px}
+details.inotes .in p{margin:6px 0}
+details.inotes ul{margin:6px 0;padding-left:20px}
+
+/* feedback shared */
+.fb{margin-top:8px;font-size:14px;border-radius:8px;padding:8px 10px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--sage-soft);border-left:4px solid var(--sage)}
+.fb.no{background:var(--rose-soft);border-left:4px solid var(--rose)}
+.fb strong{display:block;margin-bottom:2px}
+.mark{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;flex:0 0 20px}
+.mark svg{width:12px;height:12px}
+.mark.ok{background:var(--sage)}
+.mark.no{background:var(--rose)}
+
+/* Herzberg */
+.pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border:2px dashed var(--line);border-radius:12px;min-height:64px;background:#fcfbf7}
+.pool:empty:after{content:"All factors placed.";color:var(--muted);font-size:14px;align-self:center}
+.chip{cursor:grab;border:1px solid #cfc8b6;background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;text-align:left;line-height:1.35;max-width:100%}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed="true"]{border-color:var(--navy);box-shadow:0 0 0 3px var(--gold-soft);background:#fffdf5}
+.chip.dragging{opacity:.4}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.bin{border:2px solid var(--line);border-radius:14px;padding:12px;min-height:160px;transition:border-color .15s,background .15s}
+.bin.over{border-color:var(--gold);background:#fffaea}
+.bin.armed{border-style:dashed;border-color:var(--navy)}
+.bin-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.bin h3{font-size:18px;color:var(--navy)}
+.bin .sub{font-size:13px;color:var(--muted);margin:0 0 8px}
+.placed{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.placed li{border-radius:10px;padding:8px 10px;font-size:14px;border:1px solid var(--line);background:#fff}
+.placed li .row{display:flex;gap:8px;align-items:flex-start}
+.placed li.ok{border-color:var(--sage);background:var(--sage-soft)}
+.placed li.no{border-color:var(--rose);background:var(--rose-soft)}
+.placed li .why{font-size:13px;color:#3b4350;margin-top:4px}
+.bin-hygiene h3:before,.bin-motiv h3:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.bin-hygiene h3:before{background:var(--sage)}
+.bin-motiv h3:before{background:var(--gold)}
+
+/* MCQ list */
+.qlist{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:q}
+.q{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.q.ok{border-color:var(--sage)}
+.q.no{border-color:var(--rose)}
+.q .stem{display:flex;gap:10px;margin:0 0 10px;font-size:15px}
+.q .stem .qn{flex:0 0 26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{cursor:pointer;border:1px solid #cfc8b6;background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600;color:var(--navy)}
+.opt:hover:not(:disabled){border-color:var(--gold);background:#fffaea}
+.opt:disabled{cursor:default}
+.opt.chosen.ok{background:var(--sage);border-color:var(--sage);color:#fff}
+.opt.chosen.no{background:var(--rose);border-color:var(--rose);color:#fff}
+.opt.answer{box-shadow:inset 0 0 0 2px var(--sage)}
+.opt:disabled:not(.chosen):not(.answer){opacity:.55}
+
+/* Kotter */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.part h3{font-size:19px;color:var(--navy);margin-bottom:6px}
+.part .sub{font-size:14px;color:var(--muted);margin:0 0 10px}
+.order{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.order li{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 6px 6px 8px;cursor:grab;font-size:14px}
+.order li.dragging{opacity:.4}
+.order li.drop-before{box-shadow:0 -3px 0 var(--gold)}
+.order li.ok{border-color:var(--sage);background:var(--sage-soft)}
+.order li.no{border-color:var(--rose);background:var(--rose-soft)}
+.order .pos{flex:0 0 26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+.order .txt{flex:1;line-height:1.3}
+.grip{flex:0 0 12px;height:18px;background:radial-gradient(circle,#b3ab96 1.5px,transparent 1.6px) 0 0/6px 6px;opacity:.9}
+.mv{display:flex;gap:4px}
+.mv button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;padding:0}
+.mv button:hover:not(:disabled){border-color:var(--gold)}
+.mv button:disabled{opacity:.35;cursor:default}
+.mv svg{width:14px;height:14px}
+.matchq{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.matchq.ok{border-color:var(--sage)}
+.matchq.no{border-color:var(--rose)}
+.matchq p{margin:0 0 8px;font-size:14px}
+.matchq select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #cfc8b6;background:var(--paper);font-size:14px}
+.key{display:none;margin-top:12px;background:var(--paper);border-radius:12px;padding:10px 14px;font-size:14px}
+.key.show{display:block}
+.key ol{margin:4px 0 0;padding-left:22px}
+
+/* Iceberg */
+.berg-wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:22px;align-items:start}
+.berg-fig{position:sticky;top:72px;background:linear-gradient(#eef3f8,#eef3f8);border-radius:14px;padding:8px;border:1px solid var(--line)}
+.berg-fig svg{width:100%;height:auto;display:block}
+.berg-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--muted);padding:6px 6px 2px}
+.berg-legend span{display:inline-flex;align-items:center;gap:5px}
+.berg-legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* PERMA */
+.perma{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.pel{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.pel label.t{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700;color:var(--navy)}
+.pel .letter{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--gold);color:var(--navy);font-family:"Source Serif 4",Georgia,serif;margin-right:6px}
+.pel .val{font-size:14px;color:var(--muted);font-weight:600}
+.pel .hint{font-size:13px;color:var(--muted);margin:2px 0 6px}
+.pel input[type=range]{width:100%;accent-color:var(--navy)}
+.pel textarea{width:100%;min-height:52px;border:1px solid #d9d2c1;border-radius:8px;padding:6px 8px;font-size:14px;resize:vertical;background:var(--paper)}
+.scale-ends{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+.radar-card{position:sticky;top:72px;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--paper)}
+.radar-card svg{width:100%;height:auto;display:block;max-width:420px;margin:0 auto}
+.recs h3{font-size:18px;color:var(--navy);margin:14px 0 6px}
+.rec{background:#fff;border:1px solid var(--line);border-left:4px solid var(--sage);border-radius:0 10px 10px 0;padding:8px 12px;margin-bottom:8px;font-size:14px}
+.rec b{color:var(--navy)}
+.rec ul{margin:4px 0 0;padding-left:18px}
+.rec li{margin-bottom:4px}
+.rec .cite{color:var(--muted);font-size:12.5px}
+.notgraded{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gold-soft);color:#6d5510;padding:3px 8px;border-radius:6px;margin-bottom:10px}
+.meta-in{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.meta-in label{font-size:13px;font-weight:600;color:var(--navy);display:block}
+.meta-in input{width:100%;border:1px solid #d9d2c1;border-radius:8px;padding:7px 9px;background:#fff;font-size:14px;margin-top:3px}
+
+footer{background:var(--navy);color:#c9d0df;padding:22px 0;font-size:14px;margin-top:40px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{justify-self:start;max-width:300px}
+  .ptrack{grid-template-columns:repeat(3,1fr)}
+  .two,.berg-wrap,.perma{grid-template-columns:1fr}
+  .berg-fig,.radar-card{position:static}
+  .berg-fig{max-width:420px;width:100%;margin:0 auto;order:-1}
+}
+@media (max-width:560px){
+  .hero{padding:28px 0 36px}
+  .hero-art{display:none}
+  .ptrack{grid-template-columns:1fr 1fr}
+  .bins{grid-template-columns:1fr}
+  .act-head{padding:16px;gap:12px}
+  .badge{flex-basis:52px;width:52px;height:52px}
+  .badge svg{width:38px;height:38px}
+  .act-body{padding:16px}
+  .meta-in{grid-template-columns:1fr}
+  .topbar .tag{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <a class="back" href="index.html">&larr; Portfolio home</a>
+  <span class="tag">Positive Leadership &amp; Organizational Behavior</span>
+</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">MBA Interactive Practice</div>
+      <h1>Leadership Lab</h1>
+      <p>Six short, self-checking activities that turn core organizational behavior models into decisions you can practice. Every scenario is fictional and drawn from settings like clinics, gyms, sports clubs and small businesses.</p>
+      <p>Your scores save in this browser so you can return and pick up where you left off.</p>
+    </div>
+    <svg class="hero-art" viewBox="0 0 380 260" role="img" aria-label="Illustration of a lab bench with a bar chart, gears and a lightbulb">
+      <rect x="20" y="206" width="340" height="10" rx="5" fill="#C9A227"/>
+      <rect x="44" y="216" width="10" height="36" fill="#8f7520"/><rect x="326" y="216" width="10" height="36" fill="#8f7520"/>
+      <rect x="44" y="150" width="26" height="56" rx="4" fill="#6B8F71"/>
+      <rect x="78" y="118" width="26" height="88" rx="4" fill="#8fb095"/>
+      <rect x="112" y="86" width="26" height="120" rx="4" fill="#C9A227"/>
+      <path d="M40 140 L90 108 L124 76 L150 58" stroke="#F7F5F0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="150" cy="58" r="6" fill="#F7F5F0"/>
+      <g transform="translate(236 132)">
+        <circle r="40" fill="none" stroke="#F7F5F0" stroke-width="14" stroke-dasharray="14 9"/>
+        <circle r="22" fill="#1d2d52" stroke="#F7F5F0" stroke-width="4"/>
+      </g>
+      <g transform="translate(300 82)">
+        <circle r="22" fill="none" stroke="#C9A227" stroke-width="10" stroke-dasharray="9 7"/>
+        <circle r="10" fill="#14213D" stroke="#C9A227" stroke-width="3"/>
+      </g>
+      <g transform="translate(214 30)">
+        <path d="M0 26 a22 22 0 1 1 30 0 l-3 12 h-24z" fill="#F7F5F0"/>
+        <rect x="5" y="40" width="20" height="5" rx="2" fill="#C9A227"/><rect x="7" y="47" width="16" height="4" rx="2" fill="#C9A227"/>
+        <path d="M15 10 v14 M9 18 l6 6 l6 -6" stroke="#14213D" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M-14 2 l-8 -6 M44 2 l8 -6 M15 -12 v-8" stroke="#C9A227" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Jump to activity">
+  <div class="wrap"><ul>
+    <li><a href="#herzberg"><span class="n">1</span>Hygiene or Motivator?</a></li>
+    <li><a href="#tuckman"><span class="n">2</span>Name That Stage</a></li>
+    <li><a href="#kotter"><span class="n">3</span>Kotter Sequencer</a></li>
+    <li><a href="#iceberg"><span class="n">4</span>Culture Iceberg</a></li>
+    <li><a href="#justice"><span class="n">5</span>Which Justice?</a></li>
+    <li><a href="#perma"><span class="n">6</span>PERMA Audit</a></li>
+  </ul></div>
+</nav>
+
+<main class="wrap">
+
+<section class="progress" aria-labelledby="prog-h">
+  <div class="progress-head">
+    <h2 id="prog-h">Your progress</h2>
+    <span class="overall" id="overall-text">0 of 57 points (0%)</span>
+  </div>
+  <div class="overall-bar" aria-hidden="true"><span id="overall-bar"></span></div>
+  <div class="ptrack" id="ptrack"></div>
+  <p class="note">Best scores for Activities 1 to 5 are saved in this browser only. The PERMA audit is reflective and is not scored. <button type="button" class="linkbtn" id="clear-progress">Clear saved progress</button></p>
+</section>
+
+<!-- 1 HERZBERG -->
+<section class="act" id="herzberg" aria-labelledby="h-herz">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><path d="M24 6v34" stroke="#14213D" stroke-width="3" stroke-linecap="round"/><path d="M8 14h32" stroke="#14213D" stroke-width="3" stroke-linecap="round"/><path d="M8 14l-5 12h10z" fill="#6B8F71"/><path d="M40 14l-5 12h10z" fill="#C9A227"/><path d="M3 26a5 3 0 0 0 10 0M35 26a5 3 0 0 0 10 0" fill="none" stroke="#14213D" stroke-width="2"/><rect x="16" y="39" width="16" height="4" rx="2" fill="#14213D"/><circle cx="24" cy="10" r="3" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 1</div><h2 id="h-herz">Hygiene or Motivator?</h2><p>Herzberg's two-factor theory</p></div>
+  </div>
+  <div class="act-body">
+    <p class="instr">Sort each workplace factor into <strong>hygiene factors</strong> (they prevent dissatisfaction when adequate, but do not by themselves motivate) or <strong>motivators</strong> (they come from the work itself and drive satisfaction). Drag a card onto a column, or select a card with a tap, click, Enter or Space and then press <em>Place here</em> on a column.</p>
+    <div class="pool" id="herz-pool" aria-label="Factors to sort"></div>
+    <div class="bins">
+      <div class="bin bin-hygiene" data-bin="hygiene" id="bin-hygiene">
+        <div class="bin-head"><h3>Hygiene factors</h3><button type="button" class="btn ghost place-btn" data-bin="hygiene" disabled>Place here</button></div>
+        <p class="sub">Context of the job. Absence causes dissatisfaction.</p>
+        <ul class="placed" aria-live="polite"></ul>
+      </div>
+      <div class="bin bin-motiv" data-bin="motivator" id="bin-motivator">
+        <div class="bin-head"><h3>Motivators</h3><button type="button" class="btn ghost place-btn" data-bin="motivator" disabled>Place here</button></div>
+        <p class="sub">Content of the job. Presence creates satisfaction.</p>
+        <ul class="placed" aria-live="polite"></ul>
+      </div>
+    </div>
+    <div class="scorebar"><span class="score" id="herz-score">Score: 0 <span class="of">/ 12</span></span><button type="button" class="btn ghost" id="herz-reset">Reset</button><span class="live" id="herz-live" aria-live="polite"></span></div>
+    <div class="complete-msg" id="herz-done"></div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners distinguish extrinsic job-context factors from intrinsic job-content factors and explain why fixing hygiene issues removes dissatisfaction without necessarily producing motivation (Herzberg, Mausner &amp; Snyderman, 1959).</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Ask learners to name one hygiene factor and one motivator they could change in their own unit next month, and predict the effect of each.</li>
+        <li><strong>Live session:</strong> Project the activity and have the group vote before each placement. Pause on salary: Herzberg classed it as hygiene, yet many learners argue it motivates. Use this to discuss critiques of the theory, including the critical incident method and later research on pay as recognition.</li>
+        <li><strong>Extension:</strong> Link to job enrichment and the Job Characteristics Model (Hackman &amp; Oldham).</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<!-- 2 TUCKMAN -->
+<section class="act" id="tuckman" aria-labelledby="h-tuck">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-dasharray="4 4"/><circle cx="24" cy="8" r="5" fill="#14213D"/><circle cx="39" cy="19" r="5" fill="#6B8F71"/><circle cx="33" cy="37" r="5" fill="#14213D"/><circle cx="15" cy="37" r="5" fill="#6B8F71"/><circle cx="9" cy="19" r="5" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 2</div><h2 id="h-tuck">Name That Stage</h2><p>Tuckman (1965) and Tuckman &amp; Jensen (1977)</p></div>
+  </div>
+  <div class="act-body">
+    <p class="instr">Read each team snapshot and choose the stage of group development it best illustrates. Feedback appears as soon as you choose. One attempt per scenario.</p>
+    <ol class="qlist" id="tuck-list"></ol>
+    <div class="scorebar"><span class="score" id="tuck-score">Score: 0 <span class="of">/ 10</span></span><button type="button" class="btn ghost" id="tuck-reset">Reset</button></div>
+    <div class="complete-msg" id="tuck-done"></div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners recognize behavioral cues of forming, storming, norming, performing and adjourning, and select leader behaviors suited to each stage.</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Have each learner post the stage their current team is in, the evidence, and one leader move that would help it progress.</li>
+        <li><strong>Live session:</strong> Assign each breakout room a stage and ask it to act out a two-minute team meeting; the rest of the class names the stage.</li>
+        <li><strong>Caveat to raise:</strong> The stages are a heuristic, not a fixed sequence. Teams can regress to storming when membership or goals change, and Gersick's punctuated equilibrium model offers an alternative for time-bound teams.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<!-- 3 KOTTER -->
+<section class="act" id="kotter" aria-labelledby="h-kot">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><path d="M4 42h8v-6h8v-6h8v-6h8v-6h8" fill="none" stroke="#14213D" stroke-width="3" stroke-linejoin="round"/><path d="M4 42h40" stroke="#6B8F71" stroke-width="3"/><path d="M40 6v12" stroke="#14213D" stroke-width="2.5"/><path d="M40 6l-8 3l8 3z" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 3</div><h2 id="h-kot">Kotter Sequencer</h2><p>Leading Change, Kotter (1996)</p></div>
+  </div>
+  <div class="act-body">
+    <p class="instr">Part A: arrange the eight steps into Kotter's order. Drag rows, or use the up and down buttons. Then press <em>Check order</em>. Part B: a fictional fitness studio is modernizing its member services. Match each action to the step it illustrates.</p>
+    <div class="two">
+      <div class="part">
+        <h3>Part A. Put the steps in order</h3>
+        <p class="sub">Step 1 at the top.</p>
+        <ol class="order" id="kot-order" aria-label="Kotter steps, reorderable"></ol>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="kot-check">Check order</button><span class="live" id="kot-live" aria-live="polite"></span></div>
+        <div class="key" id="kot-key"></div>
+      </div>
+      <div class="part">
+        <h3>Part B. Match the action to the step</h3>
+        <p class="sub">Brightwater Fitness, a fictional 3-site studio.</p>
+        <div id="kot-match"></div>
+      </div>
+    </div>
+    <div class="scorebar"><span class="score" id="kot-score">Score: 0 <span class="of">/ 14</span></span><button type="button" class="btn ghost" id="kot-reset">Reset</button></div>
+    <div class="complete-msg" id="kot-done"></div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners recall the sequence of Kotter's eight-stage process and apply it by diagnosing which stage a concrete leader action serves.</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Ask learners to describe a change they lived through, identify the stage that was skipped or rushed, and connect it to Kotter's eight common errors (for example, declaring victory too soon).</li>
+        <li><strong>Live session:</strong> Run Part A as a timed team race, then debrief why urgency comes before vision in Kotter's model. Contrast with Kotter's later "accelerate" framing (2014), which runs steps concurrently.</li>
+        <li><strong>Critique to raise:</strong> The model is top-down and practitioner-derived; pair it with Lewin's unfreeze-change-refreeze and bottom-up change perspectives.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<!-- 4 ICEBERG -->
+<section class="act" id="iceberg" aria-labelledby="h-ice">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><path d="M2 20h44" stroke="#6B8F71" stroke-width="2.5"/><path d="M18 20l6-12l6 12z" fill="#14213D"/><path d="M14 21h20l6 12l-10 11h-12l-10-11z" fill="#9fb6cf"/><path d="M8 33h32" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="24" cy="8" r="2" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 4</div><h2 id="h-ice">Culture Iceberg</h2><p>Schein's three levels of organizational culture</p></div>
+  </div>
+  <div class="act-body">
+    <p class="instr">Classify each observation from a fictional physiotherapy group, Harbor Physio, as an <strong>artifact</strong> (visible structures, behaviors, language, rituals), an <strong>espoused value</strong> (stated beliefs, goals and philosophies), or a <strong>basic underlying assumption</strong> (unconscious, taken-for-granted beliefs). The iceberg fills in as you go.</p>
+    <div class="berg-wrap">
+      <ol class="qlist" id="ice-list"></ol>
+      <div class="berg-fig">
+        <svg id="berg" viewBox="0 0 440 420" role="img" aria-labelledby="berg-t berg-d">
+          <title id="berg-t">Culture iceberg</title>
+          <desc id="berg-d">Iceberg with artifacts above the waterline, espoused values just below, and basic underlying assumptions at the base. Numbered markers show where you placed each observation.</desc>
+          <defs>
+            <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d8fb3"/><stop offset="1" stop-color="#14213D"/></linearGradient>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f5f0"/><stop offset="1" stop-color="#dbe6ef"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="440" height="120" fill="url(#sky)"/>
+          <rect x="0" y="120" width="440" height="300" fill="url(#sea)"/>
+          <path d="M0 120 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>
+          <g transform="translate(78 0)">
+          <path d="M140 26 L178 12 L214 30 L246 120 L112 120 Z" fill="#ffffff" stroke="#b9cadb" stroke-width="2"/>
+          <path d="M112 120 L246 120 L292 220 L66 220 Z" fill="#cfdeeb" opacity=".93"/>
+          <path d="M66 220 L292 220 L320 322 L262 400 L96 400 L38 322 Z" fill="#a9c1d8" opacity=".9"/>
+          <path d="M66 220 L292 220" stroke="#fff" stroke-width="1.5" stroke-dasharray="5 5" opacity=".8"/>
+          <g id="berg-art"></g><g id="berg-esp"></g><g id="berg-bua"></g>
+          </g>
+          <text x="12" y="30" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#14213D">ARTIFACTS</text>
+          <text x="12" y="45" font-family="Inter,system-ui,sans-serif" font-size="10.5" fill="#5a6270">visible</text>
+          <text x="12" y="146" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">ESPOUSED</text>
+          <text x="12" y="160" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">VALUES</text>
+          <text x="12" y="246" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">BASIC</text>
+          <text x="12" y="260" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">ASSUMPTIONS</text>
+          <text id="berg-count" x="428" y="410" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#fff">0 of 12 placed</text>
+        </svg>
+        <div class="berg-legend"><span><i style="background:#6B8F71"></i>correct</span><span><i style="background:#a3485a"></i>misplaced</span><span>Numbers match the observation list.</span></div>
+      </div>
+    </div>
+    <div class="scorebar"><span class="score" id="ice-score">Score: 0 <span class="of">/ 12</span></span><button type="button" class="btn ghost" id="ice-reset">Reset</button></div>
+    <div class="complete-msg" id="ice-done"></div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners separate what a culture shows, what it says, and what it takes for granted, and explain why gaps between espoused values and assumptions predict change resistance (Schein, <em>Organizational Culture and Leadership</em>).</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Ask learners to post one artifact from their workplace and infer the assumption beneath it, then have peers challenge the inference.</li>
+        <li><strong>Live session:</strong> Focus on items 5 to 8 versus 9 to 12. The same topic (for example, work-life balance) can appear as a stated value and as a contradictory assumption. Ask: which one actually predicts behavior?</li>
+        <li><strong>Teaching tip:</strong> Stories, rituals and jargon are artifacts even though they feel "cultural"; learners often misplace them as values.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<!-- 5 JUSTICE -->
+<section class="act" id="justice" aria-labelledby="h-jus">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><path d="M24 6v36M14 42h20" stroke="#14213D" stroke-width="3" stroke-linecap="round"/><path d="M8 14h32" stroke="#14213D" stroke-width="2.5"/><path d="M8 14l-5 11M8 14l5 11M40 14l-5 11M40 14l5 11" stroke="#14213D" stroke-width="1.5"/><path d="M2 25a6 4 0 0 0 12 0z" fill="#C9A227"/><path d="M34 25a6 4 0 0 0 12 0z" fill="#6B8F71"/><circle cx="24" cy="10" r="3.5" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 5</div><h2 id="h-jus">Which Justice?</h2><p>Organizational justice dimensions (Colquitt, 2001)</p></div>
+  </div>
+  <div class="act-body">
+    <p class="instr">Decide whether each scenario is mainly about <strong>distributive</strong> justice (fairness of outcomes), <strong>procedural</strong> justice (fairness of the process used to reach outcomes), or <strong>interactional</strong> justice (fairness of treatment, meaning respect and dignity plus honest, timely explanations). Colquitt's model splits interactional justice into interpersonal and informational components; both count as interactional here.</p>
+    <ol class="qlist" id="jus-list"></ol>
+    <div class="scorebar"><span class="score" id="jus-score">Score: 0 <span class="of">/ 9</span></span><button type="button" class="btn ghost" id="jus-reset">Reset</button></div>
+    <div class="complete-msg" id="jus-done"></div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners diagnose which justice dimension is at stake and choose a leader response that targets it, drawing on Adams (equity), Thibaut &amp; Walker and Leventhal (process), Bies &amp; Moag (interactional), and Colquitt's (2001) four-factor measure.</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Give learners a real-looking but fictional layoff announcement and ask them to rewrite it to improve procedural and informational justice without changing the outcome.</li>
+        <li><strong>Live session:</strong> Poll the room on scenario 4 and scenario 8. Both involve a decision, but one is about how the decision was made and the other about how it was communicated. The distinction drives the debrief.</li>
+        <li><strong>Key point:</strong> Research on the fair process effect shows that fair procedures and respectful treatment soften reactions to unfavorable outcomes.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<!-- 6 PERMA -->
+<section class="act" id="perma" aria-labelledby="h-per">
+  <div class="act-head">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><polygon points="24,5 42,18 35,40 13,40 6,18" fill="none" stroke="#14213D" stroke-width="2"/><polygon points="24,12 36,20 31,34 17,36 12,20" fill="#6B8F71" opacity=".8"/><circle cx="24" cy="12" r="2.5" fill="#C9A227"/><circle cx="36" cy="20" r="2.5" fill="#C9A227"/><circle cx="31" cy="34" r="2.5" fill="#C9A227"/><circle cx="17" cy="36" r="2.5" fill="#C9A227"/><circle cx="12" cy="20" r="2.5" fill="#C9A227"/></svg>
+    </div>
+    <div><div class="num">Activity 6</div><h2 id="h-per">PERMA Workplace Audit</h2><p>Seligman's well-being model, <em>Flourish</em> (2011)</p></div>
+  </div>
+  <div class="act-body">
+    <span class="notgraded">Reflective, not graded</span>
+    <p class="instr">Rate your own team from 1 (rarely true) to 5 (consistently true) on each PERMA element and add a note with evidence. The radar chart updates as you go, and the two lowest elements get evidence-based action ideas. Nothing is sent anywhere; use <em>Download my audit</em> to keep a copy.</p>
+    <div class="perma">
+      <div>
+        <div class="meta-in">
+          <label>Team or unit <input type="text" id="perma-team" placeholder="e.g. Front desk team" autocomplete="off"></label>
+          <label>Your role <input type="text" id="perma-role" placeholder="e.g. Clinic manager" autocomplete="off"></label>
+        </div>
+        <div id="perma-inputs"></div>
+      </div>
+      <div class="radar-card">
+        <svg id="radar" viewBox="-44 0 488 380" role="img" aria-labelledby="radar-t"><title id="radar-t">PERMA radar chart</title></svg>
+        <p class="sr" id="radar-summary" aria-live="polite"></p>
+        <div class="recs" id="perma-recs"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button type="button" class="btn gold" id="perma-dl">Download my audit</button>
+          <button type="button" class="btn ghost" id="perma-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <details class="inotes"><summary>Instructor notes</summary><div class="in">
+      <p><strong>Objective:</strong> Learners apply Seligman's (2011) five pillars of well-being (Positive emotion, Engagement, Relationships, Meaning, Accomplishment) to a real team and plan targeted, evidence-informed interventions.</p>
+      <ul>
+        <li><strong>Discussion use:</strong> Learners attach their downloaded audit and write a short plan for one action, including how they would know within 30 days whether it worked.</li>
+        <li><strong>Live session:</strong> Pair learners from different sectors (for example, a sports club and a clinic) to compare radar shapes and trade intervention ideas.</li>
+        <li><strong>Caution:</strong> This is a structured reflection, not a validated measure. For research-grade assessment point learners to the PERMA-Profiler (Butler &amp; Kern, 2016) or the Workplace PERMA Profiler.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>Dr. Akash Garg · Leadership &amp; Management Teaching Portfolio</span><span>All scenarios and organizations are fictional.</span></div></footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- helpers ---------- */
+var $ = function(s,r){return (r||document).querySelector(s);};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function el(tag,attrs,html){var e=document.createElement(tag);if(attrs){for(var k in attrs){if(k==='class')e.className=attrs[k];else e.setAttribute(k,attrs[k]);}}if(html!=null)e.innerHTML=html;return e;}
+var ICON_OK='<svg viewBox="0 0 12 12"><path d="M2 6.5l2.5 2.5L10 3.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_NO='<svg viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+function markHTML(ok){return '<span class="mark '+(ok?'ok':'no')+'" aria-hidden="true">'+(ok?ICON_OK:ICON_NO)+'</span>';}
+function shuffle(a,seed){var r=a.slice(),s=seed||7;for(var i=r.length-1;i>0;i--){s=(s*9301+49297)%233280;var j=Math.floor(s/233280*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+
+/* ---------- progress store ---------- */
+var STORE='leadershipLab.v1';
+var ACTS=[
+  {id:'herzberg',name:'Hygiene or Motivator?',max:12},
+  {id:'tuckman',name:'Name That Stage',max:10},
+  {id:'kotter',name:'Kotter Sequencer',max:14},
+  {id:'iceberg',name:'Culture Iceberg',max:12},
+  {id:'justice',name:'Which Justice?',max:9}
+];
+var best={};
+function load(){try{var raw=window.localStorage.getItem(STORE);best=raw?JSON.parse(raw)||{}:{};}catch(e){best={};}}
+function save(){try{window.localStorage.setItem(STORE,JSON.stringify(best));}catch(e){}}
+function record(id,score){var cur=best[id]||0;if(score>cur){best[id]=score;save();}renderProgress();}
+function renderProgress(){
+  var box=$('#ptrack');box.innerHTML='';var tot=0,max=0;
+  ACTS.forEach(function(a,i){
+    var b=Math.min(best[a.id]||0,a.max);tot+=b;max+=a.max;
+    var pct=Math.round(b/a.max*100);
+    var it=el('a',{class:'pitem'+(b===a.max?' done':''),href:'#'+a.id},
+      '<b>'+(i+1)+'. '+a.name+'</b><small>Best: '+b+' / '+a.max+(b===a.max?' · complete':'')+'</small><div class="bar" aria-hidden="true"><span style="width:'+pct+'%"></span></div>');
+    box.appendChild(it);
+  });
+  var p=Math.round(tot/max*100);
+  $('#overall-text').textContent=tot+' of '+max+' points ('+p+'%)';
+  $('#overall-bar').style.width=p+'%';
+}
+$('#clear-progress').addEventListener('click',function(){best={};try{window.localStorage.removeItem(STORE);}catch(e){}renderProgress();});
+
+function setScore(id,score,max,doneEl,doneText,answered){
+  $('#'+id).innerHTML='Score: '+score+' <span class="of">/ '+max+'</span>';
+  if(doneEl){
+    if(answered>=max){doneEl.classList.add('show');doneEl.innerHTML=doneText(score,max);}
+    else doneEl.classList.remove('show');
+  }
+}
+function doneText(label){return function(s,m){var pct=Math.round(s/m*100);return '<strong>'+label+' complete: '+s+' / '+m+' ('+pct+'%).</strong> '+(s===m?'Full marks. Try explaining one item to a colleague to lock it in.':'Review the highlighted items, then press Reset to try again. Your best score is kept.');};}
+
+/* ---------- 1 HERZBERG ---------- */
+var HERZ=[
+  {id:'h1',t:'A base salary that matches other clinics in town',k:'hygiene',w:'Salary is a classic hygiene factor. Fair pay prevents dissatisfaction, but Herzberg found it rarely produced lasting motivation on its own.'},
+  {id:'h2',t:'Clear, sensible policies for scheduling and leave requests',k:'hygiene',w:'Company policy and administration sit in the job context. Poor policy frustrates people; good policy is expected rather than energizing.'},
+  {id:'h3',t:'A clean, safe, well-equipped treatment room',k:'hygiene',w:'Working conditions are hygiene. Staff notice when they are poor, and stop noticing once they are adequate.'},
+  {id:'h4',t:'Civil, cooperative relationships with coworkers',k:'hygiene',w:'Interpersonal relations with peers were classed as hygiene in Herzberg\'s study: their absence breeds dissatisfaction.'},
+  {id:'h5',t:'Confidence that your position will not be cut next quarter',k:'hygiene',w:'Job security is hygiene. Insecurity drives dissatisfaction, while security alone does not inspire extra effort.'},
+  {id:'h6',t:'A supervisor who is technically competent and fair',k:'hygiene',w:'Quality of supervision is a hygiene factor in the original model, part of the environment around the work.'},
+  {id:'h7',t:'Helping a client reach a goal after months of coaching',k:'motivator',w:'Achievement is a core motivator. It comes from the work itself and creates genuine satisfaction.'},
+  {id:'h8',t:'Being singled out in a team meeting for a creative fix',k:'motivator',w:'Recognition for accomplishment is a motivator, especially when it is specific and tied to the work.'},
+  {id:'h9',t:'Doing coaching work you find interesting and worthwhile',k:'motivator',w:'The work itself is a motivator. Intrinsically meaningful tasks drive satisfaction.'},
+  {id:'h10',t:'Being trusted to run a new wellness program end to end',k:'motivator',w:'Responsibility is a motivator. Ownership of meaningful work is central to job enrichment.'},
+  {id:'h11',t:'A clear path to promotion to head coach',k:'motivator',w:'Advancement is a motivator in Herzberg\'s framework, linked to growth in status and scope.'},
+  {id:'h12',t:'Funded training toward a new specialist certification',k:'motivator',w:'Growth, the possibility of personal and professional development, is a motivator.'}
+];
+var herz={placed:{},selected:null};
+var herzDone=$('#herz-done'),herzDoneText=doneText('Activity 1');
+function herzRender(){
+  var pool=$('#herz-pool');pool.innerHTML='';
+  shuffle(HERZ,11).forEach(function(f){
+    if(herz.placed[f.id])return;
+    var c=el('button',{type:'button',class:'chip',draggable:'true','data-id':f.id,'aria-pressed':herz.selected===f.id?'true':'false'},f.t);
+    c.addEventListener('click',function(){herz.selected=(herz.selected===f.id)?null:f.id;herzRender();var nc=$('.chip[data-id="'+f.id+'"]');if(nc)nc.focus();});
+    c.addEventListener('dragstart',function(e){herz.selected=f.id;c.classList.add('dragging');try{e.dataTransfer.setData('text/plain',f.id);e.dataTransfer.effectAllowed='move';}catch(x){}});
+    c.addEventListener('dragend',function(){c.classList.remove('dragging');});
+    pool.appendChild(c);
+  });
+  ['hygiene','motivator'].forEach(function(b){
+    var ul=$('#bin-'+b+' .placed');ul.innerHTML='';
+    HERZ.forEach(function(f){
+      var p=herz.placed[f.id];if(!p||p!==b)return;var ok=p===f.k;
+      var li=el('li',{class:ok?'ok':'no'},'<div class="row">'+markHTML(ok)+'<span>'+f.t+'<span class="sr">'+(ok?' correct':' incorrect')+'</span></span></div><div class="why">'+(ok?'':'<strong>Belongs in '+(f.k==='hygiene'?'hygiene factors':'motivators')+'.</strong> ')+f.w+'</div>');
+      ul.appendChild(li);
+    });
+  });
+  $$('.place-btn').forEach(function(btn){btn.disabled=!herz.selected;});
+  $$('#herzberg .bin').forEach(function(bn){bn.classList.toggle('armed',!!herz.selected);});
+  var n=Object.keys(herz.placed).length,s=0;HERZ.forEach(function(f){if(herz.placed[f.id]===f.k)s++;});
+  setScore('herz-score',s,12,herzDone,herzDoneText,n);
+  if(n===12)record('herzberg',s);
+  return s;
+}
+function herzPlace(id,bin){
+  if(!id||herz.placed[id])return;
+  var f=HERZ.filter(function(x){return x.id===id;})[0];if(!f)return;
+  herz.placed[id]=bin;herz.selected=null;herzRender();
+  $('#herz-live').textContent=(bin===f.k?'Correct. ':'Not quite. ')+'Placed in '+(bin==='hygiene'?'hygiene factors':'motivators')+'.';
+  var next=$('#herz-pool .chip');if(next)next.focus();
+}
+$$('#herzberg .bin').forEach(function(bn){
+  var b=bn.getAttribute('data-bin');
+  bn.addEventListener('dragover',function(e){e.preventDefault();bn.classList.add('over');});
+  bn.addEventListener('dragleave',function(){bn.classList.remove('over');});
+  bn.addEventListener('drop',function(e){e.preventDefault();bn.classList.remove('over');var id=null;try{id=e.dataTransfer.getData('text/plain');}catch(x){}herzPlace(id||herz.selected,b);});
+  bn.addEventListener('click',function(e){if(herz.selected&&!e.target.closest('.place-btn')&&!e.target.closest('li'))herzPlace(herz.selected,b);});
+});
+$$('.place-btn').forEach(function(btn){btn.addEventListener('click',function(){herzPlace(herz.selected,btn.getAttribute('data-bin'));});});
+$('#herz-reset').addEventListener('click',function(){herz={placed:{},selected:null};$('#herz-live').textContent='';herzRender();});
+
+/* ---------- generic MCQ ---------- */
+function mcq(cfg){
+  var state={};
+  var list=$(cfg.list);
+  var dn=$(cfg.done),dt=doneText(cfg.label);
+  function score(){var s=0,n=0;cfg.items.forEach(function(it,i){if(state[i]!=null){n++;if(state[i]===it.k)s++;}});return {s:s,n:n};}
+  function update(){var r=score();setScore(cfg.score,r.s,cfg.items.length,dn,dt,r.n);if(r.n===cfg.items.length)record(cfg.id,r.s);if(cfg.onChange)cfg.onChange(state);}
+  function render(){
+    list.innerHTML='';
+    cfg.items.forEach(function(it,i){
+      var li=el('li',{class:'q','data-i':i});
+      li.appendChild(el('p',{class:'stem'},'<span class="qn" aria-hidden="true">'+(i+1)+'</span><span><span class="sr">Item '+(i+1)+'. </span>'+it.t+'</span>'));
+      var og=el('div',{class:'opts',role:'group','aria-label':'Choose an answer for item '+(i+1)});
+      var fb=el('div',{class:'fb','aria-live':'polite'});
+      cfg.options.forEach(function(o){
+        var b=el('button',{type:'button',class:'opt','data-v':o.v},o.l);
+        b.addEventListener('click',function(){
+          if(state[i]!=null)return;state[i]=o.v;var ok=o.v===it.k;
+          li.classList.add(ok?'ok':'no');
+          $$('.opt',og).forEach(function(x){x.disabled=true;if(x.getAttribute('data-v')===o.v)x.classList.add('chosen',ok?'ok':'no');if(!ok&&x.getAttribute('data-v')===it.k)x.classList.add('answer');});
+          var ans=cfg.options.filter(function(z){return z.v===it.k;})[0].l;
+          fb.className='fb show '+(ok?'ok':'no');
+          fb.innerHTML='<strong>'+(ok?'Correct: ':'Not quite. Answer: ')+ans+'.</strong>'+it.w;
+          update();
+        });
+        og.appendChild(b);
+      });
+      li.appendChild(og);li.appendChild(fb);list.appendChild(li);
+    });
+    update();
+  }
+  $(cfg.reset).addEventListener('click',function(){state={};render();});
+  render();
+  return {state:state};
+}
+
+/* ---------- 2 TUCKMAN ---------- */
+var TUCK_OPTS=[{v:'forming',l:'Forming'},{v:'storming',l:'Storming'},{v:'norming',l:'Norming'},{v:'performing',l:'Performing'},{v:'adjourning',l:'Adjourning'}];
+var TUCK=[
+  {t:'A newly assembled launch team for a sports nutrition product is polite and cautious. Members keep asking the project lead what exactly is expected and who decides what.',k:'forming',w:'High dependence on the leader, uncertainty about roles and polite, tentative behavior are hallmarks of forming. The leader should provide direction and clarity.'},
+  {t:'Three weeks into a clinic merger project, two senior therapists openly clash over whose intake process to keep, and meetings run long with interruptions.',k:'storming',w:'Conflict over approaches, influence and control is storming. Leaders should surface disagreements, clarify decision rights and coach constructive conflict.'},
+  {t:'A youth soccer club\'s coaching staff has agreed on a shared session plan template, rotates who runs warmups, and says "that is how we do things here."',k:'norming',w:'Agreed ways of working, shared routines and growing cohesion signal norming.'},
+  {t:'A café\'s morning crew handles a surprise rush smoothly: people switch roles without being asked, flag problems early and hit their targets with little supervision.',k:'performing',w:'Autonomy, fluid roles and a focus on results with minimal leader direction indicate performing. The leader\'s job shifts to delegation and removing obstacles.'},
+  {t:'A 12-week wellness challenge team holds a final session to celebrate results, document lessons learned and say goodbye before members return to their units.',k:'adjourning',w:'Adjourning, added by Tuckman and Jensen (1977), is the closure of a time-limited group: wrapping up tasks, recognizing contributions and managing the sense of loss.'},
+  {t:'Volunteers for a charity fun-run meet for the first time. They share backgrounds, test out who might take charge, and avoid disagreeing with anyone.',k:'forming',w:'Getting acquainted, testing boundaries and avoiding conflict are forming behaviors.'},
+  {t:'After a new manager joins a physiotherapy practice, staff split into camps over the new booking targets and several complain that the goals are unrealistic.',k:'storming',w:'Resistance to goals and to the new leader\'s authority are classic storming signals. Note that a change in leadership can send an established team back to this stage.'},
+  {t:'Following a rocky first month, a gym\'s sales team settles on a fair way to share walk-in leads and starts giving each other honest but friendly feedback.',k:'norming',w:'Resolving earlier conflict by agreeing norms and building trust marks the move into norming.'},
+  {t:'A small accounting firm\'s tax season team has worked together for two years. They set their own deadlines, disagree productively and consistently exceed quality targets.',k:'performing',w:'Mature interdependence, productive disagreement and high output characterize performing.'},
+  {t:'A hospital pop-up vaccination unit is being disbanded. Some members feel anxious and a little sad, and the lead schedules exit conversations and thank-you notes.',k:'adjourning',w:'Emotional reactions to disbanding and deliberate closure activities belong to adjourning, sometimes called "mourning."'}
+];
+mcq({id:'tuckman',list:'#tuck-list',items:TUCK,options:TUCK_OPTS,score:'tuck-score',reset:'#tuck-reset',done:'#tuck-done',label:'Activity 2'});
+
+/* ---------- 3 KOTTER ---------- */
+var KOT_STEPS=[
+  'Establish a sense of urgency',
+  'Create the guiding coalition',
+  'Develop a vision and strategy',
+  'Communicate the change vision',
+  'Empower broad-based action',
+  'Generate short-term wins',
+  'Consolidate gains and produce more change',
+  'Anchor new approaches in the culture'
+];
+var KOT_MATCH=[
+  {t:'The owner shares data showing member cancellations rose 30% in six months and reads out exit-survey comments at an all-staff meeting.',k:0,w:'Using hard data and customer voices to show the status quo is riskier than change establishes urgency.'},
+  {t:'She recruits the head trainer, the front desk lead and a respected long-time member to steer the project together.',k:1,w:'A group with enough credibility, expertise and influence to lead the change is the guiding coalition.'},
+  {t:'The team scraps the rule that every refund under $50 needs manager sign-off, so front desk staff can resolve complaints on the spot.',k:4,w:'Removing structural obstacles so people can act on the vision is empowering broad-based action.'},
+  {t:'After one month, wait times at the busiest site drop by half and the team celebrates it publicly.',k:5,w:'Visible, unambiguous early improvements that are recognized publicly are short-term wins.'},
+  {t:'Using the credibility of those early results, leaders roll the new approach out to class booking and billing as well.',k:6,w:'Leveraging early success to tackle bigger systems, rather than declaring victory, is consolidating gains and producing more change.'},
+  {t:'The new service behaviors are written into hiring criteria, onboarding and the annual performance review.',k:7,w:'Embedding new behaviors in selection, socialization and appraisal anchors them in the culture so they survive leadership turnover.'}
+];
+var kot={order:shuffle([0,1,2,3,4,5,6,7],5),checked:false,orderScore:0,match:{}};
+(function(){var same=kot.order.every(function(v,i){return v===i;});if(same)kot.order.reverse();})();
+var kotDone=$('#kot-done'),kotDoneText=doneText('Activity 3');
+var ICON_UP='<svg viewBox="0 0 14 14"><path d="M3 9l4-4l4 4" fill="none" stroke="#14213D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_DN='<svg viewBox="0 0 14 14"><path d="M3 5l4 4l4-4" fill="none" stroke="#14213D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var kotDrag=null;
+function kotMove(from,to,focusDir){
+  if(to<0||to>7||from===to)return;
+  var v=kot.order.splice(from,1)[0];kot.order.splice(to,0,v);
+  kot.checked=false;kotRenderOrder();
+  if(focusDir){var li=$$('#kot-order li')[to];if(li){var b=$(focusDir==='up'?'.up':'.dn',li);if(b&&!b.disabled)b.focus();else{var o=$(focusDir==='up'?'.dn':'.up',li);if(o)o.focus();}}}
+  $('#kot-live').textContent='Moved "'+KOT_STEPS[v]+'" to position '+(to+1)+'.';
+}
+function kotRenderOrder(){
+  var ol=$('#kot-order');ol.innerHTML='';
+  kot.order.forEach(function(v,i){
+    var cls='';if(kot.checked)cls=(v===i)?'ok':'no';
+    var li=el('li',{draggable:'true','data-v':v,class:cls});
+    li.innerHTML='<span class="grip" aria-hidden="true"></span><span class="pos">'+(i+1)+'</span><span class="txt">'+KOT_STEPS[v]+(kot.checked?'<span class="sr">'+(v===i?', correct position':', incorrect position')+'</span>':'')+'</span>'+
+      '<span class="mv"><button type="button" class="up" aria-label="Move '+KOT_STEPS[v]+' up"'+(i===0?' disabled':'')+'>'+ICON_UP+'</button><button type="button" class="dn" aria-label="Move '+KOT_STEPS[v]+' down"'+(i===7?' disabled':'')+'>'+ICON_DN+'</button></span>';
+    $('.up',li).addEventListener('click',function(){kotMove(i,i-1,'up');});
+    $('.dn',li).addEventListener('click',function(){kotMove(i,i+1,'dn');});
+    li.addEventListener('dragstart',function(e){kotDrag=i;li.classList.add('dragging');try{e.dataTransfer.setData('text/plain',String(i));e.dataTransfer.effectAllowed='move';}catch(x){}});
+    li.addEventListener('dragend',function(){li.classList.remove('dragging');$$('#kot-order li').forEach(function(x){x.classList.remove('drop-before');});});
+    li.addEventListener('dragover',function(e){e.preventDefault();$$('#kot-order li').forEach(function(x){x.classList.remove('drop-before');});li.classList.add('drop-before');});
+    li.addEventListener('drop',function(e){e.preventDefault();var from=kotDrag;if(from==null){try{from=parseInt(e.dataTransfer.getData('text/plain'),10);}catch(x){}}kotDrag=null;if(from==null||isNaN(from))return;var to=i;if(from<to)to=to-1;kotMove(from,to);});
+    ol.appendChild(li);
+  });
+  if(!kot.checked){$('#kot-key').classList.remove('show');}
+  kotScore();
+}
+$('#kot-order').addEventListener('dragover',function(e){e.preventDefault();});
+$('#kot-order').addEventListener('drop',function(e){if(e.target.closest('li'))return;e.preventDefault();if(kotDrag!=null){var f=kotDrag;kotDrag=null;kotMove(f,7);}});
+$('#kot-check').addEventListener('click',function(){
+  kot.checked=true;kot.orderScore=kot.order.filter(function(v,i){return v===i;}).length;
+  kotRenderOrder();
+  var k=$('#kot-key');k.classList.add('show');
+  k.innerHTML=(kot.orderScore===8?'<strong>All eight in order.</strong> ':'<strong>'+kot.orderScore+' of 8 in the right position.</strong> Kotter\'s sequence: ')+'<ol>'+KOT_STEPS.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol><p style="margin:6px 0 0">Steps 1 to 3 create a climate for change, 4 to 6 engage and enable the organization, and 7 to 8 implement and sustain it.</p>';
+  $('#kot-live').textContent=kot.orderScore+' of 8 steps in the correct position.';
+});
+function kotRenderMatch(){
+  var box=$('#kot-match');box.innerHTML='';
+  KOT_MATCH.forEach(function(m,i){
+    var d=el('div',{class:'matchq'});var id='kotm'+i;
+    d.innerHTML='<p><label for="'+id+'"><strong>'+String.fromCharCode(65+i)+'.</strong> '+m.t+'</label></p>';
+    var s=el('select',{id:id});
+    s.innerHTML='<option value="">Choose a step...</option>'+KOT_STEPS.map(function(t,j){return '<option value="'+j+'">'+(j+1)+'. '+t+'</option>';}).join('');
+    var fb=el('div',{class:'fb','aria-live':'polite'});
+    s.addEventListener('change',function(){
+      if(s.value==='')return;var v=parseInt(s.value,10);kot.match[i]=v;var ok=v===m.k;
+      d.classList.add(ok?'ok':'no');s.disabled=true;
+      fb.className='fb show '+(ok?'ok':'no');
+      fb.innerHTML='<strong>'+(ok?'Correct: ':'Not quite. Answer: ')+'Step '+(m.k+1)+', '+KOT_STEPS[m.k]+'.</strong>'+m.w;
+      kotScore();
+    });
+    d.appendChild(s);d.appendChild(fb);box.appendChild(d);
+  });
+}
+function kotScore(){
+  var ms=0,mn=0;KOT_MATCH.forEach(function(m,i){if(kot.match[i]!=null){mn++;if(kot.match[i]===m.k)ms++;}});
+  var os=kot.checked?kot.orderScore:0;var s=os+ms;
+  var answered=(kot.checked?8:0)+mn;
+  setScore('kot-score',s,14,kotDone,kotDoneText,answered);
+  if(answered===14)record('kotter',s);
+}
+$('#kot-reset').addEventListener('click',function(){kot={order:shuffle([0,1,2,3,4,5,6,7],5),checked:false,orderScore:0,match:{}};$('#kot-live').textContent='';kotRenderMatch();kotRenderOrder();});
+kotRenderMatch();kotRenderOrder();
+
+/* ---------- 4 ICEBERG ---------- */
+var ICE_OPTS=[{v:'art',l:'Artifact'},{v:'esp',l:'Espoused value'},{v:'bua',l:'Underlying assumption'}];
+var ICE=[
+  {t:'Every treatment room wall displays framed thank-you cards from patients.',k:'art',w:'Physical displays are visible artifacts. They are easy to see but hard to interpret without knowing the deeper levels.'},
+  {t:'New hires have to learn a page of in-house acronyms such as "RTP" and "HEP" in their first week.',k:'art',w:'Language and jargon are artifacts: observable features of the group\'s everyday behavior.'},
+  {t:'The founder\'s story of starting the practice in a garage is retold at every onboarding.',k:'art',w:'Stories, myths and rituals are artifacts in Schein\'s model, even though they carry meaning.'},
+  {t:'Clinicians eat lunch at their desks while charting; the staff room is usually empty.',k:'art',w:'Observable behavior patterns are artifacts. The unanswered question is which assumption produces them.'},
+  {t:'The staff handbook states: "We put patient safety above everything."',k:'esp',w:'A written statement of what the organization claims to value is an espoused value.'},
+  {t:'Leaders say in quarterly town halls that work-life balance is a top priority.',k:'esp',w:'Publicly stated priorities are espoused values. Whether they are enacted depends on the assumptions underneath.'},
+  {t:'The five-year strategy lists "innovation" and "collaboration" as core values.',k:'esp',w:'Declared strategies, goals and philosophies are espoused values.'},
+  {t:'The owner tells every new starter, "Any idea from anyone is welcome here."',k:'esp',w:'An explicit, articulated belief about how things should be is an espoused value.'},
+  {t:'No one says it, but everyone takes for granted that truly committed staff answer email late at night.',k:'bua',w:'An unspoken, taken-for-granted belief that guides behavior is a basic underlying assumption. Note how it contradicts the espoused value on work-life balance.'},
+  {t:'It simply never occurs to junior physios to question a senior clinician\'s treatment plan.',k:'bua',w:'When an option is literally unthinkable to members, you have reached a basic underlying assumption about status and authority.'},
+  {t:'Staff implicitly believe that patients cannot be trusted to do their home exercises without constant checking.',k:'bua',w:'Deep, unexamined beliefs about human nature are basic underlying assumptions in Schein\'s framework.'},
+  {t:'People assume without discussion that the busiest clinician is automatically the most valuable one.',k:'bua',w:'A taken-for-granted belief about what counts as worth and success is a basic underlying assumption.'}
+];
+var ZONES={
+  art:{g:'#berg-art',pts:[[150,48],[178,40],[206,48],[140,72],[168,68],[196,72],[222,76],[132,96],[160,96],[188,96],[216,98],[232,106]]},
+  esp:{g:'#berg-esp',pts:[[134,142],[166,142],[198,142],[230,142],[120,172],[152,172],[184,172],[216,172],[248,172],[104,200],[136,200],[168,200]]},
+  bua:{g:'#berg-bua',pts:[[96,248],[130,248],[164,248],[198,248],[232,248],[266,248],[84,290],[118,290],[152,290],[186,290],[220,290],[254,290]]}
+};
+var SVGNS='http://www.w3.org/2000/svg';
+function drawBerg(state){
+  var counts={art:0,esp:0,bua:0},n=0;
+  Object.keys(ZONES).forEach(function(z){$(ZONES[z].g).innerHTML='';});
+  ICE.forEach(function(it,i){
+    var v=state[i];if(v==null)return;n++;var z=ZONES[v];var p=z.pts[counts[v]++];var ok=v===it.k;
+    var g=document.createElementNS(SVGNS,'g');g.setAttribute('class','bmark');
+    var c=document.createElementNS(SVGNS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r','12');c.setAttribute('fill',ok?'#6B8F71':'#a3485a');c.setAttribute('stroke','#fff');c.setAttribute('stroke-width','2');
+    var t=document.createElementNS(SVGNS,'text');t.setAttribute('x',p[0]);t.setAttribute('y',p[1]+4);t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');t.setAttribute('font-weight','700');t.setAttribute('font-family','Inter,system-ui,sans-serif');t.setAttribute('fill','#fff');t.textContent=String(i+1);
+    g.appendChild(c);g.appendChild(t);$(z.g).appendChild(g);
+  });
+  $('#berg-count').textContent=n+' of 12 placed';
+}
+mcq({id:'iceberg',list:'#ice-list',items:ICE,options:ICE_OPTS,score:'ice-score',reset:'#ice-reset',done:'#ice-done',label:'Activity 4',onChange:drawBerg});
+
+/* ---------- 5 JUSTICE ---------- */
+var JUS_OPTS=[{v:'dist',l:'Distributive'},{v:'proc',l:'Procedural'},{v:'inter',l:'Interactional'}];
+var JUS=[
+  {t:'At a physiotherapy clinic, two therapists with the same caseload and results receive very different year-end bonuses.',k:'dist',w:'The concern is the fairness of the outcome relative to contributions, which is distributive justice (Adams\' equity logic).'},
+  {t:'A gym manager announces shift changes in a group text, calls one staff member\'s objection "whining," and refuses to discuss it.',k:'inter',w:'Disrespectful, dismissive treatment is an interpersonal justice violation, part of interactional justice.'},
+  {t:'A retail sports store decides promotions by the owner\'s gut feeling, with no criteria, no applications and no chance to appeal.',k:'proc',w:'No consistent criteria, no voice and no correction mechanism fail Leventhal\'s procedural rules. This is procedural justice.'},
+  {t:'A wellness start-up picked which team would lose its budget using a scoring rubric applied identically to every team, with a chance to review the data first.',k:'proc',w:'The emphasis is on how the decision was made: consistent criteria, accurate information and voice. That is procedural justice.'},
+  {t:'Sales staff at a supplement company notice that the newest hire, with the lowest sales, got the largest raise.',k:'dist',w:'Perceived mismatch between inputs and rewards is distributive injustice.'},
+  {t:'A clinic director explains in person, with specific reasons and in a timely way, why a requested schedule change cannot be approved.',k:'inter',w:'Candid, timely and specific explanations reflect informational justice, a component of interactional justice.'},
+  {t:'A swim school lets coaches vote on the criteria that will be used to allocate prime lesson slots before any slots are assigned.',k:'proc',w:'Giving people voice in the process before outcomes are set enhances procedural justice.'},
+  {t:'Staff at a café learn about their location\'s closure from a local news article before any manager tells them.',k:'inter',w:'Failure to give timely, honest information about a decision is an informational justice failure, part of interactional justice. The closure decision itself is a separate issue.'},
+  {t:'After a strong season, a small sports club splits the sponsorship bonus equally among all staff, even though some coaches brought in most of the new sponsors.',k:'dist',w:'Whether an equal split or an equity-based split is fairer is a question about the allocation of outcomes: distributive justice.'}
+];
+mcq({id:'justice',list:'#jus-list',items:JUS,options:JUS_OPTS,score:'jus-score',reset:'#jus-reset',done:'#jus-done',label:'Activity 5'});
+
+/* ---------- 6 PERMA ---------- */
+var PERMA=[
+  {k:'P',n:'Positive emotion',h:'People regularly experience enjoyment, gratitude, hope and pride at work.',a:[
+    {t:'Open meetings with a short "what went well" round, adapting the Three Good Things exercise.',c:'Seligman, Steen, Park &amp; Peterson (2005)'},
+    {t:'Build specific, timely recognition into the week, for example a gratitude board or peer shout-outs.',c:'Fredrickson (2001), broaden-and-build theory'}]},
+  {k:'E',n:'Engagement',h:'People use their strengths and often experience absorption or flow in their work.',a:[
+    {t:'Run a strengths conversation and let each person use a signature strength in a new way for one week.',c:'Seligman et al. (2005); Peterson &amp; Seligman (2004)'},
+    {t:'Invite job crafting: each person redesigns one task, relationship or way of thinking about the job.',c:'Wrzesniewski &amp; Dutton (2001)'}]},
+  {k:'R',n:'Relationships',h:'People feel supported, trusted and connected to colleagues.',a:[
+    {t:'Teach and model active-constructive responding when colleagues share good news.',c:'Gable, Reis, Impett &amp; Asher (2004)'},
+    {t:'Create structured time for high-quality connections, such as peer huddles or cross-role pairing.',c:'Dutton &amp; Heaphy (2003)'}]},
+  {k:'M',n:'Meaning',h:'People see how their work contributes to something that matters beyond themselves.',a:[
+    {t:'Connect staff directly with the people they help, for example a client sharing the impact of their care.',c:'Grant (2008), beneficiary contact studies'},
+    {t:'Link each role to the mission in team goals and one-to-ones, not just in the mission statement.',c:'Steger, Dik &amp; Duffy (2012), work as meaning'}]},
+  {k:'A',n:'Accomplishment',h:'People set and reach goals, build mastery and see their progress.',a:[
+    {t:'Set specific, challenging goals with regular feedback on progress.',c:'Locke &amp; Latham (2002), goal-setting theory'},
+    {t:'Make small wins visible, for example a weekly progress board, since daily progress fuels motivation.',c:'Amabile &amp; Kramer (2011), the progress principle'}]}
+];
+var perma={vals:[3,3,3,3,3],notes:['','','','','']};
+function permaInputs(){
+  var box=$('#perma-inputs');box.innerHTML='';
+  PERMA.forEach(function(p,i){
+    var d=el('div',{class:'pel'});
+    d.innerHTML='<label class="t" for="pr'+i+'"><span><span class="letter" aria-hidden="true">'+p.k+'</span>'+p.n+'</span><span class="val" id="pv'+i+'">'+perma.vals[i]+' / 5</span></label>'+
+      '<p class="hint" id="ph'+i+'">'+p.h+'</p>'+
+      '<input type="range" min="1" max="5" step="1" id="pr'+i+'" value="'+perma.vals[i]+'" aria-describedby="ph'+i+'">'+
+      '<div class="scale-ends" aria-hidden="true"><span>1 rarely true</span><span>5 consistently true</span></div>'+
+      '<label class="sr" for="pn'+i+'">Notes on '+p.n+'</label><textarea id="pn'+i+'" placeholder="Evidence or example (optional)"></textarea>';
+    box.appendChild(d);
+    var r=$('#pr'+i,d),t=$('#pn'+i,d);t.value=perma.notes[i];
+    r.addEventListener('input',function(){perma.vals[i]=parseInt(r.value,10);$('#pv'+i).textContent=r.value+' / 5';r.setAttribute('aria-valuetext',r.value+' out of 5');permaDraw();});
+    t.addEventListener('input',function(){perma.notes[i]=t.value;});
+  });
+}
+function lowestTwo(){
+  return perma.vals.map(function(v,i){return {v:v,i:i};}).sort(function(a,b){return a.v-b.v||a.i-b.i;}).slice(0,2);
+}
+function permaDraw(){
+  var svg=$('#radar'),cx=200,cy=196,R=132,N=5;
+  var s='<title id="radar-t">PERMA radar chart</title>';
+  function pt(i,r){var a=-Math.PI/2+i*2*Math.PI/N;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  for(var lv=1;lv<=5;lv++){
+    var ring=[];for(var i=0;i<N;i++){ring.push(pt(i,R*lv/5).map(function(x){return x.toFixed(1);}).join(','));}
+    s+='<polygon points="'+ring.join(' ')+'" fill="'+(lv%2?'#ffffff':'#efece4')+'" stroke="#d6cfbd" stroke-width="1"/>';
+  }
+  for(var j=0;j<N;j++){var e=pt(j,R);s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0].toFixed(1)+'" y2="'+e[1].toFixed(1)+'" stroke="#d6cfbd"/>';}
+  for(var l=1;l<=5;l++){var q=pt(0,R*l/5);s+='<text x="'+(q[0]+5)+'" y="'+(q[1]+4)+'" font-size="10" fill="#5a6270" font-family="Inter,system-ui,sans-serif">'+l+'</text>';}
+  var poly=perma.vals.map(function(v,i){return pt(i,R*v/5).map(function(x){return x.toFixed(1);}).join(',');}).join(' ');
+  s+='<polygon id="radar-shape" points="'+poly+'" fill="rgba(107,143,113,.35)" stroke="#6B8F71" stroke-width="2.5" stroke-linejoin="round"/>';
+  var low=lowestTwo().map(function(o){return o.i;});
+  perma.vals.forEach(function(v,i){var p=pt(i,R*v/5);var isLow=low.indexOf(i)>-1;s+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(isLow?6:5)+'" fill="'+(isLow?'#a3485a':'#14213D')+'" stroke="#fff" stroke-width="2"/>';});
+  PERMA.forEach(function(p,i){
+    var o=pt(i,R+26);var anchor=Math.abs(o[0]-cx)<10?'middle':(o[0]>cx?'start':'end');
+    var dy=(i===0)?-4:(i===2||i===3?12:4);
+    s+='<text x="'+o[0].toFixed(1)+'" y="'+(o[1]+dy).toFixed(1)+'" text-anchor="'+anchor+'" font-size="15" font-weight="700" fill="#14213D" font-family="Inter,system-ui,sans-serif">'+p.k+' <tspan font-weight="500" fill="#5a6270">'+perma.vals[i]+'</tspan></text>';
+    s+='<text x="'+o[0].toFixed(1)+'" y="'+(o[1]+dy+14).toFixed(1)+'" text-anchor="'+anchor+'" font-size="12.5" fill="#5a6270" font-family="Inter,system-ui,sans-serif">'+p.n+'</text>';
+  });
+  svg.innerHTML=s;
+  var avg=perma.vals.reduce(function(a,b){return a+b;},0)/5;
+  $('#radar-summary').textContent='Ratings: '+PERMA.map(function(p,i){return p.n+' '+perma.vals[i];}).join(', ')+'. Average '+avg.toFixed(1)+'.';
+  var recs=$('#perma-recs');var lt=lowestTwo();
+  var allEq=perma.vals.every(function(v){return v===perma.vals[0];});
+  recs.innerHTML='<h3>Suggested focus areas</h3>'+(allEq?'<p style="font-size:13px;color:var(--muted);margin:0 0 8px">All elements are rated equally, so the first two are shown. Adjust your ratings to target your real gaps.</p>':'')+
+    lt.map(function(o){var p=PERMA[o.i];return '<div class="rec"><b>'+p.n+' ('+o.v+' / 5)</b><ul>'+p.a.map(function(a){return '<li>'+a.t+' <span class="cite">'+a.c+'</span></li>';}).join('')+'</ul></div>';}).join('');
+}
+function strip(h){var d=document.createElement('div');d.innerHTML=h;return d.textContent;}
+$('#perma-dl').addEventListener('click',function(){
+  var team=$('#perma-team').value.trim()||'(not specified)',role=$('#perma-role').value.trim()||'(not specified)';
+  var lines=['PERMA WORKPLACE AUDIT','Leadership Lab, Positive Leadership & Organizational Behavior','Date: '+new Date().toLocaleDateString(),'Team: '+team,'Role: '+role,'','RATINGS (1 = rarely true, 5 = consistently true)'];
+  PERMA.forEach(function(p,i){lines.push(p.k+'  '+p.n+': '+perma.vals[i]+' / 5');if(perma.notes[i].trim())lines.push('    Notes: '+perma.notes[i].trim().replace(/\s+/g,' '));});
+  var avg=perma.vals.reduce(function(a,b){return a+b;},0)/5;lines.push('','Average: '+avg.toFixed(1)+' / 5','','SUGGESTED FOCUS AREAS');
+  lowestTwo().forEach(function(o){var p=PERMA[o.i];lines.push(p.n+' ('+o.v+' / 5)');p.a.forEach(function(a){lines.push('  - '+a.t+' ['+strip(a.c)+']');});});
+  lines.push('','Reflective tool based on Seligman (2011), Flourish. Not a validated assessment.','Dr. Akash Garg · Leadership & Management Teaching Portfolio');
+  var blob=new Blob([lines.join('\r\n')],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='perma-audit.txt';document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);a.remove();},500);
+});
+$('#perma-reset').addEventListener('click',function(){perma={vals:[3,3,3,3,3],notes:['','','','','']};$('#perma-team').value='';$('#perma-role').value='';permaInputs();permaDraw();});
+
+/* ---------- init ---------- */
+window.LeadershipLab={HERZ:HERZ,TUCK:TUCK,KOT_MATCH:KOT_MATCH,ICE:ICE,JUS:JUS};
+load();renderProgress();herzRender();permaInputs();permaDraw();
+})();
+</script>
+</body>
+</html>
